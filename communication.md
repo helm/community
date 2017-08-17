@@ -49,6 +49,8 @@ We have PUBLIC [weekly meeting] every Thursday at 9:30am US Pacific Time.
 
 Map that to your local time with this [timezone table].
 
+Check out the recent [meeting minutes and notes].
+
 ## Conferences
 
 Kubernetes is the main focus of CloudNativeCon/KubeCon, held every spring in Europe and winter in North America. Information about these and other community events is available on the CNCF [events] pages.
@@ -65,5 +67,6 @@ Kubernetes is the main focus of CloudNativeCon/KubeCon, held every spring in Eur
 [timezone table]: https://www.google.com/search?q=0930+am+in+pst
 [Twitter]: https://twitter.com/helmpack
 [weekly meeting]: https://zoom.us/j/4526666954
+[meeting minutes and notes]: meeting-minutes.md
 [SIGs]: https://github.com/kubernetes/community/blob/master/sig-list.md
 [SIG-Apps]: https://github.com/kubernetes/community/tree/master/sig-apps
