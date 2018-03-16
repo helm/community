@@ -5,7 +5,7 @@ This document contains a proposal for Helm 3. It assumes deep familiarity with H
 ## Summary
 
 - Tiller is gone, and there is only one functional component (`helm`)
-- Charts are updated with a new Chart.yaml, overlays, libraries, schematized values, and the ext directory
+- Charts are updated with a new Chart.yaml, libraries, schematized values, and the ext directory
 - Helm will use a "lifecycle events" emitter/handler model.
 - Helm has an embedded Lua engine for scripting some event handlers. Scripts are stored in charts.
 - State is maintained with three CRDs: Application CRD, Release, and ReleaseVersion. Neither Helm CRD has a controller.
@@ -97,35 +97,6 @@ For the sake of completeness, we will provide a CRD defining this type.
 
 *Note:* If the Application CRD proposal is workable during the course of early Helm 3 development, we will consider using that.
 
-### The overlays/ directory
-The `overlays/` directory contains templates that override templates in subcharts. This provides a mechanism for a high-level chart (like Wordpress) to override one or more individual templates from a subchart (like MySQL).
-
-> [name=Adnan Abdulhussein]
-> Is this a complete override, or some sort of merge? If it's a full override, then perhaps this feature should be called "overrides"?
-> [name=Matt Butcher]
-> I don't understand what you are asking. Each file in an overlays directory can replace a file in a subchart (subject to mapping). File is the operative unit... and there is no real sensible way to merge one template file into another. But I could override, say, a chart's `deploy.yaml` without overriding that same chart's `svc.yaml`. As far as override vs overlay, I don't really have a preference.
-> [name=Adnan Abdulhussein]
-> I think my confusion comes from hearing the word "overlay" used to describe a pattern of merging some key-values on top of an existing object. It came up in the App Def WG (e.g. is used in this prototype https://github.com/mgoodness/alb-ingress-controller/tree/declarative-app/alb-ingress-controller-helm). That obviously doesn't mean it can't be used for what we're describing here (and "override" could be used to describe the merge pattern also), but I would say "override" might be clearer here.
-> [name=Matt Fisher]
-> I see Adnan's point here, but I don't have an opinion on overlays/ vs overrides/ here so I'll abstain from the bikeshedding. :)
-> 
-> I'm curious how overlays/overrides will work with umbrella charts, but overall this looks like a good area to explore more.
-> 
-> Have we looked at how other package managers perform similar behaviour, or is this something new and unique to the space? From a quick look at debian packages I don't think they allow overriding child packages. Instead they allow [patching those packages](https://www.debian.org/doc/manuals/developers-reference/best-pkging-practices.html#multiple-patches). Have we considered patching manifests rather than overriding? It might be much easier for these chart maintainers to maintain patches rather than a complete replacement of a file with a few changes.
-> [name=Matt Butcher]
-> This method comes straight out of the CM space. For reference (on both terminology and practice), checkout out [this manual](https://github.com/engineyard/ey-cookbooks-stable-v5/wiki/Customizing-Your-Environment-Using-Overlay-Chef-Recipes)
-> 
-> [name=Adnan Abdulhussein]
-> I think as long as this is clear in the documentation, the name itself doesn't really matter.
-
-Overlays work by replacing an original template file with another template file. To that end, an overlay has two parts:
-
-1. A template file
-2. A pairing that says which original template is to be replaced by the new template file
-
-In this proposal, the pairing happens by file naming convention. Given a chart with a `charts/mysql` subchart, anything in `overlays/mysql/templates` will be overlayed on top of `charts/mysql/templates`.
-
-Sub-subchart overlays can also be done. To that end, `overlays/mysql/charts/nginx/templates/foo.yaml` will overlay `charts/mysql/charts/nginx/templates/foo.yaml`.
 
 ### The ext/ directory
 
@@ -713,3 +684,13 @@ CONS:
 * Cross-platform becomes an issue
 * Serialization and deserialization of all applicable data must be done for each plugin invocation
 * It's hard to correlate a plugin to a chart (e.g. how do you programmatically say "this chart will only run if a plugin exists that does X with hook Y"?)
+
+This appendix will be removed before the final proposal.
+
+## Appendix D: Overlays (Removed)
+
+An earlier draft included a provision for overlaying templates within charts. This section
+was removed once we realized that the same thing can be easily accomplished using
+the `post-render` event and some trivial Lua.
+
+This appendix will be removed before the final proposal.
