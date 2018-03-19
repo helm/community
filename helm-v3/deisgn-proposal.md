@@ -95,9 +95,6 @@ Commonly accessed properties are moved into labels, while less frequently used o
 
 For the sake of completeness, we will provide a CRD defining this type.
 
-*Note:* If the Application CRD proposal is workable during the course of early Helm 3 development, we will consider using that.
-
-
 ### The ext/ directory
 
 The `ext/` directory is a reserved directory in v3 charts. It is reserved for placing extension scripts.
@@ -403,18 +400,6 @@ As with Helm 2, if a resource explicitly declares its own namespace (e.g. with m
 > 
 > [name=Matt Butcher]
 > Maybe we should confirm whether or not owner references hold across namespaces. Cuz maybe this isn't actually an issue.
-
-### The Application Object
-
-To support common application interactions across different tooling, Kubernetes SIG Apps is developing a [common Application CRD](https://github.com/kubernetes-sigs/apps_application). This will enable Helm, Dashboard, kubectl, and others (e.g., ksonnet) to work together to some degree. For example, Helm can deploy an application that's visible within the Dashboard. Or, if Dashboard is used to delete an application all of the objects can be deleted for the application.
-
-An Application will be deployed for each installation of a chart. The Application object is the owner of the Release object as represented by owner references.
-
-> [name=Matt Farina]
-> We still need to figure out if a Chart.yaml will be replaced with an Application CRD, if an Application CRD can be automatically managed based on a Chart.yaml file, or if both will be needed (hopefully not).
-> 
-> [name=Adnan Abdulhussein]
-> I think this depends on how complicated the Application CRD will be. Based on the current KEP, I don't think this will be feasible (the Application spec keeps track of every installed resource).
 
 ### The Release Object
 
