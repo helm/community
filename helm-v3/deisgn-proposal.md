@@ -58,8 +58,9 @@ In an effort to mirror the construction of Kubernetes manifests, the new Chart.y
 apiVersion: helm.sh/v3
 kind: Chart
 metadata:
-  name: myChart
+  name: myChart-0.1.0
   labels:
+    chart: myChart
     heritage: helm
     version: 0.1.0
     appVersion: 3.6
@@ -79,7 +80,8 @@ Commonly accessed properties are moved into labels, while less frequently used o
 
 | Helm 2 | Helm 3 | Notes |
 | -------- | -------- | -------- |
-| name     | metadata.name | |
+| -- | metadata.name | The name _of the chart + version_ |
+| name     | metadata.labels.chart| |
 | version | metadata.labels.version | |
 | kubeVersion | data.kubeVersion | |
 | keywords | data.keywords | Represented as a YAML list frabgment|
@@ -93,7 +95,8 @@ Commonly accessed properties are moved into labels, while less frequently used o
 | deprecated | data.deprecated | |
 | tillerVersion | REMOVED | There is no Tiller |
 
-For the sake of completeness, we will provide a CRD defining this type.
+For the sake of completeness, we will provide a CRD defining this type. If a Chart.yaml is installed into the cluster,
+it should be installed _once per name + version_, not once per instance.
 
 *Note:* If the Application CRD proposal is workable during the course of early Helm 3 development, we will consider using that.
 
