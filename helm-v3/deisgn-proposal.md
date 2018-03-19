@@ -5,7 +5,7 @@ This document contains a proposal for Helm 3. It assumes deep familiarity with H
 ## Summary
 
 - Tiller is gone, and there is only one functional component (`helm`)
-- Charts are updated with a new Chart.yaml, libraries, schematized values, and the ext directory
+- Charts are updated with libraries, schematized values, and the ext directory
 - Helm will use a "lifecycle events" emitter/handler model.
 - Helm has an embedded Lua engine for scripting some event handlers. Scripts are stored in charts.
 - State is maintained with two types of object: Release and a release version Secret
@@ -40,60 +40,13 @@ With this simplification, the following list comprises the components of Helm v3
 In this model, Tiller is removed and there are no operators or controllers that run in-cluster.
 
 ## Charts
-The chart architecture remains largely unchanged with the exception that the `Chart.yaml`
-file is now formatted as a Kubernetes resource.
+The chart architecture remains largely unchanged.
 
 The following changes are proposed to the existing chart format:
 
-- Chart.yaml version 3
-- The overrides/ directory
-- The ext/ directory
+- The ext/ directory and supporting requirements
+- Library charts
 - Schemata for values files
-
-### Chart.yaml, Version 3
-
-In an effort to mirror the construction of Kubernetes manifests, the new Chart.yaml file looks like this:
-
-```yaml
-apiVersion: helm.sh/v3
-kind: Chart
-metadata:
-  name: myChart
-  labels:
-    heritage: helm
-    version: 0.1.0
-    appVersion: 3.6
-data:
-  description: Deploy a basic Alpine Linux pod
-  home: https://github.com/kubernetes/helm
-  sources:
-    - https://github.com/kubernetes/helm
-```
-
-This file contains only metadata that describes the application (not the application instance), so multiple instances of the same chart can be installed.
-
-The `heritage` label indicates which app created this. The CLI will use the heritage value of `helm`. Other components, such as an in-cluster controller, should specify their own value here.
-
-Commonly accessed properties are moved into labels, while less frequently used or more finely structured data is relegated to the `data:` section. The table below illustrates the transitions from [Helm v2](https://github.com/kubernetes/helm/blob/master/docs/charts.md#the-chartyaml-file) to Helm 3:
-
-
-| Helm 2 | Helm 3 | Notes |
-| -------- | -------- | -------- |
-| name     | metadata.name | |
-| version | metadata.labels.version | |
-| kubeVersion | data.kubeVersion | |
-| keywords | data.keywords | Represented as a YAML list frabgment|
-| description | data.description | |
-| home     | data.home | |
-| sources | data.sources | Represented as a YAML list fragment|
-| maintainers | data.maintainers | following the same object syntax as in Helm 2|
-| engine | REMOVED  | superseded by event system |
-| icon | data.icon | |
-| appVersion | metadata.labels.appVersion | Presumably, this is a field that should be queryable |
-| deprecated | data.deprecated | |
-| tillerVersion | REMOVED | There is no Tiller |
-
-For the sake of completeness, we will provide a CRD defining this type.
 
 ### The ext/ directory
 
@@ -698,10 +651,22 @@ CONS:
 
 This appendix will be removed before the final proposal.
 
-## Appendix D: Overlays (Removed)
+## Appendix D: Removed Sections
+
+The following parts of the proposal have been removed.
+
+### Overlays
 
 An earlier draft included a provision for overlaying templates within charts. This section
 was removed once we realized that the same thing can be easily accomplished using
 the `post-render` event and some trivial Lua.
 
 This appendix will be removed before the final proposal.
+
+### Chart.yaml refactored as Kubernetes resource
+
+An earlier draft proposed formatting Chart.yaml as a Kubernetes resource. However,
+it became evident that there was no intention of installing the Chart.yaml into
+the cluster, at which point it did not make sense to retain that functionality.
+
+
