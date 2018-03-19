@@ -118,6 +118,8 @@ lua:
 
 The above permissions file asks that the Lua interpreter grant permission to the `network` and `filesystem` libraries.
 
+> Note that the Lua engine will only make those libraries available if they are set in the permissions file.
+
 When users install charts that ask for additional permissions, they will be prompted to allow:
 
 ```console
@@ -129,6 +131,24 @@ Allow? (y, yes, n, no) >
 ```
 
 An additional `-y`,`--yes` flag will allow global acceptance of permissions.
+
+For fine-grained control, a `--accept-perms [strings]` may be provided to allow a
+user to set a specific set of perms. If the chart asks for others, the install will
+fail:
+
+```
+$ helm install stable/ishmael --accept-perms network,filesystem
+```
+
+The above will succeed if:
+
+- The chart does not request any permissions
+- The chart requires one or both of `network` and `filesystem`, but no other permissions
+
+The above will fail if:
+
+- The chart asks for any permissions other than `network` or `filesystem`
+
 
 ### Library Charts
 
