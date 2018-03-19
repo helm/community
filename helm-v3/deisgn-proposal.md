@@ -402,6 +402,8 @@ At minimum, there are two necessary pieces of data a Release must track:
 
 The release object persists for the duration of an application lifecycle, and is the owner of all ReleaseVersions, as well as of all objects that are directly created by the Helm chart. (These relationships may be represented by owner references.)
 
+With this change, release names can now be scoped to namespace, instead of globally scoped as they were with Helm 2.
+
 ### The ReleaseVersion Object
 
 The ReleaseVersion ties a release to a series of revisions (install, upgrades, rollbacks, delete). In Helm 2, revisions were merely incremental. Install created release v1, a subsequent upgrade went to v2, and so on. And in Helm 2, the Release and ReleaseVersion objects were collapsed into one.
