@@ -8,7 +8,7 @@ This document contains a proposal for Helm 3. It assumes deep familiarity with H
 - Charts are updated with a new Chart.yaml, libraries, schematized values, and the ext directory
 - Helm will use a "lifecycle events" emitter/handler model.
 - Helm has an embedded Lua engine for scripting some event handlers. Scripts are stored in charts.
-- State is maintained with three CRDs: Application CRD, Release, and ReleaseVersion. Neither Helm CRD has a controller.
+- State is maintained with two types of object: Release and a release version Secret
 - Resources created by hooks will now be managed
 - For pull-based DevOps workflow, a new Helm Controller project will be started
 - Cross platform plugins in Lua that only have a runtime dependency on Helm
@@ -35,7 +35,7 @@ With this simplification, the following list comprises the components of Helm v3
 * Chart repositories
 * `helm`, the CLI
 * An extension mechanism (Lua scripts stored in the chart)
-* A few in-cluster CRDs: Release, ReleaseVersion (Neither of which has an accompanying controller)
+* A new in-cluster CRD: Release
 
 In this model, Tiller is removed and there are no operators or controllers that run in-cluster.
 
@@ -367,19 +367,24 @@ When multiple callbacks are specified for the same event, the callbacks will be 
 
 ## State Storage
 
-In Helm v3, state is tracked in-cluster by a trio of objects: The Application object, the Release object (one per chart install), and one or more ReleaseVersion objects, each of which represents a new version of a release. A `helm install` creates an Application, a Release, and a ReleaseVersion. A `helm upgrade` requires an existing Application and Release (which it may modify), and creates a new ReleaseVersion.
+In Helm v3, state is tracked in-cluster by a trio of objects: The Application object,
+the Release object (one per chart install), and one or more Secret objects, each of
+which represents a new version of a release. A `helm install` creates an Application,
+a Release, and a Secret. A `helm upgrade` requires an existing Application and
+Release (which it may modify), and creates a new Secret that contains the new
+values and rendered manifest.
 
 ### Namespacing Changes
 
 With Tiller gone, there is no reason to default to storing data in `kube-system`. Instead, Helm 3 will store release data _in the same namespace as the release's destination_.
 
-Release and ReleaseVersions are stored **in the same namespace as the installed release itself**. In other words, if we install `nginx` into namespace `foo`, then both the Release and ReleaseVersion will also be installed into namespace `foo`.
+Release and release version Secrets are stored **in the same namespace as the installed release itself**. In other words, if we install `nginx` into namespace `foo`, then both the Release and release version Secret will also be installed into namespace `foo`.
 
 For example, if no namespace is specified:
 
 ```console
 $ helm install -n foo bar
-# everything, including Release and ReleaseVersion is installed into default namespace
+# everything, including Release and Secret is installed into default namespace
 ```
 
 There is now only one releavant namespace, and the _tiller namespace_ goes away:
@@ -418,53 +423,52 @@ The release object contains information about a release, where a release is _a p
 At minimum, there are two necessary pieces of data a Release must track:
 
 - The name of the release
-- The curretly deployed version (ReleaseVersion) of this release
+- The curretly deployed version (release version Secret) of this release
 
-The release object persists for the duration of an application lifecycle, and is the owner of all ReleaseVersions, as well as of all objects that are directly created by the Helm chart. (These relationships may be represented by owner references.)
+The release object persists for the duration of an application lifecycle, and is
+the owner of all release version Secrets, as well as of all objects that are
+directly created by the Helm chart. (These relationships may be represented by owner references.)
 
 With this change, release names can now be scoped to namespace, instead of globally scoped as they were with Helm 2.
 
-### The ReleaseVersion Object
+### The release version Secret
+with this change, release names can now be scoped to namespace, instead of globally scoped as they were with helm 2.
 
-The ReleaseVersion ties a release to a series of revisions (install, upgrades, rollbacks, delete). In Helm 2, revisions were merely incremental. Install created release v1, a subsequent upgrade went to v2, and so on. And in Helm 2, the Release and ReleaseVersion objects were collapsed into one.
+The release version Secret ties a release to a series of revisions (install,
+upgrades, rollbacks, delete). In Helm 2, revisions were merely incremental. Install
+created release v1, a subsequent upgrade went to v2, and so on. And in Helm 2, 
+the Release and release version Secret were collapsed into one.
 
-For Helm 3, a Release has one or more ReleaseVersion objects associated with it. The Release object always describes the current head release. Each ReleaseVersion describes just one version of that release.
+For Helm 3, a Release has one or more release version Secrets associated with it.
+The Release object always describes the current head release. Each release version
+Secret describes just one version of that release.
 
-An upgrade operation, for example, will create a new ReleaseVersion, and then modify the Release object to point to this new version. Rollback operations can use older ReleaseVersion objects to roll back a release to a previous state.
+An upgrade operation, for example, will create a new release version Secret, and
+then modify the Release object to point to this new version. Rollback operations
+can use older release version Secrets to roll back a release to a previous state.
 
-A ReleaseVersion requires at least the following properties:
+A release version secret will have the following metadata and data fields:
 
-- name
-- version
-- values
-> [name=Adnan Abdulhussein]
-> There's a security concern to storing values, a lot of Charts use secrets directly from values today.
+| field | description |
+| -------- | -------- |
+| type | Always `helm.sh/release-version` |
+| metadata.name | The release name plus the version ULID |
+| metadata.labels.version | The ULID of the release |
+| metadata.labels.release | The name of the release |
+| data.userValues| The user-specified values |
+| data.chartValues | The default values specified in the chart |
+| data.manifest | The rendered manifest from this release |
+| data.chartSource | The source of the original chart |
+| data.chartName | The name and version of the original chart |
 
-- chart or rendered manifest
+Given the above, the following operations are redescribed:
 
-> [name=Matt Butcher] Kubernetes cannot store an object larger than 1M, which numerous Helm users have identified as a problem.
-> Instead of storing the complete chart tgz inside of the release version, we could...
-> - Store just the rendered manifest
-> - Store a reference to where the chart can be retrieved
->   - Chart repository URL...
->   - Or set up another storage mechanism
-> - Not store anything, and remove the rollback feature
-> Or we could just accept the 1M limit on data
- 
-> [name=Taylor Thomas]
-> Definitely in favor of removing rollback. That functionality could be re-added with a plugin and would simplify core
+- `helm get manifest` gets `data.manifest`
+- `helm get values` gets `data.userValues`
+- `helm get values --all` gets `data.userValues` and `data.chartValues`
+- `helm upgrade --reuse-values` uses `data.userValues`and `data.chartValues`
 
-> [name=Nikhil Manchanda]
-> Perhaps, "rollback" can be implemented entirely on the client side as a rollforward -- upgrade to a new release version using the values from an older ReleaseVersion. 
-
-> [name=Adnan Abdulhussein]
-> +1 with removing rollback, I think that's better managed in version control or via some plugin.
-> [name=Matt Butcher]
-> Taking a look at `helm`, there are a number features that we lose if we don't store ReleaseVersion, such as `--reuse-values` all of `helm get`. How much are we okay losing between Helm 2 and Helm 3? I don't want to privilege architecture over usability.
-> [name=Matt Fisher]
-> Given that there's already a ton going on between Helm 2 and Helm 3 based on this proposal, I'd prefer holding off committing to removing functionality like `helm rollback` that has not been asked by users. Then again, that 1M limit on data *really* sucks in certain use cases. I don't have a pulse on which is the right path forward.
-> [name=Matt Butcher]
-> Doing a little testing today, it does appear that if we render a chart and store the rendered output, that gives us sufficient information to do a full rollback. If this is the case, then we can retain rollback pretty easily, though the ReleaseVersion will have secrets data stored in it. That said, it's also _much_ easier to lock down with RBAC.
+The owner reference of the secret will be set to the Release object.
 
 #### Versions are ULIDs, not incremented integers
 Helm 2 used incremented integers for version numbering. This is changing.
@@ -542,7 +546,7 @@ This controller accepts Chart and values configuration as a new `HelmRequest` CR
 - Get
 - List
 
-Just like the client, the controller will operate on Release and ReleaseVersion objects. For that reason, the Helm CLI and the Helm CRD can be used in conjunction, and RBACs can even be applied to lock down certain features for one or the other. (For example, Helm CLI may be restricted to only read functions, while the controller can perform read and write operations)
+Just like the client, the controller will operate on Release and release version Secret. For that reason, the Helm CLI and the Helm CRD can be used in conjunction, and RBACs can even be applied to lock down certain features for one or the other. (For example, Helm CLI may be restricted to only read functions, while the controller can perform read and write operations)
 
 > [name=Adnan Abdulhussein]
 > How will the controller apply a user's RBAC permissions when installing a chart? Or is this not possible, and the controller will need to be restricted using service accounts?
