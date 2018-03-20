@@ -3,6 +3,42 @@
 The plugin model will undergo a few changes in order to make it possible to
 support a broader range of features along a broader range of platforms.
 
+## Standard Plugins
+
+The existing plugin model (based on `exec` to local binaries) will continue to
+be supported.
+
+The current YAML format for `plugin.yaml` will be extended as follows:
+
+```
+name: "last"
+version: "0.1.0"
+usage: "get the last release name"
+description: "get the last release name"
+command: "$HELM_BIN --host $TILLER_HOST list --short --max 1 --date -r"
+# New part:
+platformCommand:
+  - os: linux
+    arch: i386
+    command: "$HELM_BIN list --short --max 1 --date -r"
+  - os: windows
+    arch: amd64
+    command: "$HELM_BIN list --short --max 1 --date -r"
+```
+
+The `platformCommand` section defines OS/Architecture specific variations of a
+command.
+
+The following rules will apply to processing commands:
+
+- If platformCommand is present, it will be searched first.
+- If both OS and Arch match the current platform, search will stop and the 
+  command will be executed
+- If OS matches and there is no more specific match, the command will be executed
+- If no OS/Arch match is found, the default `command` will be executed
+- If no `command` is present and no matches are found in `platformCommand`, Helm
+  will exit with an error.
+
 ## Lua Plugins
 
 The existing Helm plugin mechanism has enabled numerous extensions to Helm
@@ -21,11 +57,11 @@ While this has been useful there have been two shortcomings:
 Along with Helm supporting Lua for scripting chart extensions, it will support
 plugins in Lua. These plugins will only have a dependency on Helm to run and
 can be ported cross platform.
-> [name=Matt Butcher] The main danger here is that we have to make it so that
-> charts cannot have implicit reliance on Lua plugins. I think that is fairly
-> straightforward, though. We just have to make sure that it's not possible to
-> execute plugin code from within a chart.
 
+Lua plugins _are executed separately_ form chart-based Lua scripts. The pattern
+used for executing Lua plugins mirrors the pattern for writing command-line
+applications. A `main()` function will be executed with access to STDIN, STDOUT,
+STDERR, and all command-line parameters and options.
 
 ### Lua Plugin Sandboxing
 
