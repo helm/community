@@ -34,3 +34,11 @@ Supporting tool developers build tools adjacent to Helm such as a linter, Helm p
 Helm developers are those who develop Helm itself. That includes core maintainers along with anyone else who fixes a bug or updates docs.
 
 Generally speaking, the developers of Helm consider the end users above themselves when looking at requirements and implementation strategies.
+
+## Profiles Not In Scope
+
+Some user profiles are not considered in scope for Helm. That does not mean a real person who multiple profiles apply to is not considered a supported user. Rather, the out of scope profiles apply to roles that are not typically supported.
+
+## Cluster Operator
+
+A cluster operator stands up and operates a Kubernetes cluster. This includes elements such as the control plane, nodes, and elements in the stack below these. It does not include applications running on Kubernetes as those are handled by the _Application Operator_ profile.
