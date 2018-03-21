@@ -19,8 +19,8 @@ be found below.
 
 ### Sandboxing Model
 
-When a chart is loaded, all of the scripts in `ext/lua` will also be loaded. All
-chart and subchart scripts will be loaded into the same runtime, and then the
+When a chart is loaded, the script `chart.lua` in `ext/lua` will also be loaded. All
+subchart `ext/lua/chart.lua` scripts will be loaded into the same runtime, and then the
 top-level (parent) chart's `init()` function will be executed.
 
 With this construction, the parent chart will (a) have access to the objects
@@ -42,7 +42,7 @@ function init(events) {
 This design will make it possible for top-level charts to strategically overrride
 the behavior of subcharts, or (as above) simply use them as-is.
 
-By default, th chart sandbox will be prepared with a minimal set of built-in libraries.
+By default, the chart sandbox will be prepared with a minimal set of built-in libraries.
 These libraries will not include network, os, or filesystem access. The module
 system (e.g. `require()`) will only allow in-chart libraries to be loaded.
 
@@ -52,11 +52,11 @@ loaded only of they are specified in the `ext/permissions.yaml` file.
 ```yaml
 lua:
     - network
-    - filesystem
+    - io
 ```
 
 The above permissions file asks that the Lua interpreter grant permission to
-the `network` and `filesystem` libraries. This request will require user
+the `network` and `io` libraries. This request will require user
 confirmation.
 
 When users install charts that ask for additional permissions, they will be
@@ -66,7 +66,7 @@ prompted to allow:
 $ helm install stable/ishmael
 Chart "ishmael" is requesting the following additional permissions:
   - network: Access the network
-  - filesystem: Access the local filesystem
+  - io: Access the local filesystem
 Allow? (y, yes, n, no) > 
 ```
 
@@ -77,17 +77,17 @@ user to set a specific set of perms. If the chart asks for others, the install w
 fail:
 
 ```
-$ helm install stable/ishmael --accept-perms network,filesystem
+$ helm install stable/ishmael --accept-perms network,io
 ```
 
 The above will succeed if:
 
 - The chart does not request any permissions
-- The chart requires one or both of `network` and `filesystem`, but no other permissions
+- The chart requires one or both of `network` and `io`, but no other permissions
 
 The above will fail if:
 
-- The chart asks for any permissions other than `network` or `filesystem`
+- The chart asks for any permissions other than `network` or `io`
 
 When a chart contains subcharts, the presence of a `permissions.yaml` file will
 result in a permissions prompt even if the subchart's Lua code is overridden.
