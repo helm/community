@@ -19,13 +19,35 @@ be found below.
 
 ### Sandboxing Model
 
-When a chart is loaded, all of the scripts in `ext/lua` will also be loaded. At
-this time, a new runtime will be created for each chart. By default, the
-sandboxes will be prepared with a minimal set of built-in libraries. These
-libraries will not include network, os, or filesystem access.
+When a chart is loaded, all of the scripts in `ext/lua` will also be loaded. All
+chart and subchart scripts will be loaded into the same runtime, and then the
+top-level (parent) chart's `init()` function will be executed.
 
-Additional core libraries will be included if specified in the
-`ext/permissions.yaml` file.
+With this construction, the parent chart will (a) have access to the objects
+in the child charts, and (b) be responsible for initializing child charts. Library
+support will be provided for simplifying this process:
+
+```lua
+function init(events) {
+  -- Initialize subcharts
+  subchart.init(events)
+
+  -- Do other stuff
+  event.on("pre-load", 0.5, function () {
+    print("pre-load event")
+  })
+}
+```
+
+This design will make it possible for top-level charts to strategically overrride
+the behavior of subcharts, or (as above) simply use them as-is.
+
+By default, th chart sandbox will be prepared with a minimal set of built-in libraries.
+These libraries will not include network, os, or filesystem access. The module
+system (e.g. `require()`) will only allow in-chart libraries to be loaded.
+
+Additional core libraries, such as os, network, and filesystem access, can be
+loaded only of they are specified in the `ext/permissions.yaml` file.
 
 ```yaml
 lua:
@@ -34,10 +56,8 @@ lua:
 ```
 
 The above permissions file asks that the Lua interpreter grant permission to
-the `network` and `filesystem` libraries.
-
-> Note that the Lua engine will only make those libraries available if they are
-> set in the permissions file.
+the `network` and `filesystem` libraries. This request will require user
+confirmation.
 
 When users install charts that ask for additional permissions, they will be
 prompted to allow:
@@ -69,6 +89,10 @@ The above will fail if:
 
 - The chart asks for any permissions other than `network` or `filesystem`
 
+When a chart contains subcharts, the presence of a `permissions.yaml` file will
+result in a permissions prompt even if the subchart's Lua code is overridden.
+This is because the overriding logic does not preclude the loading of the
+libraries.
 
 ## Library Charts
 
@@ -121,6 +145,12 @@ match is used. An incompatibility results in a failed chart render or build.
 > 
 > [name=Adnan Abdulhussein]
 > I posed using a non-library chart as a library chart as a question, because I think it could be valid to use a non-library chart just for its helpers. Helm doesn't have to force dependencies marked as libraries in requirements.yaml to be marked as a library in Chart.yaml (it could produce a warning, though). So, I think a normal chart can be used as a library chart, but not the other way around. The main restriction being: you can't install a library chart.
+
+### Lua in Library Charts
+
+Lua in library charts will be loaded as normal, and the `init()` functions will
+be executed by `subcharts.init()` (if called). It is considered bad (but legal)
+practice to include event handlers in library charts.
 
 ## Schematized Values Files
 

@@ -103,12 +103,16 @@ answer to a lifecycle event.
 In Lua, executing a particular hook might look something like this:
 
 ```lua
-events.on("pre-render", 0.5, function (name, namespace, chart, values) {
-    -- Accessing an object
-    println("got chart " + chart.name)
-    -- Mutating an object
-    values.myvalue = "My Value"
-})
+-- init is the entry point
+function init(events) {
+  -- events is used to register event handlers.
+  events.on("pre-render", 0.5, function (name, namespace, chart, values) {
+      -- Accessing an object
+      print("got chart " + chart.name)
+      -- Mutating an object
+      values.myvalue = "My Value"
+  })
+}
 ```
 
 The event handler format is: `events.on(eventName, weight, callback)`
@@ -130,13 +134,10 @@ the chart. The order of loading goes like this:
 2. Chart is loaded into memory
 3. Chart.yaml is parsed, validated, and loaded
 4. `ext/lua` files are parsed and loaded into a runtime
-5. `chart-loaded` event is fired on chart that was loaded
+5. Top-level chart's `init()` function is called.
+6. `chart-loaded` event is fired on chart that was loaded
 
 > Note: Values from `-f` and `--set` are coalesced prior to chart loading.
-
-Each chart that contains Lua scripts will have its own sandboxed interpreter.
-That is, if _Chart A_ contains _Subchart B_, each will have its own Lua
-sandbox, and they will not have access to each other's script objects.
 
 When multiple callbacks are specified for the same event, the callbacks will be
 executed in weight-order (0 first, 1 last). If two have the same weight, their
