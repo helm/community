@@ -1,13 +1,28 @@
 # Repositories
 
+A new API version for chart repositories (**v2**) will be introduced to provide new functionality address issues of scale (see [#3557](https://github.com/kubernetes/helm/issues/3557)).
+
 The following changes will be made to the repository subsystem:
 
-- The `helm serve` command will be removed
+- v2 will be the new default
+- v1 will be supported in its current state, but will not benefit from new functionality
+- The `helm search` command will become a server-side operation for v2 repos
+- No reliance on local index for `helm fetch` `helm inspect` `helm install` etc for v2 repos
+- `~/.helm/config` will be introduced (overridden by `HELMCONFIG` env var) which contains sensitive information necessary to authenticate against a v2 repo, with a default context
+- A new `helm config` command with a `set-context` subcommand will be added in to switch contexts defined in `~/.helm/config`
 - A new `helm push` verb will be added for pushing charts to a repository
+- `helm repo index` and `helm repo update` will only be used for v1 repos, and flagged as "deprecated"
+- The `helm serve` command will be removed
+- Thorough docs on how to run a private [ChartMuseum](https://github.com/kubernetes-helm/chartmuseum) server will be provided
 
-> This document is in-progress and needs input from Chart Museum.
+## Searching a Repository
+*TODO: notes on usage of `helm search` and new API spec for search/fetch, where chart packages exist at known locations*
 
-## Pushing Charts To A Repository
+## Authenticating Against a Repository
+*TODO: notes on usage of `helm config` and format of `~/.helm/config`*
+
+## Pushing Charts to a Repository
+*TODO: notes on usage of `helm push`*
 
 Several registries have emerged with support for Helm charts including
 ChartMuseum and Quay (via Application Registries) along with extras built on
