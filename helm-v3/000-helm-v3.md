@@ -19,7 +19,7 @@ without major change.
 ## Purpose
 
 The design presented herein is intended to begin with the [user profiles](../user-profiles.md)
-identified for helm and match as many of the [user stories](./helm-v3-user-stories.md)
+identified for helm and match as many of the [user stories](./011-user_stories.md)
 as could be accommodated
 
 ## The Basic Architecture
