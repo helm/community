@@ -57,6 +57,19 @@ v3's core implementation:
 In this model, Tiller is removed and there are no operators or controllers that
 run in-cluster.
 
+## Command/Flag Differences from Helm 2
+
+There are a few major (breaking) changes to the Helm CLI planned:
+
+- The `-n` flag will be remapped across the board to `--namespace`, not `-name`.
+  This is for consistency with `kubectl`, which added `-n` after Helm 2 was released.
+- `helm install` will _require_ a name, unless `--generate-name` is specified. This
+  inverts the default behavior for Helm 2.
+- `helm serve` will be removed
+
+Other changes to commands are described in their relevant sections within this
+document.
+
 ## Table of Contents
 
 1.  [Charts](./001-charts.md)
