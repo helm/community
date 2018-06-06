@@ -215,3 +215,12 @@ This can be schematized into something like this:
 In many cases, the base types in a YAML file can be used to derive a base
 schema. Thus it may be desirable to automatically derive schemata if they are
 not supplied.
+
+## Pluggable Template Engines
+
+The `Chart.yaml` file has a optional property titled `engine` that allows a chart to specify a template engine to be used. By default, when no `engine` is specified, Helm will continue to use the existing `gotpl` engine. When an alternative value is supplied Helm will look for a plugin that handles that value. If none is found Helm will provide an error. If a plugin is found Helm will execute the plugin as follows:
+
+- The plugin will receive the location of the `values.yaml` file, the location of the schema if one exists, and the location of the template
+- Helm will receive the output of the plugins as the rendered templates
+
+A plugin will need to register that it is responsible for handling a certain set of `engine` values in a similar manner to the way downloads has been handled since Helm 2.
