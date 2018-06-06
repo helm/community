@@ -8,7 +8,7 @@ This proposal is about enabling distributed repositories by making them and thei
 
 ## A Single Search Location
 
-The goal of this is to have a search site and API that enables the search of many public repositories. Private repositories are a separate scope and can operate with existing tools.
+The goal of this is to have a search site and API that enables the search of many public repositories. Private repositories are a separate scope and can operate with existing tools. Hosting of these repositories is also a non-goal.
 
 The public repositories would need to provide:
 
@@ -52,11 +52,11 @@ In addition to tooling there needs to be documentation that covers:
 
 To help, and possibly enforce, quality of charts we need to provide tools that can perform an analysis of charts to help validate quality. These tools exist for the stable and incubator charts today. They will be packaged in a manner others can consume and leverage within their workflows.
 
-Note, work on this step has already begun.
+Note, work on this step has already begun and [can be found on GitHub](https://github.com/kubernetes-helm/chart-testing).
 
 ## Outstanding Actions
 
 The following are outstanding actions that need to be worked out but can happen after the proposal is accepted:
 
 * [ ] Decide on the hosting location for this search.
-* [ ] Decide on and documented the requirements for listed repositories
+* [ ] Decide on and document the requirements for listed repositories
