@@ -15,84 +15,22 @@ Helm 3 is internally reorganized around an event model. Some events are
 internal only, while others are exposed to the Lua scripting engine. In this
 latter case, chart authors may script certain behaviors.
 
-The eventing model for Helm 3 can be represented by this pseudo-code (with
-error handling elided):
+During various phases of an operation (like install), Helm will execute pre-defined
+events. Charts will have an opportunity to respond to these events.
 
-```go
+For example, during `helm install`, the process my look something like this:
 
-type InstallationRequest interface {
-  // Chart represents the chart
-  Chart() *Chart
-  // Values returns the (coalesced) values supplied by the user
-  Values() *Values
-  // Config retruns the configuration, which may contain info from flag parsing
-  // (like --dry-run or --debug)
-  Config() *InstallConfig
+1. Load chart
+2. Merge values
+3. Emit `pre-render` event
+4. Render templates
+5. Parse resulting manifest into objects
+6. Emit `post-render` event
+7. Validate all objects
+8. Call `pre-install` event
+9. Install the manifests into Kubernetes
+10. Exit
 
-  State() State
-}
-
-func Install(events EventHandler, r InstallationRequest) error {
-  // Render Templates
-  events.emit("pre-render", r)  // events.on("pre-render", name, namespace, chart, values)
-  events.emit("render", r)
-  events.emit("post-render", r) // events.on("post-render", name, namespace, chart, values, manifest)
-
-  // Validate the results
-  events.emit("pre-validate", r)
-  events.emit("validate", r)
-  events.emit("post-validate", r)
-
-  // Install the chart
-  events.emit("pre-install", r) // events.on("pre-install", name, namespace, chart, values, manifest)
-  events.emit("install", r)
-  events.emit("post-install", r)
-
-  // Readiness: handle --wait if it is set to true
-  if r.Config().Wait {
-    events.emit("wait", r) // Do whatever waiting we have to do, and block
-    events.emit("ready", r)
-  }
-}
-```
-
-The above is not intended to be the final API, but an illustration of how an
-event-oriented model is represented.
-
-### Lifecycle Event Types
-
-There are two types of lifecycle events. Core events require exactly one
-implementation. Optional events allow zero or more implementations. The lists
-below are a non-exhaustive representative list.
-
-#### Core (Exactly One Implementation)
-
-These events are exposed only internally, and there will be no way to override
-them in Helm 3.0.0. In the future, some of these may become exposed for
-extension.
-
-- render
-- install
-- upgrade
-- delete
-- list
-- read-chart/write-chart
-- validate
-
-> If Go's type system is too rigid, core events may be implemented as pseudo-events,
-> not using the same `emit()`/`on()` API pattern.
-
-#### Optional (Zero or More Implementations)
-
-These events will be accessible via the scripting interface.
-
-- wait/watch
-- ready
-- pre-/post- for render, install, upgrade, delete, rollback, list, and validate
-- chart-loaded
-
-Support for features like alternative template engines is to be had by
-scripting pre- or post-render hooks.
 
 #### Scripting Event Handlers
 
@@ -103,19 +41,19 @@ answer to a lifecycle event.
 In Lua, executing a particular hook might look something like this:
 
 ```lua
--- init is the entry point
-function init(events) {
   -- events is used to register event handlers.
-  events.on("pre-render", 0.5, function (name, namespace, chart, values) {
+  events.on("pre-render", 0.5, function (_)
       -- Accessing an object
-      print("got chart " + chart.name)
+      print("got chart " + _.chart.name)
       -- Mutating an object
-      values.myvalue = "My Value"
-  })
-}
+      _.values.myvalue = "My Value"
+  end)
 ```
 
-The event handler format is: `events.on(eventName, weight, callback)`
+The event handler format is: `events.on(_)`, where `_` is a variable pointing to
+a context object (see next section).
+
+### Script locations
 
 Scripts are stored inside charts. They are stored in charts for the following
 reasons:
@@ -127,18 +65,254 @@ reasons:
   inside of the chart.
 
 
-Lua scripts are stored in a chart's `ext/lua` folder, and are loaded along with
-the chart. The order of loading goes like this:
+Lua scripts are stored in a chart's `ext/lua` folder. The `ext/lua.chart.lua` file
+is loaded automatically along with the chart, and it may `require()` in other
+Lua scripts.
+
+The order of loading goes like this:
 
 1. Chart is verified (if requested) against `.prov` file
 2. Chart is loaded into memory
 3. Chart.yaml is parsed, validated, and loaded
-4. `ext/lua` files are parsed and loaded into a runtime
-5. Top-level chart's `init()` function is called.
-6. `chart-loaded` event is fired on chart that was loaded
+4. `ext/lua/chart.lua` files are parsed and loaded into a runtime
+5. `chart-loaded` event is fired on chart that was loaded
 
 > Note: Values from `-f` and `--set` are coalesced prior to chart loading.
 
-When multiple callbacks are specified for the same event, the callbacks will be
-executed in weight-order (0 first, 1 last). If two have the same weight, their
-execution order is nondeterministic.
+Charts and subcharts may each have Lua. When events are triggered, the event
+handler will do a depth-first execution of the `chart.lua` files, ending with the
+topmost `chart.lua` file.
+
+## The Context Object for Events
+
+Every event will receive a context, which will contain data about that event. In pseudo-code, the context stucture looks like this:
+
+```lua
+context = {
+  -- Loaded from chart.yaml
+  chart = {
+    version = function () return "v2" end,
+    name = function () return "alpine" end,
+    version = function () return "1.1.0" end,
+    description = function() return "This is an example chart." end,
+    keywords = function() return { "alpine", "utility", "debugging" } end,
+    home = function() return "https://docs.helm.sh" end,
+    sources = function() return { "https://github.com/helm/helm" } end,
+    maintainers = function() return {
+      name = "M Butcher",
+      email = "mbutcher@example.com",
+      url = "http://mbutcher.example.com"
+    } end,
+    icon = function() return "https://example.com/alpine.svg" end,
+    appVersion = function() return "3.8" end,
+    kubernetesVersions = function() return ">1.9.0" end,
+  },
+  -- All user-specified. None of these is hard-coded
+  values = {
+    rbac = { enabled = true },
+    image = { name = "alpine", tag = "3.8"}
+  },
+  -- These are supplied by the system and the user
+  release = {
+    name = function() return "my-alpine" end
+  },
+  -- Information about the cluster that Helm is currently
+  -- targeting
+  capabilities = {
+    helmVersion = function() return "3.0.0-alpha.1" end,
+    -- Kubernetes version, as reported by Kubernetes
+    kubernetesVersion = function() return "1.10.0" end,
+    apiVersions = function() return {
+      "v1",
+      "batch/v1",
+      "batch/v2",
+      "batch/v2beta1",
+      -- ...
+    } end
+  },
+  -- Files specified in the chart, exclusing templates and
+  -- the contents of ext/
+  files = {
+    { name = "config.json", data = "{}" }
+  },
+  -- Any gotopl files. Depending on the phase, modification of
+  -- these may have no impact.
+  templates = {
+    { name = "pod.yaml", data = "apiVersion: v1\nkind: Pod\nname: {{.Release.Name }}\n#..." }
+  },
+  dependencies = {
+    {name = "nginx", version = "1.2.0", repository = "https://example.com/charts"}
+  },
+  -- Depending on phase, this may contain the list of already
+  -- rendered objects. It may be empty. Depending on the
+  -- phase, the contents of this may, on return, be preserved.
+  objects = {
+    {
+      apiVersion = "v1",
+      kind = "Pod",
+      name = "my-alpine"
+    }
+  }
+}
+
+```
+
+Note that some of the properties in the context are functions.
+These are implemented as functions because their values are
+immutable. (The implementation of the function is informational pseudo-code, and is not the real implementation.)
+
+> [name=Matt Butcher]
+> Options for subcharts: We can either collapse them into one top-level context or nest subcharts in a `charts = { context::new() }` way.
+> 
+
+
+## Events
+
+This is meant to be an exhaustive list of the events that will be emitted in Helm 3.
+
+The following are events by command. If a command is not present, then that command
+is not slated for inclusion in Helm 3.
+
+For each command, the events are presented in the order that they occur.
+
+### Create
+
+Events for `helm create`:
+
+- `pre-create`
+- `post-create`
+
+The `pre-create` event will receive a minimal context with no chart information. A `post-create` will receive the initialized chart. After a post-create, the chart will be written to the filesystem.
+
+## Dependency Build
+
+- `pre-dependency-build`
+- `post-dependency-build`
+
+The `pre-` hook will have access to the base chart's context.
+
+The `pre-` hool will be able to modify the `dependencies` object before dependencies are resolved or fetched.
+
+The `post-` hool will have access to the context as it appears after all dependencies have been resolved. The results of this hook are _not_ written to the filesystem.
+
+## Dependency [List, Update]
+No other `helm dependency *` commands have hooks
+
+### Delete
+
+- `pre-delete`
+
+The `pre-delete` event will receive a minimal context. It will not receive the chart.
+
+### Fetch
+
+There are no defined hooks for this command
+
+### Get [manifests, values]
+
+There are no defined hooks for these commands
+
+### History
+
+There are no defined hooks for this command
+
+### Home
+
+There are no defined hooks for this command
+
+### Init
+
+There are no defined hooks for this command
+
+### Inspect
+
+There are no defined hooks for this command
+
+### Install
+
+- `pre-render`
+- `post-render`
+- `pre-install`
+
+#### pre-/post-render
+
+The pre- and post-render events are common across several operations.
+
+`pre-render` occurs before the contents of the `context.templates` have been rendered. The `context.objects` array is thus empty prior to `pre-render`.
+
+The `post-render` occurs after templates have been rendered to objects. Any further modifications to `context.templates` are ignored. The `context.objects` array will contain object representations of the things created after the template run.
+
+#### pre-install
+
+The `pre-install` event fires after `post-render`, and will receive the context returned from post-render. This event only fires on the install command, and thus is for install-specific work.
+
+### Lint
+
+- `pre-render`
+- `post-render`
+- `pre-lint`
+
+The `pre-lint` event is fired after post-render, and is only fired for lint.
+
+### Package
+
+- `pre-package`
+
+The `pre-package` hook is fired immediately before the package operation, and changes to context may be written to the packaged chart, but not onto the filesystem.
+
+### Plugin [*]
+
+There are no defined hooks for this command
+
+### Repo [*]
+
+There are no defined hooks for this command
+
+### Rollback
+
+_This is dependent on a possible re-architecting of `helm rolback` that will no longer include a render phase._
+
+- `pre-render`
+- `post-render`
+- `pre-rollback`
+
+The `pre-rollback` event fires after the post-render, and with the same context. This event only fires on rollback.
+
+### Search
+
+There are no defined hooks for this command
+
+### Template
+
+- `pre-render`
+- `post-render`
+- `post-template` (name may change)
+
+The `post-template` event fires after post-render and receives the same context. It fires immediately before the output of the command is written to STDOUT.
+
+### Test
+
+- `pre-render`
+- `post-render`
+- `pre-test`
+- `post-test`
+- `failed-test`
+
+`pre-test` is executed immediately before the test, and it may modify the charts prior to testing. `post-test` runs after the test. `failed-test` runs only if the test is marked failed.
+
+### Upgrade
+
+- `pre-render`
+- `post-render`
+- `pre-upgrade`
+- `post-upgrade`
+
+The `pre-upgrade` event fires after `post-render`, receiving the same context. `post-upgrade` fires after the chart has been submitted to the server. These two events only fire during upgrades.
+
+### Verify
+
+There are no defined hooks for this command
+
+### Version
+
+There are no defined hooks for this command
