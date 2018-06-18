@@ -4,6 +4,7 @@ The following changes will be made to the repository subsystem:
 
 - The `helm serve` command will be removed
 - A new `helm push` verb will be added for pushing charts to a repository
+- The index file will be JSON instead of YAML
 
 > This document is in-progress and needs input from Chart Museum.
 
@@ -34,3 +35,25 @@ provide an implementation for.
 > 
 > [name=Adnan Abdulhussein] Sounds like this is something that will be fleshed
 > out more in Josh's proposal, so I'll wait for that :)
+
+## JSON Index File
+
+Helm v2 leveraged YAML for the index of packages and package versions shared
+between Helm and a repository. Helm v3 will move to a version 2 of the
+repository specification and will use JSON instead of YAML. In place of
+`index.yaml` a repository will serve an `index.json` file.
+
+The reason for the format change is due to the performance of software that
+interacts with these formats. For example, YAML has anchors and aliases that
+parsers and serializers need to interact with. This causes parsers to use more
+memory and have slower performance. The Helm use of indexes does not leverage
+these features.
+
+For compatibility, it will be possible to serve both an `index.yaml` file and an
+`index.json` file. This will allow a repository to support both Helm versions 2
+and 3. Helm v3 will provide the ability to generate both an `index.json` and
+`index.yaml` file to enable backwards compatibility.
+
+In addition to generating the legacy `index.yaml` file, when Helm queries a
+repository and does not find an `index.json` file it will attempt to use the
+legacy `index.yaml` format.
