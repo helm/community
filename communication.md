@@ -8,15 +8,6 @@ The Helm community abides by the [CNCF code of conduct].  Here is an excerpt:
 > requests, updating documentation, submitting pull requests or patches,
 > and other activities._
 
-## SIGs
-
-Kubernetes encompasses many projects, organized into [SIGs].
-Helm reports to Kubernetes' [SIG-Apps] which has its own communication
-channels and weekly meetings.
-
-Nevertheless, below find a list of Helm-specific channels, groups
-and meetings.
-
 ## Social Media
 
 * [Twitter]
