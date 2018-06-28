@@ -1,6 +1,6 @@
-# Kubernetes Community
+# Helm Community
 
-Welcome to the Kubernetes community!
+Welcome to the Helm community!
 
 This is the starting point for becoming a contributor to the Helm project - improving docs, improving code, giving talks etc.
 
