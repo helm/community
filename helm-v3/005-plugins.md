@@ -58,7 +58,7 @@ Along with Helm supporting Lua for scripting chart extensions, it will support
 plugins in Lua. These plugins will only have a dependency on Helm to run and
 can be ported cross platform.
 
-Lua plugins _are executed separately_ form chart-based Lua scripts. The pattern
+Lua plugins _are executed separately_ from chart-based Lua scripts. The pattern
 used for executing Lua plugins mirrors the pattern for writing command-line
 applications. A `main()` function will be executed with access to STDIN, STDOUT,
 STDERR, and all command-line parameters and options.
