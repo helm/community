@@ -184,7 +184,7 @@ Events for `helm create`:
 
 The `pre-create` event will receive a minimal context with no chart information. A `post-create` will receive the initialized chart. After a post-create, the chart will be written to the filesystem.
 
-## Dependency Build
+### Dependency Build
 
 - `pre-dependency-build`
 - `post-dependency-build`
@@ -195,7 +195,7 @@ The `pre-` hool will be able to modify the `dependencies` object before dependen
 
 The `post-` hool will have access to the context as it appears after all dependencies have been resolved. The results of this hook are _not_ written to the filesystem.
 
-## Dependency [List, Update]
+### Dependency [List, Update]
 No other `helm dependency *` commands have hooks
 
 ### Delete
