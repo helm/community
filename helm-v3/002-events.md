@@ -191,9 +191,9 @@ The `pre-create` event will receive a minimal context with no chart information.
 
 The `pre-` hook will have access to the base chart's context.
 
-The `pre-` hool will be able to modify the `dependencies` object before dependencies are resolved or fetched.
+The `pre-` hook will be able to modify the `dependencies` object before dependencies are resolved or fetched.
 
-The `post-` hool will have access to the context as it appears after all dependencies have been resolved. The results of this hook are _not_ written to the filesystem.
+The `post-` hook will have access to the context as it appears after all dependencies have been resolved. The results of this hook are _not_ written to the filesystem.
 
 ### Dependency [List, Update]
 No other `helm dependency *` commands have hooks
@@ -270,7 +270,7 @@ There are no defined hooks for this command
 
 ### Rollback
 
-_This is dependent on a possible re-architecting of `helm rolback` that will no longer include a render phase._
+_This is dependent on a possible re-architecting of `helm rollback` that will no longer include a render phase._
 
 - `pre-render`
 - `post-render`
