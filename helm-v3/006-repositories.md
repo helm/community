@@ -2,18 +2,11 @@
 
 The following changes will be made to the repository subsystem:
 
-- The index file will adopt a new spec (v2) and be JSON instead of YAML (index.json)
-- A new `helm login` command will be added for authenticating against a repository
-- A new `helm push` command will be added for pushing charts to a repository
 - The `helm serve` command will be removed
-- [chartmuseum](https://github.com/helm/chartmuseum) will be the Helm subproject dedicated to hosting your own repository
-- [monocular](https://github.com/helm/chartmuseum) will be the Helm subproject dedicated to distributed repo discovery, and the software powering [hub](https://github.com/helm/hub)
+- A new `helm push` verb will be added for pushing charts to a repository
+- The index file will be JSON instead of YAML
 
-## Authenticating Against A Repository
-
-*In progress. Please see [chartmuseum#59](https://github.com/helm/chartmuseum/issues/59).*
-
-> [name=Matt Farina] There very well may be additional work here around registry search and pluggable or otherwise extendable authenication mechanisms.
+> This document is in-progress and needs input from Chart Museum.
 
 ## Pushing Charts To A Repository
 
@@ -25,19 +18,23 @@ and could benefit from a capability to push packages from the Helm client.
 
 To support registries there will be a `helm push` command that works in a
 similar manner to `helm fetch`. It will support different systems via the
-URI/URL scheme. It will provide a default implementation for HTTP(S) based on the ChartMuseum API spec.
-
-Other systems, such as S3, can implement an uploader via a plugin for schemes Helm does not
+URI/URL scheme and provide a default implementation for HTTP(S). Other systems,
+such as S3, can implement an uploader via a plugin for schemes Helm does not
 provide an implementation for.
 
-The [helm-push plugin]() describes potential syntax for a `helm push` command. Here are some usage examples:
-
-```
-$ helm push mychart-0.1.0.tgz myrepo       # push .tgz from "helm package"
-$ helm push . myrepo                       # package and push chart directory
-$ helm push . --version="7c4d121" myrepo   # override version in Chart.yaml
-$ helm push . https://my.chart.repo.com    # push directly to chart repo URL
-```
+> [name=Matt Farina] There very well may be additional work here around
+> registry search and pluggable or otherwise extendable authenication
+> mechanisms.
+> 
+> [name=Adnan Abdulhussein] What would the default HTTP(S) implementation be?
+> [name=Matt Fisher] Adnan, would you mind clarifying your comment a little?
+> 
+> [name=Adnan Abdulhussein] Sorry, the proposal mentions there will be a
+> default implemention for `helm push` to a regular HTTP(S) chart repository.
+> It's unclear to me how this would actually work.
+> 
+> [name=Adnan Abdulhussein] Sounds like this is something that will be fleshed
+> out more in Josh's proposal, so I'll wait for that :)
 
 ## Repository v2 Specification
 
@@ -101,7 +98,7 @@ The following two examples illustrate index and chart JSON files:
 The example above is of the `index.json` file. An entry here has two properties.
 The `ref` property is the location of the chart JSON file. This can be either
 a relative URL path relative to the `index.json` file or an absolute path to the
-file. The `stable` property contains the details about the latest stable release of the
+file. The `latest` property contains the details about the latest release of the
 chart.
 
 The example below is the `artifactory.json` file referred to in the index. The
