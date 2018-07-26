@@ -58,9 +58,8 @@ Note, work on this step has already begun and [can be found on GitHub](https://g
 
 The following are outstanding actions that need to be worked out but can happen after the proposal is accepted:
 
-* [ ] Decide on the hosting location for this search.
 * [ ] Decide on and document the requirements for listed repositories
 
 ## Organizational Management
 
-The Charts Maintainers team will be the directly responsible party for this system.
+The Charts Maintainers team will be the directly responsible party for this system and it will be hosted by the Helm project.
