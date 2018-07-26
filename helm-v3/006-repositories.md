@@ -64,7 +64,7 @@ The following two examples illustrate index and chart JSON files:
   "entries": {
     "artifactory": {
       "ref": "https://kubernetes-charts-incubator.storage.googleapis.com/artifactory.json",
-      "latest": {
+      "stable": {
         "created": "2017-07-06T01:33:50.952Z",
         "description": "Universal Repository Manager supporting all major packaging formats,\nbuild tools and CI servers.",
         "digest": "249e27501dbfe1bd93d4039b04440f0ff19c707ba720540f391b5aefa3571455",
