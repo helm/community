@@ -98,8 +98,8 @@ The following two examples illustrate index and chart JSON files:
 The example above is of the `index.json` file. An entry here has two properties.
 The `ref` property is the location of the chart JSON file. This can be either
 a relative URL path relative to the `index.json` file or an absolute path to the
-file. The `latest` property contains the details about the latest release of the
-chart.
+file. The `stable` property contains the details about the latest stable release
+of the chart.
 
 The example below is the `artifactory.json` file referred to in the index. The
 information for each version of the is listed under versions. This is in a similar
