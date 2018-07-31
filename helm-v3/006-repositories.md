@@ -7,7 +7,7 @@ The following changes will be made to the repository subsystem:
 - The `helm serve` command will be removed
 - [ChartMuseum](https://github.com/helm/chartmuseum) will be the Helm subproject
   dedicated to hosting your own repository
-- [Monocular](https://github.com/helm/chartmuseum) will be the Helm subproject
+- [Monocular](https://github.com/helm/monocular) will be the Helm subproject
   dedicated to distributed repo discovery, and the software powering
   [Hub](https://github.com/helm/hub)
 
