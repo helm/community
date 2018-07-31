@@ -2,10 +2,22 @@
 
 The following changes will be made to the repository subsystem:
 
+- A new `helm login` command will be added for authenticating against a repository
+- A new `helm push` command will be added for pushing charts to a repository
 - The `helm serve` command will be removed
-- A new `helm push` verb will be added for pushing charts to a repository
+- [ChartMuseum](https://github.com/helm/chartmuseum) will be the Helm subproject
+  dedicated to hosting your own repository
+- [Monocular](https://github.com/helm/chartmuseum) will be the Helm subproject
+  dedicated to distributed repo discovery, and the software powering
+  [Hub](https://github.com/helm/hub)
 
-> This document is in-progress and needs input from Chart Museum.
+## Authenticating Against A Repository
+
+*In progress. Please see [chartmuseum#59](https://github.com/helm/chartmuseum/issues/59).*
+
+> [name=Matt Farina] There very well may be additional work here around
+> registry search and pluggable or otherwise extendable authenication
+> mechanisms.
 
 ## Pushing Charts To A Repository
 
@@ -17,20 +29,25 @@ and could benefit from a capability to push packages from the Helm client.
 
 To support registries there will be a `helm push` command that works in a
 similar manner to `helm fetch`. It will support different systems via the
-URI/URL scheme and provide a default implementation for HTTP(S). Other systems,
-such as S3, can implement an uploader via a plugin for schemes Helm does not
+URI/URL scheme. It will provide a default implementation for HTTP(S) based
+on the ChartMuseum API spec.
+
+Other systems, such as S3, can implement an uploader via a plugin for schemes Helm does not
 provide an implementation for.
 
-> [name=Matt Farina] There very well may be additional work here around
-> registry search and pluggable or otherwise extendable authenication
-> mechanisms.
-> 
-> [name=Adnan Abdulhussein] What would the default HTTP(S) implementation be?
-> [name=Matt Fisher] Adnan, would you mind clarifying your comment a little?
-> 
-> [name=Adnan Abdulhussein] Sorry, the proposal mentions there will be a
-> default implemention for `helm push` to a regular HTTP(S) chart repository.
-> It's unclear to me how this would actually work.
-> 
-> [name=Adnan Abdulhussein] Sounds like this is something that will be fleshed
-> out more in Josh's proposal, so I'll wait for that :)
+The [helm-push plugin](https://github.com/chartmuseum/helm-push) describes potential semantics
+for a `helm push` command.
+Here are some usage examples:
+ ```
+# push .tgz from "helm package"
+helm push mychart-0.1.0.tgz myrepo
+
+# package and push chart directory
+helm push mychart/ myrepo
+
+# override version in Chart.yaml
+helm push mychart/ --version="0.2.0-rc1" myrepo
+
+# push directly to chart repo URL
+helm push mychart/ https://my.chart.repo.com
+```
