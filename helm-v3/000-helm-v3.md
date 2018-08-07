@@ -63,7 +63,10 @@ There are a few major (breaking) changes to the Helm CLI planned:
 
 - The `-n` flag will be remapped across the board to `--namespace`, not `-name`.
   This is for consistency with `kubectl`, which added `-n` after Helm 2 was released.
-- `helm install` will _require_ a name, unless `--generate-name` is specified. This
+- All actions will be organized under a noun to clarify what being acted on.
+  Some flags already work this way (e.g. `helm plugin add`) and some will need to be reorganized.
+  For example, `helm create` will become `helm chart create`.
+- `helm chart install` will _require_ a name, unless `--generate-name` is specified. This
   inverts the default behavior for Helm 2.
 - `helm serve` will be removed
 
