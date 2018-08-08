@@ -14,13 +14,14 @@ In practice, this plays out as follows:
 
 - When considering Helm's package managemet operations, Helm _should_ follow the patterns and practices of other package management tools.
 - When working with Kubernetes-specific concepts (such as namespaces, pods, tunnels, etc.), Helm _should_ follow the patterns and practices of `kubectl` or other popular Kubernetes tools.
-- In more general circumstances, Helm _should_ follow the _de facto_ patterns found in contemporary Linux/Unix tooling.
+- In more general circumstances, Helm _should_ follow the _de facto_ patterns found in contemporary Linux/UNIX tooling.
 
-Helm _should not_ follow the Plan9/Go patterns that are not broadly implemented in Unix/Linux (e.g. `-long`). That Helm is implemented in Go does not, _ipso facto_ mean that Helm must follow the opinions of a very small group of developers.
+Helm _should not_ follow the Plan9/Go patterns that are not broadly implemented in UNIX/Linux (e.g. `-long`). That Helm is implemented in Go does not _ipso facto_ mean that Helm must follow the opinions of a very small group of developers over the opinions of the vastly larger UNIX 
+community.
 
 ## Package Managers and Their Characteristics
 
-
+The following table represents a summary of command line tooling for popular package managers. Package managers considered came in one of two types: _OS_ types install application/tool packages onto operating systems. _Lang_ types install language-specific packages (lirbaries, tools) into appropriate environments.
 
 | Tool     | Type | Cmd | Install | Upgrade        | Delete       | Create | Repo Update | Search           | About Pkg      |
 | ----     | ---- | ------ | ------- | -------        | ------       | ------ | ----------- | ------           | ---------      |
@@ -37,9 +38,9 @@ Helm _should not_ follow the Plan9/Go patterns that are not broadly implemented 
 | kubectl  | -    | y      | create  | apply          | delete       | create | -           | -                | -              |
 | helm 2   | CN   | y      | install | upgrade        | delete       | create | update      | search           | inspect        |
 
-Note that `kubectl` is included for reference, though it is _not_ a package manager
+Note that `kubectl` is included for reference, though it is _not_ a package manager, and is not weighed into the results below.
 
-Other package managers looked at, but not deemed popular enough to be considered influencers: Mix (erlang), Cargo (Rust), Dep (Go), Glide (Go), GoFish (OS), CPAN (perl), Yarn (JavaScript)
+Other package managers looked at, but not deemed popular enough to be considered influencers: Mix (erlang), Cargo (Rust), Dep (Go), Glide (Go), GoFish (OS), CPAN (perl), Yarn (JavaScript), APK (Alpine Linux). Other than CPAN, we saw no major divergence from the table above (though we saw a few cases where `add` was used instead of `install`).
 
 ### Apt
 
