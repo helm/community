@@ -65,10 +65,11 @@ There are a few major (breaking) changes to the Helm CLI planned:
   This is for consistency with `kubectl`, which added `-n` after Helm 2 was released.
 - `helm install` will _require_ a name, unless `--generate-name` is specified. This
   inverts the default behavior for Helm 2.
-- `helm serve` will be removed
+- `helm serve` and `helm reset` will be removed
+- `helm delete` will be renamed to `helm remove`, though `helm delete` will remain an alias.
+- `helm inspect` will be renamed `helm show`, though `helm inspect` will remain as an alias.
 
-Other changes to commands are described in their relevant sections within this
-document.
+Other changes to commands are described in their relevant sections within this document.
 
 ## Table of Contents
 
