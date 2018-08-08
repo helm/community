@@ -1,9 +1,14 @@
 # Plugins
 
 The plugin model will undergo a few changes in order to make it possible to
-support a broader range of features along a broader range of platforms.
+support a broader range of features along a broader range of platforms. Helm will also have the ability to install a pre-defined set of custom plugins via `helm init`.
 
-## Standard Plugins
+* [Plugin Format](#plugin-format)
+* [Installing Plugins](#installing-plugins)
+
+## Plugin Format
+
+### Standard Plugins
 
 The existing plugin model (based on `exec` to local binaries) will continue to
 be supported.
@@ -39,7 +44,7 @@ The following rules will apply to processing commands:
 - If no `command` is present and no matches are found in `platformCommand`, Helm
   will exit with an error.
 
-## Lua Plugins
+### Lua Plugins
 
 The existing Helm plugin mechanism has enabled numerous extensions to Helm
 (e.g., [here](https://docs.helm.sh/related/#helm-plugins) and
@@ -63,8 +68,25 @@ used for executing Lua plugins mirrors the pattern for writing command-line
 applications. A `main()` function will be executed with access to STDIN, STDOUT,
 STDERR, and all command-line parameters and options.
 
-### Lua Plugin Sandboxing
+#### Lua Plugin Sandboxing
 
 Like charts, each plugin will be executed in an isolated Lua sandbox. Unlike
 chart scripts, plugins will be granted access to all core libraries, and will
 not require security prompts to accept.
+
+## Installing Plugins
+A single plugin can be installed via `helm plugin install`.
+
+A set of plugins can also be defined in a yaml file and installed during the `helm init` process by using a flag called `--plugins <file.yaml>`
+where `file.yaml` looks like this:
+```
+plugins:
+- name: helm-template
+  url: https://github.com/technosophos/helm-template
+- name: helm-value-store
+  url: https://github.com/skuid/helm-value-store
+- name: helm-diff
+  url: https://github.com/databus23/helm-diff
+```
+
+The `name` field primarily exists in the list of plugins to easily identify plugins in the file. It is not used for anything else and does not have a functional purpose.
