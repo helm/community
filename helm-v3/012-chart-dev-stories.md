@@ -12,12 +12,12 @@ and are of the form "As a _ROLE_ I want _TASK_ so that _GOAL_.
 - I want to re-use Helm 2 charts so that I don't have to rebuild the same thing
 - I want to create charts the Helm 2 way so that I can continue developing
   the way I have been
-- As a chart author, I do not want to have to understand all the details of every
+- I do not want to have to understand all the details of every
   subchart I use so that I can compose complex applications quickly
 
 ## Extensions/Lua
 
-These all assume a Lua engine, and describe things to be done in Lua scripts
+These all assume a Lua engine, and describe things to be done in Lua scripts. See the current [events](002-events.md) and [chart structure](001-charts.md) proposals
 
 ### Values
 
