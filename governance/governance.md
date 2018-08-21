@@ -65,14 +65,14 @@ Changes to org maintainers use the following:
 * Any project maintainer is eligible for a position as an org maintainer
 * No one company or organization can employ a simple majority of the org maintainers
 * An org maintainer may step down by emailing the org maintainers mailing list. Within 7 calendar days the [helm mailing list](https://lists.cncf.io/g/cncf-helm) needs to be notified of the change
-* Org maintainers MUST remain active on the project. If they are unresponsive for > 3 months they will loose org maintainership unless a [super-majority](https://en.wikipedia.org/wiki/Supermajority#Two-thirds_vote) of the other org maintainers agrees to extend the period to be greater than 3 months
-* When there is an opening for a new org maintainer, any person who has made a contribution to any repo under the Helm GitHub org may nominate a suitable project maintainer as a replacement.
-  * The nomination period will be three weeks starting the day after the an org maintainer has stepped down
+* Org maintainers MUST remain active on the project. If they are unresponsive for > 3 months they will lose org maintainership unless a [super-majority](https://en.wikipedia.org/wiki/Supermajority#Two-thirds_vote) of the other org maintainers agrees to extend the period to be greater than 3 months
+* When there is an opening for a new org maintainer, any person who has made a contribution to any repo under the Helm GitHub org may nominate a suitable project maintainer as a replacement
+  * The nomination period will be three weeks starting the day after an org maintainer opening becomes available
   * The nomination must be made via the [public Helm mailing list](https://lists.cncf.io/g/cncf-helm/)
 * When nominated individual(s) agrees to be a candidate for maintainership, the project maintainers may vote
   * The voting period will be open for a minimum of three business days and will remain open until a super-majority of project maintainers has voted
   * Only current project maintainers are eligible to vote
-  * When the number of nominated individuals matches the number of openings each individual needs to have a yes vote from a super-majority of those that voted.
+  * When the number of nominated individuals matches the number of openings each individual needs to have a yes vote from a super-majority of those that voted
   * When there are more individuals than open positions voting will use [Condorcet](https://en.wikipedia.org/wiki/Condorcet_method) ranking on [CIVS](http://civs.cs.cornell.edu/) using the [Schulze method](https://en.wikipedia.org/wiki/Schulze_method)
 * When an org maintainer steps down, they become an emeritus maintainer
 
@@ -80,7 +80,7 @@ Once an org maintainer is elected, they remain a maintainer until stepping down 
 
 ### Project Maintainers
 
-Project maintainers are responsible for activities surrounding the development and release of code and the operation of any services they own (e.g., the documentation site). Technical decisions for code resides with the project maintainers unless there is a decision related to cross mainteriner groups that cannot be resolved by those groups. Those cases can be esclated to the project maintainers.
+Project maintainers are responsible for activities surrounding the development and release of code and the operation of any services they own (e.g., the documentation site). Technical decisions for code resides with the project maintainers unless there is a decision related to cross maintainer groups that cannot be resolved by those groups. Those cases can be esclated to the project maintainers.
 
 In some cases a groups of maintainers are responsible for more than one repo (e.g., charts maintainers managing the charts, chart-testing, charts-tooling). In other cases the maintainers are responsible for a single project (e.g., chartmuseum or monocular).
 
@@ -95,7 +95,7 @@ Changes to maintainers use the following:
 
 ## Decision Making at the Helm org level
 
-When maintainers need to make a decisions there are two ways decisions are made, unless described elsehwere.
+When maintainers need to make a decisions there are two ways decisions are made, unless described elsewhere.
 
 The default decision making process is [lazy-consensus](http://communitymgt.wikia.com/wiki/Lazy_consensus). This means that any decision is considered supported by the team making it as long as no one objects. Silence on any consensus decision is implicit agreement and equivalent to explicit agreement. Explicit agreement may be stated at will.
 
