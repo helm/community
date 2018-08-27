@@ -21,7 +21,7 @@ The services provided include:
 
 There are two levels of maintainers for Helm. The Helm org maintainers oversee the overall project and it's health. Project maintainers focus on a single codebase or a group of related codebases. For example, the chart maintainers manage the charts repository and a few repositories that support charts. The Helm org maintainers are responsible for the overall health of the project while the project maintainers are responsible for maintaining the code.
 
-Changes in maintainership have to be announced on the [helm mailing list](https://lists.cncf.io/g/cncf-helm).
+Changes in maintainership have to be announced on the [Helm mailing list](https://lists.cncf.io/g/cncf-helm).
 
 ### Helm Org Maintainers
 
@@ -51,7 +51,7 @@ Changes to org maintainers use the following:
       * 1 Chair (from any project under the Helm org)
       * 2 Representatives from the Helm core project
       * 1 representative from the Charts project
-    * 1 representative from another Helm project
+      * 1 representative from another Helm project
     * When there are 7 Org Maintainers
       * 1 Chair (from any project under the Helm org)
       * 3 Representatives from the Helm core project
@@ -88,10 +88,10 @@ Project maintainers do not need to be software developers. No explicit role is p
 
 Changes to maintainers use the following:
 
-* A maintainer may step down by emailing the [helm mailing list](https://lists.cncf.io/g/cncf-helm)
+* A maintainer may step down by emailing the [Helm mailing list](https://lists.cncf.io/g/cncf-helm)
 * Maintainers MUST remain active. If they are unresponsive for > 3 months they will be automatically removed unless a [super-majority](https://en.wikipedia.org/wiki/Supermajority#Two-thirds_vote) of the other project maintainers agrees to extend the period to be greater than 3 months
 * New maintainers can be added to a project by a [super-majority](https://en.wikipedia.org/wiki/Supermajority#Two-thirds_vote) vote of the existing maintainers
-* When a project has no maintainers the helm org maintainers become responsible for it and may archive the project or find new maintainers
+* When a project has no maintainers the Helm org maintainers become responsible for it and may archive the project or find new maintainers
 
 ## Decision Making at the Helm org level
 
@@ -110,7 +110,7 @@ Many of the day-to-day project maintenance can be done by a lazy consensus model
 * Adding, archiving, or removing subprojects (simple majority)
 * Utilizing Helm/CNCF money for anything CNCF deems "not cheap and easy" (simple majority)
 
-Other decisions may, but do not need to be, called out and put up for decision on the [helm mailing list](https://lists.cncf.io/g/cncf-helm) at any time and by anyone. By default, any decisions called to a vote will be for a _simple majority_ vote.
+Other decisions may, but do not need to be, called out and put up for decision on the [Helm mailing list](https://lists.cncf.io/g/cncf-helm) at any time and by anyone. By default, any decisions called to a vote will be for a _simple majority_ vote.
 
 ## Code of Conduct
 
