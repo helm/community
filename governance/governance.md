@@ -40,28 +40,7 @@ The Helm Org maintainers are responsible for:
 
 Changes to org maintainers use the following:
 
-* There will be between 3 and 9 people (maintaining an odd number). If there is a loss of a org maintainer bring the count to an even number the org maintainers can continue with an even number as long as they are actively going through the process to bring the maintainer count back to an odd number
-  * To ensure diverse representation from all areas of the Helm org, the breakdown of Helm Org Maintainers group will be as follows:
-    * When there are 3 Org Maintainers
-      * 1 Representative from the Helm core project
-        * Also serves as the default chair unless someone else in the Org Maintainers group is interested in the role
-      * 1 Representative from the Charts project
-      * 1 Representative from another Helm project
-    * When there are 5 Org Maintainers
-      * 1 Chair (from any project under the Helm org)
-      * 2 Representatives from the Helm core project
-      * 1 representative from the Charts project
-      * 1 representative from another Helm project
-    * When there are 7 Org Maintainers
-      * 1 Chair (from any project under the Helm org)
-      * 3 Representatives from the Helm core project
-      * 1 Representative from the Charts project
-      * 2 Representatives from another Helm project
-    * When there are 9 Org Maintainers
-      * 1 Chair (from any project under the Helm org)
-      * 4 Representatives from the Helm core project
-      * 2 Representatives from the Charts project
-      * 2 Representatives from another Helm project
+* There will be between 3 and 9 people.
 * Any project maintainer is eligible for a position as an org maintainer
 * No one company or organization can employ a simple majority of the org maintainers
 * An org maintainer may step down by emailing the org maintainers mailing list. Within 7 calendar days the [helm mailing list](https://lists.cncf.io/g/cncf-helm) needs to be notified of the change
@@ -77,6 +56,18 @@ Changes to org maintainers use the following:
 * When an org maintainer steps down, they become an emeritus maintainer
 
 Once an org maintainer is elected, they remain a maintainer until stepping down (or, in rare cases, are removed). Voting for new maintainers occurs when necessary to fill vacancies. Any existing project maintainer is eligible to become an org maintainer.
+
+The Org Maintainers will select a chair to set agendas and call meetings of the Org Maintainers.
+
+#### Initial Org Maintainers Selection
+
+To ensure diverse representation in the initial selection of Org Maintainers from all areas of the Helm org, the breakdown of Helm Org Maintainers group will be as follows:
+
+* 3 Representatives from the Helm core project
+* 2 Representative from the Charts project
+* 2 Representatives from another Helm project
+
+This accounts for a total of 7 initial Org Maintainers.
 
 ### Project Maintainers
 
