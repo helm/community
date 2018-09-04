@@ -25,7 +25,7 @@ We recommend that you work on existing [issues] before attempting
 to develop a new feature.
 
 Find an existing issue (e.g. one marked [starter], or simply
-ask an [owner](https://github.com/kubernetes/helm/tree/master/OWNERS.md) for suggestions), and respond on the
+ask an [owner](https://github.com/kubernetes/helm/blob/master/OWNERS) for suggestions), and respond on the
 issue thread expressing interest in working on it. 
  
 This helps other people know that the issue is active, and
