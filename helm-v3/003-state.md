@@ -62,7 +62,7 @@ top-level metadata about a release.
 At minimum, there are two necessary pieces of data a Release must track:
 
 - The name of the release
-- The curretly deployed version (release version Secret) of this release
+- The currently deployed version (release version Secret) of this release
 
 The release object persists for the duration of an application lifecycle, and is
 the owner of all release version Secrets, as well as of all objects that are
