@@ -26,20 +26,21 @@ to develop a new feature.
 
 Find an existing issue (e.g. one marked [starter], or simply
 ask an [owner](https://github.com/kubernetes/helm/blob/master/OWNERS) for suggestions), and respond on the
-issue thread expressing interest in working on it. 
- 
+issue thread expressing interest in working on it.
+
 This helps other people know that the issue is active, and
 hopefully prevents duplicated efforts.
 
-Before submitting a pull request, sign the [CLA].
+Each commit must be signed off in git, as described by
+[the article](https://www.helm.sh/blog/helm-dco/index.html)
+describing Helm's switch to DCO.
 
 If you want to work on a new idea of relatively small scope:
 
   1. Submit an issue describing your proposed change to the repo in question.
   1. The repo owners will respond to your issue promptly.
   1. If your proposed change is accepted,
-     sign the [CLA],
-     and start work in your fork.
+     start work in your fork, signing off each commit as described above
   1. Submit a [pull request] containing a tested change.
 
 
