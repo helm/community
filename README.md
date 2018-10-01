@@ -31,16 +31,16 @@ issue thread expressing interest in working on it.
 This helps other people know that the issue is active, and
 hopefully prevents duplicated efforts.
 
-Each commit must be signed in git, as described by
+Each commit must be signed off in git, as described by
 [the article](https://www.helm.sh/blog/helm-dco/index.html)
-describing helm's switch to DCO.
+describing Helm's switch to DCO.
 
 If you want to work on a new idea of relatively small scope:
 
   1. Submit an issue describing your proposed change to the repo in question.
   1. The repo owners will respond to your issue promptly.
   1. If your proposed change is accepted,
-     start work in your fork, signing each commit as described above
+     start work in your fork, signing off each commit as described above
   1. Submit a [pull request] containing a tested change.
 
 
