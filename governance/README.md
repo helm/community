@@ -10,6 +10,8 @@ The Helm governance details areas such as:
 
 For the full detail on the Helm governance see the document [governance.md](governance.md).
 
+The Helm Org Maintainers are documented in [the community repo Maintainers file](../MAINTAINERS.md).
+
 ## Projects
 
 The Helm governance refers to projects for the Helm project. The following Helm
