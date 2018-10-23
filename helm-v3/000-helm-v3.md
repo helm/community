@@ -79,7 +79,7 @@ Other changes to commands are described in their relevant sections within this d
 4.  [Hooks](./004-hooks.md)
 5.  [Plugins](./005-plugins.md)
 6.  [Repositories](./006-repositories.md)
-7.  [Security Considerations](./007-security.md)
+7.  [Security](./007-security.md)
 8.  [Appendix A: A Helm Controller](./008-controller.md)
 9.  [Appendix B: What Is A Package Manager](./009-package_manager.md)
 10. [Appendix C: Removed Sections](010-removed.md)
