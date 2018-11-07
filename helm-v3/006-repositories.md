@@ -1,40 +1,177 @@
 # Repositories
 
-The following changes will be made to the repository subsystem:
+The following major changes will be made as it relates to working with
+chart repositories in Helm 3:
 
+- A new Capabilities API will be introduced that will allow users to
+opt-in to certain repository functionality
+- A new `helm login` command will be added for authenticating against a
+repository provider
+- A new `helm push` command will be added for pushing charts to a
+repository
 - The `helm serve` command will be removed
-- A new `helm push` verb will be added for pushing charts to a repository
-- The index file will be JSON instead of YAML
+- A repository v2 specification will be defined, and the index file will be
+JSON (`index.json` vs `index.yaml`)
 
-> This document is in-progress and needs input from Chart Museum.
+## Capabilities API
 
-## Pushing Charts To A Repository
+The Capabilties API is designed to provide Helm with information such as:
 
-Several registries have emerged with support for Helm charts including
-ChartMuseum and Quay (via Application Registries) along with extras built on
-top of other systems, such as object storage (e.g., see the [S3
-Plugin](https://github.com/hypnoglow/helm-s3)). These registries are asking for
-and could benefit from a capability to push packages from the Helm client.
+1. Does this domain support actions such as login or push?
+2. What supported method should the client use to perform a specific action?
+3. What metadata does the client need to initiate the action?
 
-To support registries there will be a `helm push` command that works in a
-similar manner to `helm fetch`. It will support different systems via the
-URI/URL scheme and provide a default implementation for HTTP(S). Other systems,
-such as S3, can implement an uploader via a plugin for schemes Helm does not
-provide an implementation for.
+This will allow Helm to support any number of things in the future related
+to repositories without making breaking changes (e.g. remote `helm search`).
 
-> [name=Matt Farina] There very well may be additional work here around
-> registry search and pluggable or otherwise extendable authenication
-> mechanisms.
-> 
-> [name=Adnan Abdulhussein] What would the default HTTP(S) implementation be?
-> [name=Matt Fisher] Adnan, would you mind clarifying your comment a little?
-> 
-> [name=Adnan Abdulhussein] Sorry, the proposal mentions there will be a
-> default implemention for `helm push` to a regular HTTP(S) chart repository.
-> It's unclear to me how this would actually work.
-> 
-> [name=Adnan Abdulhussein] Sounds like this is something that will be fleshed
-> out more in Josh's proposal, so I'll wait for that :)
+### `/.well-known/helm`
+
+The Capabilities API will be enabled for a specific domain via
+[Well-Known URI](https://tools.ietf.org/html/rfc5785) located at
+`/.well-known/helm`.
+
+*Note: This file may also serve to provide configuration for other APIs
+in the future by supplying an additional top-level section.*
+
+The response body should be valid JSON and should supply a valid,
+top-level `capabilities` section. For example:
+
+```
+{
+    "capabilities": {
+        "login": {
+            ...
+        },
+        "push": {
+            ...
+        },
+        "search": {
+            ...
+        }
+    }
+}
+```
+
+Each subsection (i.e. `login`, `push`, `search`) will provide configuration
+specific to the capabiltity.
+
+For example, the following might inform Helm that this domain only
+accepts token-based login:
+
+```
+...
+        "login": {
+            "methods": {
+                "token": {
+                    "loginUrl": "https://auth.site.com/oauth2/authorize",
+                    "tokenUrl": "https://auth.site.com/oauth2/token"
+                }
+            }
+        }
+...
+```
+
+## The `helm login` command
+
+A new `helm login` command will be added to Helm, responsible for
+managing authentication across repository providers.
+
+The basic usage will be:
+
+```
+helm login <url>
+```
+
+This command is intended to allow users to authenticate just one time in
+order to access multiple repositories provided by the same source. 
+
+Afterwards, running a `helm repo add` pointing to any repository URL
+tied to a provider that has been successfully authenticated against will
+not require additional credentials.
+
+The exact semantics are TBD, but several auth methods will be supported,
+such as:
+
+* Basic Auth
+* Cert based Auth
+* Token/Bearer Auth
+
+### Storing Credentials
+
+Credentials obtained via `helm login` will be stored in a new `providers`
+section in `$HELM_HOME/repository/repositories.yaml`.
+
+For all provider entries, the following field is required:
+* `domain` - the FQDN of the original URL specified during `helm login`
+
+Other fields will be stored based on the authentication method used.
+
+The following example shows a snippet of  what `repositories.yaml` might
+look like with a `providers` section:
+```
+apiVersion: v1
+generated: 2018-10-25T17:02:41.478448894-05:00
+providers:
+- domain: site.com
+  realm: https://site.com/oauth2/helm
+  expires: 2018-10-26T17:02:41.478448894-05:00
+  accessToken: MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3
+  refreshToken: IwOGYzYTlmM2YxOTQ5MGE3YmNmMDFkNTVk
+repositories:
+...
+```
+
+## The `helm push` command
+
+A new `helm push` command will be added to Helm, responsible for uploading
+chart versions to a repository.
+
+The basic usage will be:
+
+```
+helm push <chart> <repo>
+```
+
+The exact semantics of this command are still TBD.
+
+
+The most basic push method supported is referred to as `http`, and should be
+present in `capabilities` in order for push to be enabled:
+
+```
+...
+        "push": {
+            "methods": {
+                "http": {
+                    "method": "POST",
+                    "path": "/api/charts"
+                }
+            }
+        }
+...
+```
+
+The `"path"` field above can include templating against a limited set of chart
+metatdata in order to support dynamic URLs, such as:
+
+```
+/helm/v1/repo/_blobs/${name}-${version}.tgz
+```
+
+## Removal of `helm serve`
+
+The `helm serve` command will be removed in Helm v3.
+
+This command started a simple webserver that provided a static repository index
+based on a local directory of chart packages.
+
+However, the majority of users hosting a static repository have done so by
+uploading an index file and corresponding chart packages to some cloud storage
+location accessible over HTTP, such as Amazon S3 or GitHub pages.
+
+For users that wish to run a webserver for hosting a dynamic repository, the
+Helm subproject [ChartMuseum](https://github.com/helm/chartmuseum) will be
+maintained to provide this functionality.
 
 ## Repository v2 Specification
 
