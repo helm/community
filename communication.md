@@ -40,6 +40,7 @@ We have PUBLIC [weekly meeting] every Thursday at 9:30am US Pacific Time.
 
 Map that to your local time with this [timezone table].
 
+We keep notes from each meeting on this [document](https://docs.google.com/document/d/1d-6xJEx0C78csIYSPKJzRPeWaHG_8W1Hjl72OJggwdc/edit?usp=sharing) for summaries of standups, discussion, and action items.
 ## Conferences
 
 Helm is one of the projects, represented at CloudNativeCon/KubeCon, held three times per year in Europe, Asia and North America. Information about these and other community events is available on the CNCF [events] pages.
