@@ -97,31 +97,6 @@ such as:
 * Token/Bearer Auth (with token refresh)
 * Two-Factor Auth
 
-### Storing Credentials
-
-Credentials obtained via `helm login` will be stored in a new `providers`
-section in `$HELM_HOME/repository/repositories.yaml`.
-
-For all provider entries, the following field is required:
-* `domain` - the FQDN of the original URL specified during `helm login`
-
-Other fields will be stored based on the authentication method used.
-
-The following example shows a snippet of  what `repositories.yaml` might
-look like with a `providers` section:
-```
-apiVersion: v1
-generated: 2018-10-25T17:02:41.478448894-05:00
-providers:
-- domain: site.com
-  realm: https://site.com/oauth2/helm
-  expires: 2018-10-26T17:02:41.478448894-05:00
-  accessToken: MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3
-  refreshToken: IwOGYzYTlmM2YxOTQ5MGE3YmNmMDFkNTVk
-repositories:
-...
-```
-
 ## The `helm push` command
 
 A new `helm push` command will be added to Helm, responsible for uploading
