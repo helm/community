@@ -94,7 +94,8 @@ such as:
 
 * Basic Auth
 * Cert based Auth
-* Token/Bearer Auth
+* Token/Bearer Auth (with token refresh)
+* Two-Factor Auth
 
 ### Storing Credentials
 
