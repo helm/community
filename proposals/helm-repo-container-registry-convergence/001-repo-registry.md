@@ -1,6 +1,6 @@
 # Proposal 1 - Container Registries provide Helm Repositories
 
-As Helm Charts are designed around the intention of deploying images, it's a natural evolution to store Helm Charts in registries, alongside the images they reference. 
+As Helm Charts are designed around the intention of deploying images, it's a natural evolution to store Helm Charts in registries, alongside the images they reference. By aligning charts within a registry, registry vendors can extend the auth infrastructure to provide a common means to authenticate charts and the referenced images, as well as provide a common UI for search, discovery and additional meta-data. 
 
 As Helm is evolving as the defacto deployment technology, it's believed it's time to evolve registries to support additional artifacts, such as Helm Charts.
 

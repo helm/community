@@ -1,4 +1,4 @@
-# `helm update` & `helm install` support remote urls
+# `helm update` & `helm install` natively support remote urls
 
 Deploying a helm chart from a remote URL is supported today, however the repo must be specified as a parameter.
 ```sh

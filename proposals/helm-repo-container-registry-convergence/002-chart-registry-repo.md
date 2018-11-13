@@ -1,5 +1,5 @@
 ## Helm Charts Align With Registry Repositories
-Container images are referneced with a multi-part URL:
+Container images are referenced with a multi-part URL:
 
 - [**login url**] / [**namespace**] / [**repo**] : [**tag**]
 - [**namespace**] / [**repo**] : [**tag** ] are equally referred to as an "image"
@@ -17,7 +17,12 @@ Different clouds implement the unique login url in a few different forms, while 
 1. Docker Hub [**org**\|**user** ] is a [**namespace**] which is currently limted to two nodes.  
   *The [Microsoft Container Registry (mcr)](mcr.microsoft.com) has implemented a syndicated catalog representing a product hierarchy within the docker store, and looks for Docker to expand this for other partners with deep image catalogs.*
 
-## Helm References
+### Helm References
 
 Proposal aligns Helm Charts with the same referencing scheme:
 - [**login url**] / [**namespace**] / [**chart**] : [**version/tag**]
+
+### Immutable Tags and Channels
+A good discussion on the benefits of immutable tags and stable channels provide the ability for a chart owner to flight a pending update to a stable tag. 
+
+As these are seen as better together, no mutually exclusive, I'd suggest another proposal for adding channel support. 
