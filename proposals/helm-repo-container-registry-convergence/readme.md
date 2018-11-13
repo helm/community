@@ -21,7 +21,7 @@ The proposal covers the following:
     With all the good and evil of "latest" and "stable" tags and versions.
 7. [Local Helm Store becomes a cache](./007-helm-store-cache.md)  
   aligning more with docker run, intermittently does pulls, avoiding the need to continually call `helm repo add`
-8. [`helm search` becomes a server side query](./008-helm-search-server-query.md)  
+8. [`helm search` becomes a server side query](./008-helm-search-server.md)  
   Further converging the local Helm store as a remote cache
 
 ## Background
