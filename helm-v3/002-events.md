@@ -65,7 +65,7 @@ reasons:
   inside of the chart.
 
 
-Lua scripts are stored in a chart's `ext/lua` folder. The `ext/lua.chart.lua` file
+Lua scripts are stored in a chart's `ext/lua` folder. The `ext/lua/chart.lua` file
 is loaded automatically along with the chart, and it may `require()` in other
 Lua scripts.
 
