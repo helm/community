@@ -66,7 +66,7 @@ There are a few major (breaking) changes to the Helm CLI planned:
 - `helm install` will _require_ a name, unless `--generate-name` is specified. This
   inverts the default behavior for Helm 2.
 - `helm serve` and `helm reset` will be removed
-- `helm delete` will be renamed to `helm remove`, though `helm delete` will remain an alias.
+- `helm delete` will be renamed to ~`helm remove`~ `helm uninstall`, though `helm delete` will remain an alias.
 - `helm inspect` will be renamed `helm show`, though `helm inspect` will remain as an alias.
 
 Other changes to commands are described in their relevant sections within this document.
