@@ -9,6 +9,10 @@ The following changes are proposed to the existing chart format:
 - Library charts
 - Schemata for values files
 
+The following changes are proposed to the way charts will be referenced:
+
+- The `--version` flag will be replaced by a new version reference system based on Docker
+
 ## The ext/ directory
 
 The `ext/` directory is a reserved directory in v3 charts. It is reserved for
@@ -215,3 +219,43 @@ This can be schematized into something like this:
 In many cases, the base types in a YAML file can be used to derive a base
 schema. Thus it may be desirable to automatically derive schemata if they are
 not supplied.
+
+## Version Reference System
+
+In order to make things look and feel more like Docker, which many people have become comfortable with,
+the `--version` flag will be removed on all subcommands (with the exception of `helm package`).
+
+Referencing a specific chart version can be achieved using a new version reference system.
+Very simply, a chart version can be specified using `NAME[:VERSION]`.
+
+The following commands in Helm 2:
+
+```
+helm fetch stable/hackmd --version 0.1.0
+helm search stable/hackmd --version 0.1.0
+helm inspect stable/hackmd --version 0.1.0
+helm install stable/hackmd --version 0.1.0
+helm upgrade hackmd stable/hackmd --version 0.1.0
+```
+
+Will instead look like the following in Helm 3:
+
+```
+helm fetch stable/hackmd:0.1.0
+helm search stable/hackmd:0.1.0
+helm inspect stable/hackmd:0.1.0
+helm install stable/hackmd:0.1.0
+helm upgrade hackmd stable/hackmd:0.1.0
+```
+
+If no version is specified, the latest stable semantically-versioned chart in the repository will be used by default
+(same as it works in Helm 2).
+
+Immutability, or "releases" as defined by
+[App Registry](https://github.com/app-registry/appr/blob/master/Documentation/quick-start.md),
+can be added at a later date without introducing any breaking changes by updating the version reference system to
+accept additional characters (e.g. `@1.0.0`).
+
+*Note: this change does not imply a change to the underlying repository system, only to the way versions
+can be specified on the command-line.
+Please see the [Repositories](./006-repositories.md) page for changes related to chart repositories.*
