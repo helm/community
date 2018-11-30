@@ -241,7 +241,7 @@ helm upgrade hackmd stable/hackmd --version 0.1.0
 Will instead look like the following in Helm 3:
 
 ```
-helm fetch stable/hackmd:0.1.0
+helm pull stable/hackmd:0.1.0
 helm search stable/hackmd:0.1.0
 helm inspect stable/hackmd:0.1.0
 helm install stable/hackmd:0.1.0
