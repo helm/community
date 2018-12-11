@@ -9,6 +9,12 @@ This is the starting point for becoming a contributor to the Helm project - impr
 The [communication](communication.md) page lists communication channels like chat,
 issues, mailing lists, conferences, etc.
 
+## Meetings
+
+The Helm community holds regular public meetings, including those supporting Helm
+client development and charts. You can [view the calendar of meetings](https://calendar.google.com/calendar/embed?src=s5anaqbm9kda435dnh5r8lj1l8%40group.calendar.google.com&ctz=America%2FLos_Angeles)
+and [subscribe via an ical](https://calendar.google.com/calendar/ical/s5anaqbm9kda435dnh5r8lj1l8%40group.calendar.google.com/public/basic.ics) feed.
+
 ## How Can I Help?
 
 Documentation (like the text you are reading now) can
