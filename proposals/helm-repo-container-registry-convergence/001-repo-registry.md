@@ -6,15 +6,15 @@ As Helm is evolving as the defacto deployment technology, it's believed it's tim
 
 
 For registries to support Helm Charts, a few changes are proposed
-1. [Helm Charts align with registry repositories](./002-chart-registry-repo.md)  
+- [Proposal 2 - Helm Charts align with registry repositories](./002-chart-registry-repo.md)  
   enabling fully qualified charts
-1. [Helm Charts use registry authentication](./003-chart-authentication.md)  
-1. [Helm Chart Versions merge with docker tags](./006-helm-version-tags.md)   
+- [Proposal 3 - Helm Charts use registry authentication](./003-chart-authentication.md)  
+- [Proposal 6 - Helm Chart Versions merge with docker tags](./006-helm-version-tags.md)   
     With all the good and evil of "latest" and "stable" tags and versions.
-1. [Local Helm Store becomes a cache](./007-helm-store-cache.md)  
-  aligning more with docker run, intermittently does pulls, avoiding the need to continually call `helm repo add`
-1. [`helm search` becomes a server side query](./008-helm-search-server-query.md)  
-  Further converging the local Helm store as a remote cache
+- [Proposal 7 - Local Helm Store becomes a cache](./007-helm-store-cache.md)  
+  aligning with docker run, avoiding the need to call `helm repo add` or `helm repo update`
+- [Proposal 8 - `helm search` becomes a server side query](./008-helm-search-server-query.md)  
+  Further aiding discovery
 
 
 ## Converging with Registries
@@ -28,6 +28,6 @@ Delivering images at cloud scale requires a number of enhancements including:
 
 The evolution and implementation required to deliver Image Manifests and images at cloud scale are a super-set of the needs to deliver charts at cloud scale. 
 
-## Upstream Support to Docker Distribution 
+## Upstream Support to OCI Distribution 
 
-Proposal to commit upstream changes to [docker distribution](https://github.com/docker/distribution) to enable all implementors of the upstream project to easily adopt Helm Repositories. 
+Work has begun with OCI distribution, standardizing registries to store generic artifact types. The OCI working proposal presumes a mimeType is defined, allowing any artifact type to be pushed to a registry. By moving to this model, Helm can use a registry as a generic artifact store, targeting any OCI compliant registry. Assuming all cloud providers move to OCI, a helm user, with the standard `helm` client could push & pull images to **acr**, **docker hub**, **ecr**8*, **gcr**, **harbor**, **quay** and others.

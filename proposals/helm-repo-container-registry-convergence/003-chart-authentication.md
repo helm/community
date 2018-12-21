@@ -1,14 +1,15 @@
 # Helm Charts Use Registry Authentication
 
-Enabling a registry to assign a user/group/service account access to one or more chart and image repositories
+The helm client will be extended to natively support authenticating to an OCI compliant registry. By leveraging registry authentication, a user/group/service account access to one or more chart and image repositories.
 
-Client authentication is cached, similar to docker credentials, but doesn't depend on docker locally installed
+The helm client authentication is cached, similar to docker credentials, but doesn't depend on docker locally installed. This allows a user, or a headless service, to authenticate with the registry, performing `pull`, `push` and `upgrade` commands. 
 
 ## Helm CLI Integrated
-Different cloud providers have different methods of authentication. However, this creates a disjointed experience requiring the user to use the clouds CLI and tool CLI. 
-The proposed goal here is to enable a common authentication model that doesn't require additional plug-ins.
+Different cloud providers have different methods of authentication. However, this creates a disjointed experience requiring the user to use the clouds CLI. 
 
-It's intended to support a common API on Helm Chart repositories to support:
+The proposal enables a common authentication model that doesn't require additional plug-ins or cloud specifc helm clis: `az acr helm repo add -n demo42`
+
+The proposal intendes to leverage OCI authentication, including:
 
 - Basic Auth
 - Token Auth

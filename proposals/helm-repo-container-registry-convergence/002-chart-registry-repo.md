@@ -19,10 +19,17 @@ Different clouds implement the unique login url in a few different forms, while 
 
 ### Helm References
 
-Proposal aligns Helm Charts with the same referencing scheme:
+This proposal aligns Helm Charts with the same referencing scheme:
 - [**login url**] / [**namespace**] / [**chart**] : [**version/tag**]
+
+A user could then execute the following commands: 
+- `helm login demo42.azurecr.io -u $USER -p $PWD`
+- `helm push demo42.azurecr.io/marketing/shoes ./superbowl --version 1.0`
+- `helm pull demo42.azurecr.io/marketing/shoes/superbowl:1.0`
+- `helm upgrade superbowl-campaign demo42.azurecr.io/marketing/shoes/superbowl:1.0 --reuse values --set webui=demo42.azurecr.io/marketing/shoes/superbowl:a3nf`
+
 
 ### Immutable Tags and Channels
 A good discussion on the benefits of immutable tags and stable channels provide the ability for a chart owner to flight a pending update to a stable tag. 
 
-As these are seen as better together, no mutually exclusive, I'd suggest another proposal for adding channel support. 
+As these are seen as better together, no mutually exclusive, a separate OCI proposal will be tracked for supporting Channels across images, helm charts and other evolving artifact types, such as [CNAB](https://cnab.io)

@@ -17,4 +17,3 @@ Each cloud/vendor has implemented authentication. Each cloud/vendor has search/i
 
 The ability to list artifacts based on the users permission set is no different for searching images or charts. 
 
-
