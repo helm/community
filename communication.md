@@ -11,14 +11,13 @@ The Helm community abides by the [CNCF code of conduct].  Here is an excerpt:
 ## Social Media
 
 * [Twitter]
-* Pose questions and help answer them on [Slack][slack.k8s.io] or [Stack Overflow].
+* Pose questions and help answer them on [Slack] or [Stack Overflow].
 
 ## Slack
 
-Most real time discussion happens at #helm-users on [kubernetes.slack.com];
-you can sign up at [slack.k8s.io].
+Most real time discussion happens at [#helm-users](https://kubernetes.slack.com/messages/C0NH30761).
 
-There is also a #helm-dev channel for discussing development of Helm.
+There is also a [#helm-dev](https://kubernetes.slack.com/messages/C51E88VDG) channel for discussing development of Helm.
  
 Discussions on these channels are archived at [kubernetes.slackarchive.io].
 
@@ -34,13 +33,18 @@ for information on how to [file an issue] if you think you have found a bug or h
 Development announcements and discussions appear on the Helm mailing list
 [cncf-helm] (send mail to `cncf-helm@lists.cncf.io`).
 
-## Weekly Meeting
+## Meetings
 
-We have PUBLIC [weekly meeting] every Thursday at 9:30am US Pacific Time.
+The Helm community holds regular public meetings, including those supporting Helm
+client development and charts. You can [view the calendar of meetings](https://calendar.google.com/calendar/embed?src=s5anaqbm9kda435dnh5r8lj1l8%40group.calendar.google.com&ctz=America%2FLos_Angeles)
+and [subscribe via an ical](https://calendar.google.com/calendar/ical/s5anaqbm9kda435dnh5r8lj1l8%40group.calendar.google.com/public/basic.ics) feed.
+
+We [weekly development meeting] every Thursday at 9:30am US Pacific Time and all are welcome.
 
 Map that to your local time with this [timezone table].
 
 We keep notes from each meeting on this [document](https://docs.google.com/document/d/1d-6xJEx0C78csIYSPKJzRPeWaHG_8W1Hjl72OJggwdc/edit?usp=sharing) for summaries of standups, discussion, and action items.
+
 ## Conferences
 
 Helm is one of the projects, represented at CloudNativeCon/KubeCon, held three times per year in Europe, Asia and North America. Information about these and other community events is available on the CNCF [events] pages.
@@ -51,15 +55,14 @@ edition of which has happened in Portland, Oregon in February 2018.
 [CNCF code of conduct]: https://github.com/cncf/foundation/blob/master/code-of-conduct.md
 [cncf-helm]: https://lists.cncf.io/g/cncf-helm/topics
 [events]: https://www.cncf.io/events/
-[file an issue]: https://github.com/kubernetes/helm/issues/new
+[file an issue]: https://github.com/helm/helm/issues/new
 [kubernetes-sig-apps]: https://groups.google.com/forum/#!forum/kubernetes-sig-apps
 [kubernetes.slackarchive.io]: http://kubernetes.slackarchive.io
-[kubernetes.slack.com]: http://kubernetes.slack.com
+[Slack]: http://kubernetes.slack.com
 [Helm Summit]: https://helmsummitpdx-feb2018.splashthat.com/
-[slack.k8s.io]: http://slack.k8s.io
 [Stack Overflow]: http://stackoverflow.com/questions/tagged/kubernetes-helm
 [timezone table]: https://www.google.com/search?q=0930+am+in+pst
 [Twitter]: https://twitter.com/helmpack
-[weekly meeting]: https://zoom.us/j/4526666954
+[weekly development meeting]: https://zoom.us/j/696660622
 [SIGs]: https://github.com/kubernetes/community/blob/master/sig-list.md
 [SIG-Apps]: https://github.com/kubernetes/community/tree/master/sig-apps
