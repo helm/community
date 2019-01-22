@@ -57,7 +57,7 @@ edition of which has happened in Portland, Oregon in February 2018.
 [kubernetes.slack.com]: http://kubernetes.slack.com
 [Helm Summit]: https://helmsummitpdx-feb2018.splashthat.com/
 [slack.k8s.io]: http://slack.k8s.io
-[Stack Overflow]: http://stackoverflow.com/questions/tagged/kubernetes
+[Stack Overflow]: http://stackoverflow.com/questions/tagged/kubernetes-helm
 [timezone table]: https://www.google.com/search?q=0930+am+in+pst
 [Twitter]: https://twitter.com/helmpack
 [weekly meeting]: https://zoom.us/j/4526666954
