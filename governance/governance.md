@@ -71,7 +71,7 @@ This accounts for a total of 7 initial Org Maintainers.
 
 ### Project Maintainers
 
-Project maintainers are responsible for activities surrounding the development and release of code and the operation of any services they own (e.g., the documentation site). Technical decisions for code resides with the project maintainers unless there is a decision related to cross maintainer groups that cannot be resolved by those groups. Those cases can be escalated to the project maintainers.
+Project maintainers are responsible for activities surrounding the development and release of code and the operation of any services they own (e.g., the documentation site). Technical decisions for code resides with the project maintainers unless there is a decision related to cross maintainer groups that cannot be resolved by those groups. Those cases can be escalated to the org maintainers.
 
 In some cases a groups of maintainers are responsible for more than one repo (e.g., charts maintainers managing the charts, chart-testing, charts-tooling). In other cases the maintainers are responsible for a single project (e.g., chartmuseum or monocular).
 
@@ -86,7 +86,7 @@ Changes to maintainers use the following:
 
 ## Decision Making at the Helm org level
 
-When maintainers need to make a decisions there are two ways decisions are made, unless described elsewhere.
+When maintainers need to make decisions there are two ways decisions are made, unless described elsewhere.
 
 The default decision making process is [lazy-consensus](http://communitymgt.wikia.com/wiki/Lazy_consensus). This means that any decision is considered supported by the team making it as long as no one objects. Silence on any consensus decision is implicit agreement and equivalent to explicit agreement. Explicit agreement may be stated at will.
 
