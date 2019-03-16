@@ -39,7 +39,7 @@ The Helm community holds regular public meetings, including those supporting Hel
 client development and charts. You can [view the calendar of meetings](https://calendar.google.com/calendar/embed?src=s5anaqbm9kda435dnh5r8lj1l8%40group.calendar.google.com&ctz=America%2FLos_Angeles)
 and [subscribe via an ical](https://calendar.google.com/calendar/ical/s5anaqbm9kda435dnh5r8lj1l8%40group.calendar.google.com/public/basic.ics) feed.
 
-We [weekly development meeting] every Thursday at 9:30am US Pacific Time and all are welcome.
+We have a [weekly development meeting] every Thursday at 9:30am US Pacific Time and all are welcome.
 
 Map that to your local time with this [timezone table].
 
