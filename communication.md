@@ -50,7 +50,7 @@ We keep notes from each meeting on this [document](https://docs.google.com/docum
 Helm is one of the projects, represented at CloudNativeCon/KubeCon, held three times per year in Europe, Asia and North America. Information about these and other community events is available on the CNCF [events] pages.
 
 Also, the Helm community organizes the Helm-focused event - [Helm Summit], first
-edition of which has happened in Portland, Oregon in February 2018.
+edition of which has happened in Portland, Oregon in February 2018. Our next Europe event will be in Amsterdam on September 11-12, 2019 – details to come.
 
 [CNCF code of conduct]: https://github.com/cncf/foundation/blob/master/code-of-conduct.md
 [cncf-helm]: https://lists.cncf.io/g/cncf-helm/topics
