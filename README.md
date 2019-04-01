@@ -13,6 +13,7 @@ issues, mailing lists, meetings, conferences, etc.
 
 First, you should join our communication forums:
 
+- Follow us on [Twitter](communication.md#social-media)
 - Join us on [Slack](communication.md#slack)
 - Subscribe to our [mailing lists](communication.md#mailing-lists)
 - Join the [weekly meeting](communication.md#meetings) 
