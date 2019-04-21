@@ -39,14 +39,14 @@ Areas you can start working on:
 - Documentation (like the text you are reading now) can always use improvement!
 - We can always do with more test coverage.
 - Review open PRs. Add comments, feedback or give a LGTM!
-- Try out some easy-to-fix bugs which may be marked with the [starter] tag
+- Try out some easy-to-fix bugs which may be marked with the [good first issue] tag
 - Just ask an [owner] for suggestions.
 
 ## Your First Contribution
 
 We recommend that you work on existing [issues] before attempting to develop a new feature.
 
-Find an existing issue (e.g. one marked [starter], or simply ask an [owner] for suggestions),
+Find an existing issue (e.g. one marked [good first issue], or simply ask an [owner] for suggestions),
 and respond on the issue thread expressing interest in working on it.
 
 This helps other people know that the issue is active, and hopefully prevents duplicated efforts.
@@ -63,7 +63,7 @@ If you want to work on a new idea of relatively small scope:
   1. Submit a [pull request] containing a tested change.
 
 
-[starter]: https://github.com/helm/helm/issues?utf8=%E2%9C%93&q=is%3Aopen%20is%3Aissue%20label%3Astarter
+[good first issue]: https://github.com/helm/helm/issues?utf8=%E2%9C%93&q=is%3Aopen%20is%3Aissue%20label%3A%22good+first+issue%22
 [issues]: https://github.com/helm/helm/issues
 [pull request]: https://github.com/helm/helm/blob/master/CONTRIBUTING.md#pull-requests
 [owner]: https://github.com/kubernetes/helm/blob/master/OWNERS

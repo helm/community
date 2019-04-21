@@ -95,7 +95,7 @@ Core maintainers take turns triaging the issue queue. The responsibilities of a 
   - Feature requests are tagged `feature`
   - The "default" is to tag an issue as a `question/support`
   - Anything having to do with docs are tagged `docs`
-  - If the fix is simple (<10 lines of code), tag it `starter`
+  - If the fix is simple (<10 lines of code), tag it `good first issue`
   - If a feature is deemed a Good Idea (TM), but not something we're likely to do in the near future, label it `help wanted`
 - Question/Support
   - This basically means that we expect ongoing discussion
