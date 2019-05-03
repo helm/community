@@ -15,7 +15,7 @@ The Helm community abides by the [CNCF code of conduct].  Here is an excerpt:
 
 ## Slack
 
-Most real time discussion happens at [#helm-users](https://kubernetes.slack.com/messages/C0NH30761).
+Most real time discussion happens at [#helm-users](https://kubernetes.slack.com/messages/C0NH30761) and [#charts](https://kubernetes.slack.com/messages/C6E3XH1ED).
 
 There is also a [#helm-dev](https://kubernetes.slack.com/messages/C51E88VDG) channel for discussing development of Helm.
  
