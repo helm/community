@@ -11,14 +11,14 @@ issues, mailing lists, meetings, conferences, etc.
 
 ## How Can I Help?
 
-First, you should join our communication forums:
+#### First, you should join our communication forums:
 
 - Follow us on [Twitter](communication.md#social-media)
 - Join us on [Slack](communication.md#slack)
 - Subscribe to our [mailing lists](communication.md#mailing-lists)
 - Join the [weekly meeting](communication.md#meetings) 
 
-Next, get set-up with the basics (if not already done so):
+#### Next, get set-up with the basics (if not already done so):
 
 - [Documentation](https://docs.helm.sh/)
 - [Issues](https://github.com/helm/helm/issues)
@@ -41,6 +41,9 @@ Areas you can start working on:
 - Review open PRs. Add comments, feedback or give a LGTM!
 - Try out some easy-to-fix bugs which may be marked with the [good first issue] tag
 - Just ask an [owner] for suggestions.
+
+#### Last but not least, we'd love to know what you want to see on the [Helm Blog](https://helm.sh/blog).
+Feel free to submit a blog post topic [here](blog-topics.md).
 
 ## Your First Contribution
 
