@@ -29,9 +29,10 @@ Helm will add the following labels and annotations to each test Pod when the tes
 * Helm will add the following labels to each test pod when the test is run:
   * `helm.sh/release: <release-name>`
   * `helm.sh/release-version: <release-version>`
-  * `helm.sh/tested: <timestamp> `
+  * `helm.sh/test-artifact: true `
 * Helm will add the following annotations to each test pod when the test is run:
   * `helm.sh/test-result-success: <true/false>`
+  * `helm.sh/tested: <timestamp> `
 
 ## Outstanding questions/comments
 * Do we need `helm test results` ? and what should it store exactly?
