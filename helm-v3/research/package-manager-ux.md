@@ -16,20 +16,19 @@ In practice, this plays out as follows:
 - When working with Kubernetes-specific concepts (such as namespaces, pods, tunnels, etc.), Helm _should_ follow the patterns and practices of `kubectl` or other popular Kubernetes tools.
 - In more general circumstances, Helm _should_ follow the _de facto_ patterns found in contemporary Linux/UNIX tooling.
 
-Helm _should not_ follow the Plan9/Go patterns that are not broadly implemented in UNIX/Linux (e.g. `-long`). That Helm is implemented in Go does not _ipso facto_ mean that Helm must follow the opinions of a very small group of developers over the opinions of the vastly larger UNIX 
-community.
+Helm _should not_ follow the Plan9/Go patterns that are not broadly implemented in UNIX/Linux (e.g. `-long`). That Helm is implemented in Go does not _ipso facto_ mean that Helm must follow the opinions of a very small group of developers over the opinions of the vastly larger UNIX community.
 
 ## Package Managers and Their Characteristics
 
 The following table represents a summary of command line tooling for popular package managers. Package managers considered came in one of two types: _OS_ types install application/tool packages onto operating systems. _Lang_ types install language-specific packages (lirbaries, tools) into appropriate environments.
 
-| Tool     | Type | Cmd | Install | Upgrade        | Delete       | Create | Repo Update | Search           | About Pkg      |
+| Tool     | Type | Cmd    | Install | Upgrade        | Delete       | Create | Repo Update | Search           | About Pkg      |
 | ----     | ---- | ------ | ------- | -------        | ------       | ------ | ----------- | ------           | ---------      |
 | apt-get  | OS   | y      | install | upgrade        | remove       | -      | update      | apt-cache search | apt-cache show |
 | yum      | OS   | y      | install | update/upgrade | remove/erase | -      | -           | search           | info           |
 | brew     | OS   | y      | install | upgrade        | uninstall    | create | update      | search           | info           |
-| pacman   | OS   | n      | --sync  | --upgrade      | --remove     | -      | -           | --query          | --query        |
-| emerge   | OS   | n      | NONE    | NONE           | --unmerge    | -      | --sync      | --search         | --search       |
+| pacman   | OS   | n      | --sync  | --upgrade      | --remove     | -      | --refresh   | --query          | --query        |
+| emerge   | OS   | n      | -       | -              | --unmerge    | -      | --sync      | --search         | --search       |
 | choco    | OS   | y      | install | upgrade        | uninstall    | new    | ~update~    | search           | info           |
 | npm      | Lang | y      | install | update/upgrade | uninstall/rm | init/create | -      | search           | view/info/show |
 | pod      | Lang | y      | install | update         | -            | spec create | -      | search           | search         |
@@ -63,9 +62,11 @@ No notes
 
 ### Pacman
 
-Arch Linux uses `pacman`, which does not support subcommands.
+Arch Linux uses `pacman`, which uses options such as `--refresh` and `--sysupgrade` to change the behavior of its core commands (which are also specified as options).
 
-- `pacman` updates from remote repos as needed.
+Commands in `pacman` are usually given as short options (where capital letters represent the commands): for example, to perform a system upgrade, one will usually run `pacman -Syu`, which is short for `pacman --sync --refresh --sysupgrade`. (To only refresh the package database, one instead runs `pacman -Fy`, short for `pacman --files --refresh`.)
+
+- `pacman` updates from remote repos as needed (when specified to do so by the user, usually as part of a `--sync` installation/upgrade operation).
 - Search is multi-modal, being able to describe packages as well as listing them
 
 ### Emerge (Portage)
