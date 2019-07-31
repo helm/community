@@ -233,6 +233,7 @@ There are no defined hooks for this command
 - `pre-render`
 - `post-render`
 - `pre-install`
+- `post-install`
 
 #### pre-/post-render
 
@@ -275,6 +276,7 @@ _This is dependent on a possible re-architecting of `helm rollback` that will no
 - `pre-render`
 - `post-render`
 - `pre-rollback`
+- `post-rollback`
 
 The `pre-rollback` event fires after the post-render, and with the same context. This event only fires on rollback.
 
