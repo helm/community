@@ -1,6 +1,6 @@
 # Helm v3 User Stories
 
-This document lists [user stories](https://en.wikipedia.org/wiki/User_story) for the development of Helm's 3rd major version. The user stories here are not a complete set for Helm but those that build upon Helm 2. The stories are grouped by role as defined in the [User profiles](user-profiles.md).
+This document lists [user stories](https://en.wikipedia.org/wiki/User_story) for the development of Helm's 3rd major version. The user stories here are not a complete set for Helm but those that build upon Helm 2. The stories are grouped by role as defined in the [User profiles](../user-profiles.md).
 
 ## 1. Application Operator
 
