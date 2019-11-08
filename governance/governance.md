@@ -19,7 +19,7 @@ The services provided include:
 
 ## Maintainers Structure
 
-There are two levels of maintainers for Helm. The Helm org maintainers oversee the overall project and its health. Project maintainers focus on a single codebase or a group of related codebases. For example, the chart maintainers manage the charts repository and a few repositories that support charts. The Helm org maintainers are responsible for the overall health of the project while the project maintainers are responsible for maintaining the code.
+There are two levels of maintainers for Helm. The Helm org maintainers oversee the overall project and its health. Project maintainers focus on a single codebase, a group of related codebases, a service (e.g., a website), or project to support the other projects (e.g., marketing or community management). For example, the chart maintainers manage the charts repository and a few repositories that support charts.
 
 Changes in maintainership have to be announced on the [Helm mailing list](https://lists.cncf.io/g/cncf-helm).
 
@@ -71,7 +71,7 @@ This accounts for a total of 7 initial Org Maintainers.
 
 ### Project Maintainers
 
-Project maintainers are responsible for activities surrounding the development and release of code and the operation of any services they own (e.g., the documentation site). Technical decisions for code resides with the project maintainers unless there is a decision related to cross maintainer groups that cannot be resolved by those groups. Those cases can be escalated to the org maintainers.
+Project maintainers are responsible for activities surrounding the development and release of code, the operation of any services they own (e.g., the documentation site), or the tasks needed to execute their project (e.g., community management, setting up an event booth). Technical decisions for code resides with the project maintainers unless there is a decision related to cross maintainer groups that cannot be resolved by those groups. Those cases can be escalated to the org maintainers.
 
 In some cases a groups of maintainers are responsible for more than one repo (e.g., charts maintainers managing the charts, chart-testing, charts-tooling). In other cases the maintainers are responsible for a single project (e.g., chartmuseum or monocular).
 
