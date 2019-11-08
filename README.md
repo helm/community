@@ -9,6 +9,11 @@ This is the starting point for becoming a contributor to the Helm project - impr
 The [communication](communication.md) page lists communication channels like chat,
 issues, mailing lists, meetings, conferences, etc.
 
+## Assets
+
+- Official logos can be found at [cncf/artwork](https://github.com/cncf/artwork/blob/master/examples/incubating.md#helm-logos)
+- Website and docs are located at [helm/helm-www](https://github.com/helm/helm-www) 
+
 ## How Can I Help?
 
 #### First, you should join our communication forums:
