@@ -49,8 +49,8 @@ We keep notes from each meeting on this [document](https://docs.google.com/docum
 
 Helm is one of the projects, represented at CloudNativeCon/KubeCon, held three times per year in Europe, Asia and North America. Information about these and other community events is available on the CNCF [events] pages.
 
-Also, the Helm community organizes the Helm-focused event - [Helm Summit], first
-edition of which has happened in Portland, Oregon in February 2018. Our next Europe event will be in Amsterdam on September 11-12, 2019 – details to come.
+The Helm community also organizes the Helm-focused event - [Helm Summit], the [first
+edition] of which has happened in Portland, Oregon in February 2018. Our last Europe event was held in Amsterdam in September 2019 – watch the sessions on [YouTube].
 
 [CNCF code of conduct]: https://github.com/cncf/foundation/blob/master/code-of-conduct.md
 [cncf-helm]: https://lists.cncf.io/g/cncf-helm/topics
@@ -59,10 +59,12 @@ edition of which has happened in Portland, Oregon in February 2018. Our next Eur
 [kubernetes-sig-apps]: https://groups.google.com/forum/#!forum/kubernetes-sig-apps
 [kubernetes.slackarchive.io]: http://kubernetes.slackarchive.io
 [Slack]: http://kubernetes.slack.com
-[Helm Summit]: https://helmsummitpdx-feb2018.splashthat.com/
+[Helm Summit]: https://events19.linuxfoundation.org/events/helm-summit-2019
+[first edition]: https://helmsummitpdx-feb2018.splashthat.com
 [Stack Overflow]: http://stackoverflow.com/questions/tagged/kubernetes-helm
 [timezone table]: https://www.google.com/search?q=0930+am+in+pst
 [Twitter]: https://twitter.com/helmpack
 [weekly development meeting]: https://zoom.us/j/696660622
+[YouTube]: https://www.youtube.com/watch?v=7-PqgpkxC7E&list=PLj6h78yzYM2PpK5FD0sGHxGaaH-wj6fel
 [SIGs]: https://github.com/kubernetes/community/blob/master/sig-list.md
 [SIG-Apps]: https://github.com/kubernetes/community/tree/master/sig-apps
