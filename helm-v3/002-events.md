@@ -165,6 +165,8 @@ immutable. (The implementation of the function is informational pseudo-code, and
 > Options for subcharts: We can either collapse them into one top-level context or nest subcharts in a `charts = { context::new() }` way.
 > 
 
+> [name=Stuart P. Bentley]
+> As a Lua developer, I don't see any reason why immutable values should be specified as functions - it introduces an arbitrary distinction between access to mutable and immutable values, and I could still just clobber the function by assigning over it. If you want to enforce a read-only constraint on the immutable fields, the proper way to do it would be to use a table with a `__index` metamethod/table for the immutable values (and a `__newindex` metamethod to stop them from being overwritten).
 
 ## Events
 
