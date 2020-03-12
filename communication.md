@@ -45,6 +45,8 @@ Map that to your local time with this [timezone table].
 
 We keep notes from each meeting on this [document](https://docs.google.com/document/d/1d-6xJEx0C78csIYSPKJzRPeWaHG_8W1Hjl72OJggwdc/edit?usp=sharing) for summaries of standups, discussion, and action items.
 
+Videos are available on the [Helm Community Meetings playlist].
+
 ## Conferences
 
 Helm is one of the projects, represented at CloudNativeCon/KubeCon, held three times per year in Europe, Asia and North America. Information about these and other community events is available on the CNCF [events] pages.
@@ -64,5 +66,6 @@ edition of which has happened in Portland, Oregon in February 2018, [the second 
 [timezone table]: https://www.google.com/search?q=0930+am+in+pst
 [Twitter]: https://twitter.com/helmpack
 [weekly development meeting]: https://zoom.us/j/696660622
+[Helm Community Meetings playlist]: https://www.youtube.com/playlist?list=PLVt9l4b66d5EY5Xs9OVJgvO5ss9WzrSY0
 [SIGs]: https://github.com/kubernetes/community/blob/master/sig-list.md
 [SIG-Apps]: https://github.com/kubernetes/community/tree/master/sig-apps
