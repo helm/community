@@ -39,7 +39,7 @@ The Helm community holds regular public meetings, including those supporting Hel
 client development and charts. You can [view the calendar of meetings](https://calendar.google.com/calendar/embed?src=s5anaqbm9kda435dnh5r8lj1l8%40group.calendar.google.com&ctz=America%2FLos_Angeles)
 and [subscribe via an ical](https://calendar.google.com/calendar/ical/s5anaqbm9kda435dnh5r8lj1l8%40group.calendar.google.com/public/basic.ics) feed.
 
-We have a [weekly development meeting] every Thursday at 9:30am US Pacific Time and all are welcome.
+We have a [weekly development meeting] every Tuesday at 10:00am US Pacific Time and all are welcome.
 
 Map that to your local time with this [timezone table].
 
@@ -61,7 +61,7 @@ edition of which has happened in Portland, Oregon in February 2018, [the second 
 [Slack]: http://kubernetes.slack.com
 [Helm Summit]: https://helmsummitpdx-feb2018.splashthat.com/
 [Stack Overflow]: http://stackoverflow.com/questions/tagged/kubernetes-helm
-[timezone table]: https://www.google.com/search?q=0930+am+in+pst
+[timezone table]: https://www.google.com/search?q=1000+am+in+pst
 [Twitter]: https://twitter.com/helmpack
 [weekly development meeting]: https://zoom.us/j/696660622
 [SIGs]: https://github.com/kubernetes/community/blob/master/sig-list.md
