@@ -18,8 +18,6 @@ The Helm community abides by the [CNCF code of conduct].  Here is an excerpt:
 Most real time discussion happens at [#helm-users](https://kubernetes.slack.com/messages/C0NH30761) and [#charts](https://kubernetes.slack.com/messages/C6E3XH1ED).
 
 There is also a [#helm-dev](https://kubernetes.slack.com/messages/C51E88VDG) channel for discussing development of Helm.
- 
-Discussions on these channels are archived at [kubernetes.slackarchive.io].
 
 ## Issues
 
@@ -59,7 +57,6 @@ edition of which has happened in Portland, Oregon in February 2018, [the second 
 [events]: https://www.cncf.io/events/
 [file an issue]: https://github.com/helm/helm/issues/new
 [kubernetes-sig-apps]: https://groups.google.com/forum/#!forum/kubernetes-sig-apps
-[kubernetes.slackarchive.io]: http://kubernetes.slackarchive.io
 [Slack]: http://kubernetes.slack.com
 [Helm Summit]: https://helmsummitpdx-feb2018.splashthat.com/
 [Stack Overflow]: http://stackoverflow.com/questions/tagged/kubernetes-helm
