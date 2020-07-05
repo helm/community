@@ -1,6 +1,6 @@
 ## Logo
 
-The official Helm logo is found at the [CNCF/artwork](https://github.com/cncf/artwork/blob/master/examples/incubating.md#helm-logos) repo.
+The official Helm logo is found at the [CNCF/artwork](https://github.com/cncf/artwork/blob/master/examples/graduated.md#helm-logos) repo.
 
 ![Logo-Tweak-Light](./images/Logo-Tweak-Light.png)
 
