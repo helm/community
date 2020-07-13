@@ -22,7 +22,6 @@ Adnan Abdulhussein | [link](https://keybase.io/prydonius/pgp_keys.asc)    | 5111
 Matt Butcher       | [link](https://keybase.io/technosophos/pgp_keys.asc) | ABA2 5295 98F6 626C 420D 335B 62F4 9E74 7D91 1B60
 Matt Farina        | [link](https://keybase.io/mattfarina/pgp_keys.asc)   | 672C 657B E06B 4B30 969C 4A57 4614 49C2 5E36 B98E
 Matt Fisher        | [link](https://keybase.io/bacongobbler/pgp_keys.asc) | 967F 8AC5 E221 6F9F 4FD2 70AD 92AA 783C BAAE 8E3B
-Michelle Noorali   ||
 Nikhil Manchanda   | [link](https://keybase.io/slicknik/pgp_keys.asc)     | 5674 7211 71F8 CD59 F285 353D 9692 757E BCD3 D66C
 Vic Iglesias       | [link](https://keybase.io/vicnastea/pgp_keys.asc)    | 43A7 994E F6C7 7D7F 147B C152 381B ABCF F47D EAFC
 
