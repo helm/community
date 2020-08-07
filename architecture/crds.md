@@ -1,0 +1,324 @@
+# CRD Handling in Helm
+
+This document talks about the problems the Helm team has had dealing with CRDs, and lays out criterion for how to move forward. While it discusses a few solution _paths_, it does not provide a single solution. It is also an instrument for ruling out solutions that do not match Helm's guiding principles.
+
+The most intractable problem in Helm's history has been how to handle Kubernetes CRDs. We've tried a variety of approaches, none of which has proven satisfactory to all users. Our current solution, while not comprehensive, is designed to privilege safety over flexibility. We are considering options for a Helm 4 time frame, and this document is a first step in that exercise. (Backward-compatible features for CRDs could still be merged into Helm 3.)
+
+## The Core Problem
+
+The core problem is that CRDs (being a globally shared resource) are fragile. Once a CRD is installed, we typically have to assume (all other things being equal) that it is shared across namespaces and groups of users.
+
+For that reason, installing, modifying, and deleting CRDs is a process that has ramifications for all users and systems of that cluster.
+
+In spite of this, the Kubernetes API server is permissive about these CRDs. CRDs are mutable (even without a version change). When they are deleted, all instances of them are deleted without warning. They can be upgraded to be entirely incompatible with previous versions. And there is no way to programmatically inspect the CRDs in a cluster and determine whether they are used, how they are used, and by what.
+
+## Users First: A Core Principal
+
+Over the years, several proposals have surfaced and been rejected for one straightforward reason: They did not protect the user from badly written charts. This section explains the reasoning process behind our decision-making.
+
+Helm distinguishes between at least two roles:
+
+- A chart author: A person filling this role _creates_ and _maintains_ Helm charts
+- A Helm user: This person installs and manages instances of charts
+
+### The Chart Author Role
+
+We assume that a _chart author_ has three specific areas of domain knowledge:
+
+1. How to model applications in Kubernetes
+2. How to create Helm charts, including author templates
+3. How the application they are packaging works
+
+In this case, we assume the chart author role includes knowledge of Kubernetes kinds, Helm template commands, and so on.
+
+We do not assume that chart authors have knowledge about the clusters into which their charts are deployed, knowledge of the source code for the packages they install, or knowledge of the extended toolchains that their users have employed. Furthermore, we do not assume that chart authors will always follow best practices or accommodate use cases that may be important to some class of users. In fact, the Helm security model urges us to include bad actors in the class of chart authors. (That is, there is or may be a small subclass of chart authors that have intentions counter to the desires of their target Helm users.)
+
+### The Helm User Role
+
+Our assumptions about _Helm users_ are more modest. We do not assume they know much about Kubernetes or Helm--perhaps only enough to follow the Quickstart guide for Helm. With the base Helm user, we do not assume that they know what a Pod is, let alone a CRD. While we do assume that they know a little about YAML, we make no assumptions that they know about the Kubernetes flavor of YAML.
+
+### The Importance of This Distinction
+
+Over time, our assumptions have shown themselves true. Many (perhaps even most) Helm users are new to Kubernetes, and we hear repeatedly that people have learned Kubernetes via Helm. Our issue queue is replete with examples of people who have installed Helm charts in production, but who are not Kubernetes experts by any measure. Chart authoring, on the other hand, has remained the domain of experienced Kubernetes users, and the questions we receive from chart authors indicate a high degree of comfort with Kubernetes itself.
+
+Some have attempted to argue that "really," the chart developer and the Helm user are the same person -- that most of the time, people build their own charts. Our usage statistics show otherwise. The usage pattern we see most often with Helm is that a chart author is a different person than a Helm user. That is, most of the time, one group of persons creates charts, and another group of (non-overlapping) persons use the charts.
+
+As a consequence of this, we can assume that the _person using the chart does not know or understand the internals of the packages they install_. This is not merely a statement that they have not read the templates, but that they would not understand them even if they did, because they have not had to (nor should they have to) become fluent in the chart system to use the charts.
+
+And as a further consequence, we can say that _it is irrational to implement a solution that requires that the Helm user know and understand the internals of a chart_. It is irrational precisely because the empirical data shows that it is not the case that the majority of users understand their charts to that degree. One may easily draw analogy to other package managers: Most apt users do not know how apt packages work, and the same is true for RPM, Homebrew, Chocolatey and so on.
+
+When we consider solutions to this problem, then, it is incorrect to assume that a user should be responsible for mitigating poor choices made by a chart maintainer.
+
+This same justification has been used to develop many of Helm's core features. It is one of the reasons we go to great extremes to preserve backward compatibility from release to release. It is the reason we have built chart scanning tools, invested in best practices documentation, and built strong security measures into the template system.
+
+We will not ignore it for CRDs.
+
+## CRDs and How They Are Used
+
+CRDs are shared global resources. A "shared global resource" is a resource that can be installed only once (globally, not within a namespace) and which may be used by multiple different things. CRDs have one canonical record, which covers all the different versions of that CRD.
+
+Originally, CRDs were designed for a very specific purpose: To make it possible to add new controllers to Kubernetes. For example, if `Deployment` does not do what you want, you can write an alternative resource definition backed by a custom controller. While this pattern has definitely been useful, some see CRDs as a generic data modeling tool. We have seen many cases where CRDs were used to store configuration, model non-Kubernetes objects, or even serve as a data storage layer consumed by applications. While we do not think this was the spirit in which CRDs were intended to be used, we acknowledge that they _are_ used in this way, and therefore it is Helm's responsibility to not foreclose such usage patterns.
+
+A CRD may have a schema attached, which dictates the structure of an instance of that CRD (called a Custom Resource, or CR). Each version on the CRD object may have a schema, as well as other metadata. Note that none of these fields are immutable on the CRD. So a schema may be changed without altering any other fields on the CRD, thus breaking existing resources.
+
+While the CRDs are installed and somewhat managed by Kubernetes, their functionality is dictated largely by the controllers that use those CRDs. Thus, we have to include in our discussion the _developers_ who write the CRDs and controllers.
+
+You are encouraged to read the [Kubernetes documentation on CRD versions](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/) before continuing here. As you read, note how many versioning tasks are delegated to developers, and how the assumption is that the developers have a low degree of sharing and a high degree of visibility into the cluster. There is no discussion of how this works in multi-tenant clusters, and the assumption is always that there is only one controller per CRD per cluster. Even with these simplifying assumptions, the document points out how many discrete tasks must be undertaken to ensure compatibility. In our experience, very few implementations actually do the work this document requires. Also note that there is no discussion there of controllers that become out of date with CRDs, though that is a possible situation. (A conversion webhook may render a resource unusable to a controller when multiple controllers watch the same CRD.)
+
+From the outset, then, when _just_ considering a simple environment and the concerns of the CRD developer, we can see a number of difficult problems. Now we can add to this the usage patterns that are in practice today.
+
+In Kubernetes, the following CRD patterns have emerged:
+
+- Generic CRD: A single CRD "generalizes" a description of something, and any programs that need that generalized object can use that CRD. The CRD is thus a shared resource with no single controller.
+- CRD and Singleton Controller: A specific application defines a specific CRD that only it uses. Only one controller uses that CRD.
+- Common CRD: Two or more tightly coupled programs use a CRD to update information that is shared between the programs. Microservice architectures sometimes use this approach. (ConfigMaps and Secrets are also used this way, and the documentation for CRDs even suggests this as an alternative to ConfigMaps and Secrets in this capacity)
+- CRD and per-namespace controllers: One CRD is used globally, but each namespace that uses this CRD has its own controller which watches only that namespace. This strategy is done to reduce the cluster-level permissions the controller must have.
+
+As a special case, some controllers install and manage their own CRDs. For the most part, we won't deal with these here, as these do not pose a problem for Helm.
+
+The following facts about CRDs should be kept in mind throughout this paper:
+
+- CRDs are mutable. An operator can update versions, schemas, names, etc. on a CRD _ad hoc_. The API server will not enforce restrictions like it does on Deployments or other objects.
+- When a CR (CRD instance) is written to Kubernetes (on an update, for example), it will be _rewritten_ to the version that the CRD has marked as default. This means that backward compatibility can break merely by updating the default version on a CRD object. [See this section of the docs](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/#writing-reading-and-updating-versioned-customresourcedefinition-objects), which reveals a few other edge cases.
+    - During a read operation, Kubernetes can rewrite an object version without rewriting the body of the CR. So you can get a resource that is marked with a version that it actually is not.
+    - On a write operation, a version field may be permanently  rewritten to a version other than the version given in the object to be written, but the body is not updated
+    - A retrieved object may not match the schema of the version that is in its apiVersion field because of the above.
+- A developer can install a Kubernetes webhook that will auto-convert CRD fields. The controller does not have visibility into this conversion: It happens before the event triggers inside of Kubernetes.
+
+A quick glance through this section should reveal one stark fact: Everything that uses a CRD should (and perhaps must) use the same _version_ of the CRD as the one marked as the default for that cluster. This is the single most fragile aspect of the entire CRD system.
+
+## How This Impacts Helm
+
+Helm has had a difficult time dealing with CRDs since the beginning. And over time, the decisions made on Kubernetes CRDs have made it more (not less) difficult for us to work with them.
+
+Originally, we believed that CRDs would be used as they were originally intended: As descriptors of controllers that added Kubernetes functionality. As such, we initially thought a CRD could simply be treated as regular resources _because it would always only ever be bundled with a single controller that ran cluster-wide_. But that has proven not to be the case. Furthermore, the (anti-)pattern of distributing a CRD with multiple pre-populated CR instances is now a regularly encountered phenomenon. As such, we have been forced to treat CRDs as a special class of resource because a CRD must be loaded into the Kubernetes API server before a CR can reference that CRD. As we have seen the usage of CRDs expand well beyond the original intent, the patterns listed in the previous section are not anomalies, but standard practices in the community. Thus, our original designs for CRD handling have been completely re-thought--first in Helm 2 with the addition of CRD hooks, and then again in Helm 3 with special `crd/` directories in Helm charts.
+
+Our current solution (Helm 3) supports installing CRDs, but does not support modifying or deleting CRDs. Those two operations currently must be done out of band. The sections below explain this decision.
+
+### Installing CRDs
+
+There are a number of well-described issues with installing CRDs. Users must have broad permissions. A CRD must be fully installed before a manifest that references that CRD can be accepted by the Kubernetes API server. (However, a CR can be accepted before there is anything available to handle the CR event.) It is entirely possible for two different applications to require different versions of the same CRD, but no clear way to support or declare that need within Kubernetes. This is exacerbated by the fact that while a CRD is a global object, the controllers that listen for CRD events may be namespace-bound. This means that two instances of the same controller (in different namespaces) can use the same CRD definition. There is no way to query Kubernetes to discover this fact.
+
+All of these things present challenges for installing CRDs. Essentially, any installation process must have some kind of logic like "If the CRD exists, check to make sure that it is compatible with the version of the CRD that I need, and then proceed on my installation. Otherwise, attempt to install the CRD, and handle the case that I might not have permission to do so."
+
+After looking at several ways of making it easy for chart developers to do this, we alighted on a fairly easy (though inelegant) solution: Helm, as it stands today, provides a separate location in a chart to add CRDs. These will be uploaded _before the chart's templates are even rendered_ (thus avoiding verification issues with the discovery API). If the CRD exists or if the permissions do not allow it, the chart will fail before the application is deployed.
+
+Of course, users are unhappy with this for a host of reasons. They want CRDs templated (without understanding the race conditions). They want stronger version controls. They don't like having a separate directory for CRDs. We sympathize... but we currently have not devised a better solution for the aforementioned problems.
+
+> NOTE: There is no requirement that CRDs can only be placed in the `crd/` directory. They can be put along side other resources in the `templates/` directory. This was an intentional design choice to preserve backward compatibility.
+
+## Deleting CRDs
+
+We'll delay talking about upgrades for just a moment, and skip to the easiest one: Deleting CRDs.
+
+Helm currently does not delete CRDs. The reasoning behind this decision is the trivial confluence of two aspects of CRDs: global resources and cascading deletes.
+
+The next two subsections explain these.
+
+### Shared Global  Resources
+
+Earlier, we looked at how Kubernetes CRDs are _shared global resources_. That is, only one resource describes the CRD and all of its versions, and that one resource is shared among all namespaces on a cluster.
+
+If application A and application B both rely on the same CRD, allowing application A to delete the CRD would be bad news for application B. While it's fairly harmless to allow the creation of a CRD by the first thing that wants it, it is bad to allow any dependent application to delete that CRD when that application cannot confirm that in so doing it will not cripple other applications that use the same CRD.
+
+However, there is actually no way to tell whether or not anything uses a CRD. That is an internal implementation detail of the controllers, which is entirely opaque to cluster operators, let alone to Helm. The Kubernetes API server _could_ remedy this situation, but does not. (Example: controllers could be required to indicate to the Kubernetes API server which CRDs they rely upon.)
+
+Even if Helm could determine whether a CRD was consumed by multiple Kubernetes applications, it could not tell which usages were required (application _depends_ on the CRD), optional (application can use the CRD if present), or incidental (application merely collects data). Again, this is because Kubernetes itself does not provide facilities for this (though it could).
+
+Therefore, there is no way to determine when it is safe to remove a CRD short of determining that the cluster itself is being destroyed.
+
+"But the user should know, and be allowed to delete when they want!" The _should_ in that sentence does a lot of work. Consider a multi-tenant cluster. Team A may install their application, which installs a CRD. But once that is installed, it is incumbent on Team A to work with all other cluster users (Team B, Team C, ...) to ensure that the CRD is unused before deleting the CRD. Helm is used in clusters that have thousands of cluster users. We cannot realistically assume that Team A can perform this step.
+
+Even more simply, there is no guarantee that Team A even knows that their chart installed a CRD. There are several cases to consider here:
+
+- Team A simply does not know that a chart has a CRD. After all, a user cannot be required to understand the details of every chart they install. This is complicated by the fact that a CRD could have been created in a subsequent upgrade or other circumstance that escaped Team A's notice
+- Team A has no realistic way to discover Team B, as RBACs or other measures hide Team B's accounts and resources from Team A
+- Team A _accidentally_ deletes a CRD by forcing a recreation operation or performing a destructive rollback (e.g. rollback to a version before the CRD was present).
+
+The frequent response to this point is to say, "users deserve to experience the outage if they uninstall a CRD." We do not think this is fair or accurate. Many times (especially in multi-tenant clusters), the team that uninstalls the CRD is not the group of people harmed. It's the _other_ cluster users. It is patently unfair to say "If Team A makes a mistake, Team B should pay the consequences even if they did nothing wrong." See the "Users First" section above.
+
+### Cascading Deletions
+
+Another frightening aspect of CRDs that has prompted us to not support CRD deletion is the cascading effect: When a CRD is deleted, all of the instances of that CRD (the CRs) are deleted as well.
+
+Now consider this innocuous "fix": A chart is misbehaving. Something about the newest version is broken. The Helm user chooses one of the following actions:
+
+* rollback
+* force delete and recreation
+
+If the rollback goes to a version _prior to_ the CRD, it will initiate a destruction of the CRD. If the operator deletes and recreates, it will destroy the CRD. Either method will trigger the auto-deletion of all CRs for that CRD.
+
+Now imagine that deleting entails removing a CRD that has hundreds of in-production instances (think SSL certificates on a large cluster). Suddenly, not only is the CRD gone (if only for a moment), but all of the SSL certificates are gone as well! And those records won't automatically come back with the next (re-)install. Cluster operators will be forced to take extreme measures, like restoring from backups or recreating assets.
+
+Again, this is not a story friendly to our "users first" philosophy.
+
+## Upgrading and Modifying CRDs
+
+This is perhaps the most vexed part of CRD handling. While the ramifications of deletion are straightforward, modifying CRDs is nuanced and complicated.
+
+If there was a way to require a one-to-one relationship between a controller and a CRD, upgrading would not be problematic. If it were the case that a CRD _must_ have exactly one controller, and that the lifecycle of the two was tightly coupled, upgrade would be trivial. However, this is not a requirement. In fact, previously we have shown multiple patterns that indicate multiple consumers of the same CRD--some of which may not even be controllers.
+
+Likewise, if there was a way that different versions of the same CRD could co-exist without being translated, and if those versions were immutable, then upgrades would also be fairly easy. That, however, is not the case. Kubernetes does weak auto-conversion of CRs, and provides a webhook facility for doing additional conversion. This greatly increases the complexity of upgrades.
+
+Because CRDs are mutable, it is possible for CRD manifests to change the behavior of a CRD without changing the version field on a CRD. While this case is easy to decry as bad practice, it is possible, and it (of course) occurs in the real world.
+
+Finally, as stated previously, there is no way for Helm (or any other process) to see which things on a cluster consume a given CRD. And there is certainly no way to determine what particular version of a CRD they consume. At best, there are weak inductive methods that could be used to say "during a given period, container X made a request to the API server that makes it look like it understands version X of CRD Y." But those methods are definitely non-trivial and non-exhaustive. This is something we view as a serious design flaw in Kubernetes itself.
+
+### Upgrading CRDs
+
+Given the issues called out above, the core problem with upgrading a CRD instance is that Helm cannot determine whether upgrading a CRD will break other things in the cluster. It is worth calling out this fact again: CRDs are cluster-wide. A user may have no idea that by updating a Helm chart, it breaks other parts of the cluster that the user does not even have access to. For example, a user might have permissions to create CRDs, and permissions to do anything on that user's namespace, but not have even read access to any other namespaces on the cluster. Yet by updating the CRD, the user may break other things on the cluster to which the user has no access.
+
+It's not just multi-tenant clusters that can be dangerous, though. Even in a single-tenant cluster, with no way of seeing which things rely on a CRD, even a human operator might not be able to tell whether upgrading a CRD is safe, or whether other things on the cluster depend on that CRD's current version. Again, there is no way for a consumer (controller or otherwise) to indicate that it is consuming CRs for a particular CRD. _It is unrealistically expected that human operators will have knowledge of what CRDs are being consumed by which containers in the cluster_.
+
+The Helm view on this is that upgrading a CRD is something that an operator should do conscientiously. A manual upgrade of a CRD is safer because it requires the operator to at least be intentional about applying the specific change. Contrast that with the case where the CRD is "hidden" in a chart. In that case, the operator might be wholly unaware that running an upgrade will even touch a CRD. (The caveat here is that we do not believe Kubernetes provides a truly safe way to upgrade a CRD even when done by hand. Manual upgrades are merely _safer_ than automatic upgrades.)
+
+One frequently requested feature of CRDs is templating. Our concern with adding templating is that this particular story will become even more complicated by making it difficult for chart users to understand the extent to which a CRD will be modified during an upgrade. Small dynamic elements in a CRD schema could, for example, compound the complexity of having one CRD with multiple controllers. For example, if the schema attached to a CRD can be dynamically rendered, than a small change in a chart from version to version could result in the rewriting of a CRD schema in a non-intuitive way--and in a way that _breaks other things in the cluster_. And again, supporting templating here would make it incumbent on chart authors to be able to detect during an upgrade when the version of the CRD needs to increment (e.g. from `foo/v1beta12` to `foo/v1beta13`). We believe it is unrealistic to foist this responsibility on the chart author.
+
+In addition, there are some rather complex issues with the templating system that can cause either a race condition or an unexpected context during rendering of CRDs. But those may be rightly considered implementation details of Helm.
+
+Finally, note that flags on `helm upgrade` such as `--force`, `--wait`, and `--atomic` introduce additional complexity. For example, `--atomic` could allow a CRD to become active for a period, and then roll it back, but without repairing any CRs that were altered during the window that the CRD was active. In the worst cases, some suggested changes to Helm might actually cause the CRD to be _deleted and recreated_ during an upgrade, which would have the side-effect of deleting all CRs for that CRD. This, of course, could have dire unintended consequences.
+
+### Rollbacks
+
+Rollbacks in Helm are a special kind of upgrade in which an old release is replayed over a newer release. Along with all of the drawbacks of upgrades, rollbacks present a few special challenges.
+
+If a CRD is rolled back, then the old version will overwrite the new version.
+
+There are two important cases here: (a) the older chart _does not have the CRD_, or (b) the older chart has an _older version of the CRD.
+
+#### Rollback target does not have the CRD
+
+Consider the case where we roll back from revision 2 to revision 1 of a release, and revision 2 introduced a CRD that was not present in revision 1.
+
+In this case, the _proper_ behavior for Helm is to _delete the CRD_ from revision 2 when rolling back to revision 1. As previously mentioned, that will cause a cascading delete of all CRs for that CRD. In some circumstances, this is as desired. But in other circumstances, this could destroy resources belonging to other consumers of that CRD, or even destroy data that was needed during a recovery (e.g. roll back to one version, then upgrade from there). Thus, there are multiple avenues in which undesirable destruction of data may occur.
+
+#### Rollback target has an older version of the CRD
+
+In this case, both revision 1 and revision 2 have the CRD, but the version of the CRD changes between revisions. During a rollback, the proper behavior would be to roll back the CRD to its older version.
+
+But this is where Kubernetes' behavior gets interesting:
+
+- Any instance that was created as a new version will _stay_ as a new version, even though its `apiVersion` field will be rewritten to the old version.
+- Kubernetes' behavior in this situation is undefined when it comes to version sorting. If a CRD version existed, and then no longer exists, it is unclear how Kubernetes will behave.
+- It is unclear how the schemata will be applied in this case
+- It is also unclear what will happen if the version number of the CRD that was rolled back is then used again, but with a different CRD schema. In some cases, client users will see schema errors, but the stored version may persist with a non-compliant body until it is cleaned up by a user.
+
+Thus, rollbacks have a few special cases where the uncertainty of Kubernetes' behavior could cause issues that are exceedingly hard to debug.
+
+## Proposed Solutions for Helm CRD Management
+
+In this section, we turn from enumerating problems to evaluating potential solutions. We understand that Helm users want a way to hide the complexity of CRDs and be able to do "simple things" like upgrade a CRD from one version to another without accidentally destroying data or harming other parts of the cluster. This has been a difficult goal to achieve though.
+
+As we progress through potential solutions, keep in mind the roles and caveats elaborated before:
+
+- Chart authors create charts
+- Helm users install and manage instances of those charts
+- We cannot assume that those roles are filled by the same person
+- We cannot assume, specifically, that a Helm user understands the inner workings of a chart or even of Kubernetes
+- We cannot assume that a Helm user looks at the contents of a chart
+- We cannot assume that a chart author knows the target cluster environment
+- We cannot assume that a chart author knows what other things will be running concurrently in the same cluster as the chart
+- We NEVER want to assert that it's "the users problem" to figure out when a chart operation (install, upgrade, delete, rollback) could cause a catastrophic cluster event reaching beyond the specific chart installation.
+
+The following kinds of solutions have been suggested:
+
+1. Do not manage CRDs any differently than other resources
+2. Helm should let chart authors control how CRDs are managed
+3. Helm should let Helm users control how CRDs are managed
+4. Helm should have deep special-case logic for handling CRDs
+
+Each of these is discussed below.
+
+### No Special CRD Management
+
+In this solution, a CRD is treated no differently than any other Kubernetes kind.
+
+_Prima facie_, this solution sounds like a no-nonsense go-to. Just drop CRDs in like any other resource and let the world figure out how to do this.
+
+This was our initial approach, and it worked fine in cases where all a chart did was install the CRD and possibly the controller that consumed that CRD. In other words, it worked _only for_ the original CRD case for a global CRD and a single global controller for that CRD.
+
+But this strategy did not scale as CRD usage followed new patterns. Earlier in this document, we enumerated different CRD patterns that have emerged. Helm's original design does not work as soon as CRDs break out of the simple case. It failed for the following reasons:
+
+1. CRDs alter the behavior of the API server. Specifically, discovery and validation change when a CRD is added or modified.
+2. It is impossible to pre-verify a chart that has both a CRD and CRs for that CRD
+3. `helm delete` becomes a very, very dangerous command, as it can destabilize a cluster by deleting a CRD
+4. `helm upgrade` and `helm rollback` can have surprising consequences that are difficult to find and debug
+
+We still haven't solved #2, but by adding some special treatment of CRDs in Helm 3, we eliminated #3-4 and fixed #1.
+
+> **IMPORTANT**: It is still possible to use Helm this way. For CRD/Operator-only charts, this is a perfectly legitimate way of packaging.
+
+### Chart Authors Have Control
+
+In this category, the assertion is that the _chart author_ should be able to declare the conditions under which a chart is created, upgrade, or deleted. For example, one chart author may stipulate that on an upgrade, their chart should avoid modifying the CRD. Another chart author, though, may choose that on upgrade, their chart will modify the existing CRD.
+
+The problems that this approach must address are:
+
+- How can a chart author know when it is safe to install, upgrade, or delete a CRD without harming the broader cluster?
+- How can massive data loss be prevented when a CRD is deleted?
+- How can two versions of the same chart (with different CRD versions) be safely installed on the same cluster?
+- Can the user opt to override this behavior if they detect an issue? (And if so, how?)
+
+As a broad category, this solution has been proposed several times. In fact, Helm 3 has a very weak version of this: If a CRD is stored in the `crds/` folder, by default it will be installed (and a user can skip with `--skip-crds`). This install only occurs if the CRD is not already present. If the CRD is present _it is not modified_. Following this strategy, _at worst_ the only package that sustains damage if the CRD is not at the right version is the package just installed. No existing behavior is broken.
+
+We frequently hear the complain that the above is not enough; that we _must_ also support updates and deletions. But no _specific comprehensive_ solution has surfaced that solves the problems above. Adherents of this view typically claim that users should merely accept the fact that a chart operation may destabilize an entire cluster by altering or deleting CRDs. We do not view that as an acceptable risk.
+
+### Helm Users Have Control
+
+In this model, the creation, modification, and deletion of CRDs is under the explicit control of the Helm user. A chart may declare a CRD, but that CRD is not changed unless the user specifically requests it.
+
+One could imagine, in this model, the following commands and flags:
+
+```console
+$ helm install --with-crds ...
+$ helm upgrade --allow-crd-modification ...
+$ helm delete --unsafe-delete-crds ...
+```
+
+But with this model, there are also problems:
+
+- How does the user even know when a chart has a CRD? (If the answer is "the user has to read the chart," this is a non-starter)
+- How does the user know whether it is safe to update a CRD? Or even that the CRD version or schema or fields have changed?
+- How does the user discover whether the CRD is in use in namespaces that the user does not have access to?
+- How does the user avoid catastrophic data loss on deletion?
+
+We have not discovered satisfactory answers to these questions, which has led us away from implementing this approach.
+
+### Helm Itself Has Control
+
+This is probably the most ambitious of the proposed solutions, and unsurprisingly the most frequently recommended as well. In this case, Helm itself has highly specialized logic that allows it to make decisions about when to install, upgrade, and delete CRDs. Both users and chart developers are "off the hook" when it comes to decision-making. Helm just _knows_.
+
+As things currently stand, there is no way for us to implement this.
+
+Basically every problem raised in this document is unsolved for this particular proposal. Helm can reliably determine if a CRD already exists, and can install a CRD if it does not exist and if the Helm user has sufficient permissions. But we have been unable to devise any way to solve the myriad upgrade, rollback, and deletion problems as well as the upgrade-on-install case for a CRD that already exists.
+
+## Nobody is "Blocked" on This
+
+It has been claimed that this issue is a "blocker" to using Helm. While we hear this claim on occasion, it stems from a misunderstanding.
+
+First, there are widely documented patterns and work-arounds for how to handle CRDs. The most common is the pattern of separating CRDs into a separate chart that then treats these CRDs as standard resources.
+
+Second, if that doesn't work for you, then there is a way to implement whatever system you want. Helm provides a plugin mechanism that can add new Helm commands.
+
+Third, Helm provides another mechanism that can send intermediate results to an external processor before issuing commands against the API server. This "post-render hook" system allows for custom processing in-flight.
+
+Finally, of course, Helm provides `helm template`, which allows users to render the chart into static YAML that they can then send to the cluster using their own tools.
+
+So there are _four separate avenues_ with which you can pursue implementing more advanced CRD handling. None of them require knowing Go or opening PRs or even getting feedback from the core maintainers. None of them require that you pass any of the quality gates enumerated above.
+
+You are free to handle CRDs however you want. To get you started, here are some useful links:
+
+- Read the [CRD Best Practices](https://helm.sh/docs/chart_best_practices/custom_resource_definitions/) guide
+- Learn about [plugins](https://helm.sh/docs/topics/plugins/)
+- Use a [post-render](https://helm.sh/docs/topics/advanced/#post-rendering)
+- Export YAML with [helm template](https://helm.sh/docs/helm/helm_template/#helm-template)
+
+Helm maintainers are not trying to prevent usage of CRDs. As we've stated above, though, our quality bar is high because we have a lot of people depending on us. But we have provided ways for you to achieve your own goals without meeting our standards or objectives. And perhaps others would find use in the plugins or tools you provide.
+
+## Conclusion
+
+CRDs continue to present a huge challenge to Kubernetes users in general. Helm perhaps has it worse than other projects, as Helm is a generic solution to a generic problem (Kubernetes package management). Helm knows nothing of a cluster's stability, intent, architecture, or the social organization around it. Thus, to Helm, a development cluster with one user is no different than a thousand-node multi-tenant cluster with rigid RBACs.
+
+We earnestly want to find a solution to the CRD problem, but we are adamant about not sacrificing Helm's usability in the name of flexibility. If a simple CRD operation like an upgrade or a delete can destroy data across a cluster, or can silently break dozens of applications, we simply choose not to provide that operation via Helm.
+
+If we can solve the problems presented above, we can support CRDs robustly. That is our desired goal. But in our estimation, Kubernetes is not yet mature enough for us to be able to do this. When we begin work on Helm 4, we will of course revisit the subject, but the guidelines in this document will still serve as guidance on Helm 4.
