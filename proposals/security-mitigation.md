@@ -1,26 +1,22 @@
-# Proposal: Security Mitigation File
+# Proposal: Security Mitigation Standard
 
-## What is a security mitigation file and what problem it is solving?
+## What is a security mitigation standard and what problem it is solving?
 
-* [Security Mitigation file](https://github.com/jfrog/chartcenter/blob/master/docs/security-mitigation.yaml) was developed at JFrog Community for the 
-[Chartcenter](https://chatcenter.io) which is a free Helm chart central repository that was built to help the Helm community find immutable, secure, and reliable charts and have a single source of truth to proxy all the charts from one location.
-* Security Mitigation file is a way for the chart maintainer to add notes which can be read on [Chartcenter](https://chatcenter.io) UI or in `security-mitigation.yaml` file directly so chart users can benefit from understanding the status of vulnerabilities present in the charts.
+* There was no easy way for chart authors to share security mitigation information, chart users not able to read about CVEs present in charts. To fix this broken communication between authors and consumers the security mitigation standard was developed.
+* Proposed [Security Mitigation file](https://github.com/jfrog/chartcenter/blob/master/docs/security-mitigation.yaml) is a way for the chart maintainer to add security mitigation notes for CVEs.
 * It would also allow chart maintainers to be more transparent with their charts CVEs.
+
+## Is it open source? Can others benefit from this file?
+
+* This is an open standard.
+* [Chartcenter](https://chartcenter.io) currently captures the data and other hubs as ArtifactHub, Kubapps can proxy this information from there or use `security-mitigation.yaml` file directly from charts as well and use that information to evolve their UIs.
+* Cloud Native community can really benefit from it, and it can become a part of the new [Open Source Security Foundation](https://openssf.org) too.
 
 ## Why should this be part of a Helm chart?
 
 * It shows CVEs of docker images used in the charts.
-* CVEs can be docker and chart level or both.
-
-## Does this belong in a Helm chart? This is not even documented on helm's website
-
-* It should belong to the chart as it covers security issues related to the chart.
-* It is a new standard JFrog is trying to promote to the Kubernetes community via [Chartcenter](https://chatcenter.io), which has data for 30k+ charts, and many charts have security issues, chart users need to be aware of what they are installing into their Kubernetes clusters.
-
-## Is it open source? Can others benefit from this file?
-
-* Yes, it is open source.
-* Cloud Native community can benefit from it, and it can become a part of the new [Open Source Security Foundation](https://openssf.org)
+* CVEs can be docker or chart level or both.
+* It should be part to the chart as it covers security issues related to the chart.
 
 ## Security mitigation spec
 
