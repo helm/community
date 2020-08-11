@@ -2,7 +2,7 @@
 
 ## What is a security mitigation file and what problem it is solving?
 
-* Security Mitigation file was developed at JFrog Community for the 
+* [Security Mitigation file](https://github.com/jfrog/chartcenter/blob/master/docs/security-mitigation.yaml) was developed at JFrog Community for the 
 [Chartcenter](https://chatcenter.io) which is a free Helm chart central repository that was built to help the Helm community find immutable, secure, and reliable charts and have a single source of truth to proxy all the charts from one location.
 * Security Mitigation file is a way for the chart maintainer to add notes which can be read on [Chartcenter](https://chatcenter.io) UI or in `security-mitigation.yaml` file directly so chart users can benefit from understanding the status of vulnerabilities present in the charts.
 * It would also allow chart maintainers to be more transparent with their charts CVEs.
