@@ -1,0 +1,25 @@
+## Apache License Version 2.0
+## http://www.apache.org/licenses/LICENSE-2.0.txt
+
+## Schema version of this YAML file
+schemaVersion: v1
+
+## Overall mitigation summary
+summary: text
+
+## External URL if you'd like to link to an external page
+securityAdvisoryUrl: URL
+
+## If you want to point us to a file instead of filling out the CVE's here
+useMitigationExternalFile: boolean
+mitigationExternalFileUrl: URL
+
+## Mitigation notes for individual CVEs
+mitigations:   
+  cves: 
+## Indicates package Uri for which the security mitigation is provided. helm://… || docker://… 
+  affectedPackageUri:
+## Which chart versions this cve note belongs to
+  affectedVersions: mastermind SemVer constraint
+## Description / note
+  description: text
