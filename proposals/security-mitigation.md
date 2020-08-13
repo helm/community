@@ -3,7 +3,7 @@
 ## What is a security mitigation standard and what problem it is solving?
 
 * There was no easy way for chart authors to share security mitigation information, chart users not able to read about CVEs present in charts. To fix this broken communication between authors and consumers the security mitigation standard was developed.
-* Proposed [Security Mitigation file](https://github.com/jfrog/chartcenter/blob/master/docs/security-mitigation.yaml) is a way for the chart maintainer to add security mitigation notes for CVEs.
+* Proposed [Security Mitigation file](security-mitigation.yaml) is a way for the chart maintainer to add security mitigation notes for CVEs.
 * It would also allow chart maintainers to be more transparent with their charts CVEs.
 
 ## Is it open source? Can others benefit from this file?
@@ -20,4 +20,4 @@
 
 ## Security mitigation spec
 
-Security mitigation spec can be found [in](https://github.com/jfrog/chartcenter/blob/master/docs/securitymitigationspec.md)
+Security mitigation spec can be found [here](securitymitigationspec.md)
