@@ -283,6 +283,10 @@ draft status.
 A proposal can also be "rejected". Perhaps after all is said and done it was not
 a good idea. It is still important to have a record of this fact.
 
+Feature and Informational proposals require at least 2 approvals from project
+maintainers. Process proposals require at least 2 approvals from Helm org
+maintainers.
+
 When a proposal is accepted or rejected, the proposal should be updated
 accordingly by updating the `status` field, and a link to any relevant
 information should be provided in the introduction.
