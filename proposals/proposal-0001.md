@@ -210,12 +210,13 @@ Helm project on Github. The header should be in [RFC 3339][rfc3339] format, e.g.
 2020-08-13.
 
 Proposals will typically have a `helm-version` header which indicates the
-version of Helm that the feature will be released with. proposals without a
+version of Helm that the feature will be released with. Proposals without a
 `helm-version` header indicate interoperability standards that will initially be
 supported through external libraries and tools, and then supplemented by a later
 proposal to add support to the project's standard library or Command Line
-Interface. informational and process proposals do not need a `helm-version`
-header.
+Interface. Informational and process proposals do not need a `helm-version`
+header, and this header can be added after the implementation has been shipped
+and the proposal is marked as "final".
 
 Proposals may have a `requires` header, indicating the proposal numbers that
 this proposal ends on.
