@@ -315,7 +315,7 @@ timely manner, the org maintainers will make a unilateral decision (it's not
 like these decisions can't be reversed).
 
 [cncf-helm]: mailto:cncf-helm@lists.cncf.io
-[markdown]: https://daringfireball.net/projects/markdown/syntax
+[markdown]: https://spec.commonmark.org/
 [pr]: https://github.com/helm/community/pulls
 [rfc3339]: https://tools.ietf.org/html/rfc3339
 [yaml]: https://yaml.org/
