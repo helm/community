@@ -149,11 +149,12 @@ Each proposal should have the following parts:
    motivated the design and why particular design decisions were made. It should
    describe alternate designs that were considered and related work, e.g. how
    the feature is supported in other projects.
-1. Backwards Compatibility - All proposals that introduce backwards
-   incompatibilities must include a section describing these incompatibilities
-   and their severity. The proposal must explain how the author proposes to deal
-   with these incompatibilities. proposal submissions without a sufficient
-   backwards compatibility treatise may be rejected outright.
+1. Backwards Compatibility - Helm projects follow [Semantic Versioning][semver].
+   Therefore, all proposals that introduce backwards incompatibilities must
+   include a section describing these incompatibilities and their severity. The
+   proposal must explain how the author proposes to deal with these
+   incompatibilities. Proposal submissions without a sufficient backwards
+   compatibility treatise may be rejected outright.
 1. Reference Implementation - The reference implementation must be completed
    before any proposal is given status "final", but it need not be completed
    before the proposal is accepted. While there is merit to the approach of
@@ -317,4 +318,5 @@ like these decisions can't be reversed).
 [markdown]: https://spec.commonmark.org/
 [pr]: https://github.com/helm/community/pulls
 [rfc3339]: https://tools.ietf.org/html/rfc3339
+[semver]: https://semver.org/spec/v2.0.0.html
 [yaml]: https://yaml.org/
