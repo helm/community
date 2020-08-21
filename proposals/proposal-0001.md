@@ -143,7 +143,8 @@ Each proposal should have the following parts:
    members may re-implement the standard in their product.
 1. Motivation - The motivation is critical for proposals that want to change
    Helm in a significant way. It should clearly explain why existing features
-   are inadequate to address the problem that the proposal solves. proposal
+   are inadequate to address the problem that the proposal solves, as well as
+   who and what profiles/roles are impacted by this proposal. Proposal
    submissions without sufficient motivation may be rejected outright.
 1. Rationale - The rationale fleshes out the specification by describing what
    motivated the design and why particular design decisions were made. It should
