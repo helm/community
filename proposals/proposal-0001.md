@@ -5,7 +5,7 @@ authors: [ "Matthew Fisher <matt.fisher@microsoft.com" ]
 created: 2020-08-13
 ---
 
-## What is a proposal?
+## What is a proposal
 
 A proposal is a design document providing information to the Helm community, or
 describing a new feature for a Helm project or its processes or environment. The
@@ -27,17 +27,17 @@ smaller review & resolution cycle for proposals.
 Because the proposals are maintained as markdown files in a versioned
 repository, their revision history is the historical record of the proposal.
 
-## Proposal Audience
+## Proposal audience
 
 The typical primary audience for proposals are the project maintainers of the
 Helm project and the project's org maintainers.
 
 However, other parts of the Helm community may also choose to use the process
-(particularly for Informational proposals) to document expected conventions and
+(particularly for informational proposals) to document expected conventions and
 to manage complex design coordination problems that require collaboration across
 multiple projects.
 
-## Proposal Types
+## Proposal types
 
 There are three kinds of proposals:
 
@@ -46,17 +46,16 @@ There are three kinds of proposals:
    supported by the Helm project.
 1. An **informational** proposal describes a Helm design issue, or provides
    general guidelines or information to the Helm community, but does not propose
-   a new feature. Informational proposals do not necessarily represent a Helm
+   a new feature. informational proposals do not necessarily represent a Helm
    community consensus or recommendation, so users and implementers are free to
-   ignore Informational proposals or follow their advice.
+   ignore informational proposals or follow their advice.
 1. A **process** proposal describes a process surrounding the Helm project, or
-   proposes a change to (or an event in) a process.  Process proposals are
-   like feature proposals but apply to areas other than the Helm
-   project itself.  They may propose an implementation, but not to
-   Helm's codebase; they often require community consensus. Unlike
-   informational proposals, they are more than recommendations, and users
-   are typically not free to ignore them.  Examples include
-   procedures, guidelines, changes to the decision-making process, and
+   proposes a change to (or an event in) a process. Process proposals are like
+   feature proposals but apply to areas other than the Helm project itself. They
+   may propose an implementation, but not to Helm's codebase; they often require
+   community consensus. Unlike informational proposals, they are more than
+   recommendations, and users are typically not free to ignore them. Examples
+   include procedures, guidelines, changes to the decision-making process, and
    changes to the tools or environment used in Helm development.
 
 ## Proposal workflow
@@ -213,7 +212,7 @@ version of Helm that the feature will be released with. proposals without a
 `helm-version` header indicate interoperability standards that will initially be
 supported through external libraries and tools, and then supplemented by a later
 proposal to add support to the project's standard library or Command Line
-Interface. Informational and process proposals do not need a `helm-version`
+Interface. informational and process proposals do not need a `helm-version`
 header.
 
 Proposals may have a `requires` header, indicating the proposal numbers that
@@ -240,8 +239,8 @@ proposal-XXX-YY.ext, where "XXX" is the proposal number, "YY" is a serial number
 
 ## Proposal review & resolution
 
-Once the authors have completed a proposal, they may request a review for
-style and consistency from the project maintainers.
+Once the authors have completed a proposal, they may request a review for style
+and consistency from the project maintainers.
 
 The final authority for proposal approval is the project maintainers responsible
 for the project the proposal is aimed at. However, whenever a new proposal is
@@ -249,8 +248,8 @@ put forward, any project maintainer that believes they are suitably experienced
 to make the final decision on that proposal may offer to review the proposal,
 and they will have the authority to approve (or reject) that proposal.
 Individuals taking on this responsibility are free to seek additional guidance
-from other project maintainers at any time, and are also expected to take the advice
-and perspectives of other project maintainers into account.
+from other project maintainers at any time, and are also expected to take the
+advice and perspectives of other project maintainers into account.
 
 Such self-nominations are accepted by default, but may be explicitly declined by
 the project or org maintainers. Possible reasons for the maintainers declining
@@ -276,9 +275,9 @@ features to later proposals), as this status can lead to version compatibility
 challenges in the wider Helm ecosystem.
 
 A proposal can also be assigned the status "deferred". The proposal author or a
-maintainer can assign the proposal this status when no progress is being made
-on the proposal. Once a proposal is deferred, a maintainer can re-assign it
-to draft status.
+maintainer can assign the proposal this status when no progress is being made on
+the proposal. Once a proposal is deferred, a maintainer can re-assign it to
+draft status.
 
 A proposal can also be "rejected". Perhaps after all is said and done it was not
 a good idea. It is still important to have a record of this fact.
