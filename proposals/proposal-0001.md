@@ -5,6 +5,8 @@ authors: [ "Matthew Fisher <matt.fisher@microsoft.com" ]
 created: 2020-08-13
 ---
 
+## What is a proposal?
+
 A proposal is a design document providing information to the Helm community, or
 describing a new feature for a Helm project or its processes or environment. The
 proposal should provide a concise technical specification of the feature and a
@@ -24,6 +26,38 @@ smaller review & resolution cycle for proposals.
 
 Because the proposals are maintained as markdown files in a versioned
 repository, their revision history is the historical record of the proposal.
+
+## Proposal Audience
+
+The typical primary audience for proposals are the project maintainers of the
+Helm project and the project's org maintainers.
+
+However, other parts of the Helm community may also choose to use the process
+(particularly for Informational proposals) to document expected conventions and
+to manage complex design coordination problems that require collaboration across
+multiple projects.
+
+## Proposal Types
+
+There are three kinds of proposals:
+
+1. A **feature** proposal describes a new feature or implementation for the Helm
+   project. It may also describe an interoperability standard that will be
+   supported by the Helm project.
+1. An **informational** proposal describes a Helm design issue, or provides
+   general guidelines or information to the Helm community, but does not propose
+   a new feature. Informational proposals do not necessarily represent a Helm
+   community consensus or recommendation, so users and implementers are free to
+   ignore Informational proposals or follow their advice.
+1. A **process** proposal describes a process surrounding the Helm project, or
+   proposes a change to (or an event in) a process.  Process proposals are
+   like feature proposals but apply to areas other than the Helm
+   project itself.  They may propose an implementation, but not to
+   Helm's codebase; they often require community consensus. Unlike
+   informational proposals, they are more than recommendations, and users
+   are typically not free to ignore them.  Examples include
+   procedures, guidelines, changes to the decision-making process, and
+   changes to the tools or environment used in Helm development.
 
 ## Proposal workflow
 
@@ -77,8 +111,9 @@ The standard proposal workflow is:
 - Push your proposal to your GitHub fork and [submit a pull request][pr].
 
 Once the review process is complete, the project maintainers will approve the
-proposal by commenting on the proposal with a "Looks good to me", or "LGTM" for
-short. (note that this is not the same as accepting your proposal!)
+proposal by commenting on the proposal with a "Looks good to me" ("LGTM" for
+short) and merge the proposal. (note that this is not the same as accepting your
+proposal!)
 
 The project maintainers will not unreasonably deny a proposal. Reasons for
 denying proposal status include duplication of effort, being technically
@@ -100,7 +135,7 @@ Each proposal should have the following parts:
 
 1. Preamble - YAML style headers containing metadata about the proposal,
    including the proposal number, a short descriptive title, the author names,
-   etc.
+   its current status, etc.
 1. Abstract - a short (~200 word) description of the technical issue being
    addressed.
 1. Specification - The technical specification should describe the syntax and
@@ -121,7 +156,7 @@ Each proposal should have the following parts:
    with these incompatibilities. proposal submissions without a sufficient
    backwards compatibility treatise may be rejected outright.
 1. Reference Implementation - The reference implementation must be completed
-   before any proposal is given status "Final", but it need not be completed
+   before any proposal is given status "final", but it need not be completed
    before the proposal is accepted. While there is merit to the approach of
    reaching consensus on the specification and rationale before writing code,
    the principle of "rough consensus and running code" is still useful when it
@@ -130,7 +165,7 @@ Each proposal should have the following parts:
 The final implementation must include test code and documentation appropriate
 for the Helm project's reference or the community at large.
 
-## Proposal header preamble
+### Proposal header preamble
 
 Each proposal must begin with a [YAML][yaml] style header preamble. The headers
 must appear in the following order:
@@ -144,6 +179,8 @@ proposal: <proposal number>
 title: "<proposal title>"
 authors: [ "<list of authors' real names and optionally, email addresses>" ]
 created: 2020-08-13
+type: "<feature | informational | process>"
+status: "<draft | accepted | provisional | deferred | rejected | final | superseded>"
 * helm-version: "<version number>"
 * requires: [ <proposal numbers> ]
 * replaces: <proposal number>
@@ -182,18 +219,79 @@ header.
 Proposals may have a `requires` header, indicating the proposal numbers that
 this proposal ends on.
 
-Proposals may also have a `superseded-by` header indicating that a proposal has
-been rendered obsolete by a later document; the value is the number of the
-proposal that replaces the current document. The newer proposal must have a
-`replaces` header containing the number of the proposal that it rendered
-obsolete.
+The `type` header specifies the type of proposal: feature, informational, or
+process.
 
-## Auxiliary files
+The `status` header specifies which state the proposal is in. A proposal always
+begins in "draft" status, and the other statuses are explained below.
+
+Proposals with the `superseded` status may also have a `superseded-by` header
+indicating that a proposal has been rendered obsolete by a later document; the
+value is the number of the proposal that replaces the current document. The
+newer proposal must have a `replaces` header containing the number of the
+proposal that it rendered obsolete.
+
+### Auxiliary files
 
 proposals may include auxiliary files such as diagrams. Such files must be named
 proposal-XXX-YY.ext, where "XXX" is the proposal number, "YY" is a serial number
 (starting at 01), and "ext" is replaced by the actual file extension (e.g.
 "png").
+
+## Proposal review & resolution
+
+Once the authors have completed a proposal, they may request a review for
+style and consistency from the project maintainers.
+
+The final authority for proposal approval is the project maintainers responsible
+for the project the proposal is aimed at. However, whenever a new proposal is
+put forward, any project maintainer that believes they are suitably experienced
+to make the final decision on that proposal may offer to review the proposal,
+and they will have the authority to approve (or reject) that proposal.
+Individuals taking on this responsibility are free to seek additional guidance
+from other project maintainers at any time, and are also expected to take the advice
+and perspectives of other project maintainers into account.
+
+Such self-nominations are accepted by default, but may be explicitly declined by
+the project or org maintainers. Possible reasons for the maintainers declining
+another maintainer's review include, but are not limited to, perceptions of a
+potential conflict of interest (e.g. working for the same organisation as the
+proposal submitter), or simply considering another potential maintainer to be
+more appropriate. If project maintainers (or other community members) have
+concerns regarding the suitability of a reviewer for any given proposal, they
+may ask the org maintainers to review the case.
+
+To allow gathering of additional design and interface feedback before committing
+to long term stability for a language feature or standard library API, a PEP may
+also be marked as "provisional". This is short for "provisionally accepted", and
+indicates that the proposal has been accepted for inclusion in the reference
+implementation, but additional user feedback is needed before the full design
+can be considered "final". Unlike regular accepted proposals, provisionally
+accepted proposals may still be rejected **even after the related changes have
+been included in a project's release**.
+
+Wherever possible, it is considered preferable to reduce the scope of a proposal
+to avoid the need to rely on the "provisional" status (e.g. by deferring some
+features to later proposals), as this status can lead to version compatibility
+challenges in the wider Helm ecosystem.
+
+A proposal can also be assigned the status "deferred". The proposal author or a
+maintainer can assign the proposal this status when no progress is being made
+on the proposal. Once a proposal is deferred, a maintainer can re-assign it
+to draft status.
+
+A proposal can also be "rejected". Perhaps after all is said and done it was not
+a good idea. It is still important to have a record of this fact.
+
+When a proposal is accepted or rejected, the proposal should be updated
+accordingly by updating the `status` field, and a link to any relevant
+information should be provided in the introduction.
+
+## What to do after a proposal has been approved
+
+Once a proposal has been approved, the reference implementation must be
+completed. When the reference implementation is complete and incorporated into
+the project's source code repository, the status will be marked as "final".
 
 ## Transferring proposal ownership
 
