@@ -35,7 +35,7 @@ We do not assume that chart authors have knowledge about the clusters into which
 
 ### The Helm User Role
 
-Our assumptions about _Helm users_ are more modest. We do not assume they know much about Kubernetes or Helm--perhaps only enough to follow the Quickstart guide for Helm. With the base Helm user, we do not assume that they know what a Pod is, let alone a CRD. While we do assume that they know a little about YAML, we make no assumptions that they know about the Kubernetes flavor of YAML.
+Our assumptions about the base level of _Helm users_ are more modest. While some users may be experts, we do not assume that a Helm user _must_ be at that level. We do not assume they know much about Kubernetes or Helm--perhaps only enough to follow the Quickstart guide for Helm. With the base Helm user, we do not assume that they know what a Pod is, let alone a CRD. While we do assume that they know a little about YAML, we make no assumptions that they know about the Kubernetes flavor of YAML.
 
 ### The Importance of This Distinction
 
