@@ -16,7 +16,7 @@ We currently do not allow any projects to "bring their own" code of conduct or t
 
 ## Security Requirements
 
-Any project added must have security guidelines for how to report and resolve security issues. It is acceptable to merely use the existing Helm process for this. But projects that require special or additional reporting may do so.
+Any project added must have security guidelines for how to report and resolve security issues. It is acceptable to merely use the [existing Helm process](../SECURITY.md) for this. But projects that require special or additional reporting may do so.
 
 ## Process
 
