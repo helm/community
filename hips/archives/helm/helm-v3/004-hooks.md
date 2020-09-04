@@ -11,4 +11,3 @@ for `helm.sh/hook-policy: unmanaged`
 > [name=Taylor Thomas] Would hooks be needed anymore with the new eventing
 > system? I think all we would need is something that can translate Helm v2
 > hooks into the new events behind the scenes
-

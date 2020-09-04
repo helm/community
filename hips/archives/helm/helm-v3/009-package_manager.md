@@ -44,4 +44,3 @@ Helm is not a configuration management tool (such as Chef or Puppet). Helm does
 provide certain features of such systems, though. Helm's templating and
 configuration model is a common feature of configuration managers (and also of
 package managers).
-
