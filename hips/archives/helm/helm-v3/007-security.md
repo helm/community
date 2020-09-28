@@ -12,5 +12,3 @@ Helm Classic). The following security goals are met by this proposal:
   the user who runs the request
 - In-cluster CRDs can be secured with RBAC, too, providing access controls for
   releases.
-
-

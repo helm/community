@@ -116,5 +116,3 @@ Version increments are ULIDs, not SemVer or integer counters. This is to
 prevent any race conditions when two revisions are pushed in near proximity.
 The version incrementor need not be negotiated with ULID; each new ULID is
 time-bound, but unique.
-
-
