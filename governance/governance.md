@@ -59,16 +59,6 @@ Once an org maintainer is elected, they remain a maintainer until stepping down 
 
 The Org Maintainers will select a chair to set agendas and call meetings of the Org Maintainers.
 
-#### Initial Org Maintainers Selection
-
-To ensure diverse representation in the initial selection of Org Maintainers from all areas of the Helm org, the breakdown of Helm Org Maintainers group will be as follows:
-
-* 3 Representatives from the Helm core project
-* 2 Representative from the Charts project
-* 2 Representatives from another Helm project
-
-This accounts for a total of 7 initial Org Maintainers.
-
 ### Project Maintainers
 
 Project maintainers are responsible for activities surrounding the development and release of code, the operation of any services they own (e.g., the documentation site), or the tasks needed to execute their project (e.g., community management, setting up an event booth). Technical decisions for code resides with the project maintainers unless there is a decision related to cross maintainer groups that cannot be resolved by those groups. Those cases can be escalated to the org maintainers.
