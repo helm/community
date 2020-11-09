@@ -1,0 +1,58 @@
+subprojects:
+- name: Helm Core
+  ownersLink: https://raw.githubusercontent.com/helm/helm/master/OWNERS
+  repos:
+  - https://github.com/helm/helm
+  mailingList: cncf-helm-core-maintainers@lists.cncf.io
+- name: Charts
+  owners:
+  - lachie83
+  - prydonius
+  - sameersbn
+  - viglesiasce
+  - unguiculus
+  - scottrigby
+  - mattfarina
+  - davidkarlsen
+  - paulczar
+  - cpanato
+  - jlegrone
+  - maorfr
+  emeritus:
+  - foxish
+  - linki
+  - mgoodness
+  - seanknox
+  repos:
+  - https://github.com/helm/chart-releaser-action
+  - https://github.com/helm/charts-repo-actions-demo
+  - https://github.com/helm/chart-testing-action
+  - https://github.com/helm/chart-testing
+  - https://github.com/helm/chart-releaser
+  - https://github.com/helm/homebrew-tap
+  - https://github.com/helm/kind-action
+  - https://github.com/helm/hub
+  mailingList: kubernetes-charts-leads@googlegroups.com
+- name: Website
+  ownersLink: https://raw.githubusercontent.com/helm/helm-www/master/OWNERS
+  repos:
+  - https://github.com/helm/helm-www
+- name: Community Management
+  owners:
+  - karenhchu
+- name: Monocular
+  ownersLink: https://raw.githubusercontent.com/helm/monocular/master/OWNERS
+  repos:
+  - https://github.com/helm/monocular
+- name: Chartmuseum
+  ownersLink: https://raw.githubusercontent.com/helm/chartmuseum/main/OWNERS
+  repos:
+  - https://github.com/helm/chartmuseum
+- name: helm-2to3
+  ownersLink: https://raw.githubusercontent.com/helm/helm-2to3/master/OWNERS
+  repos:
+  - https://github.com/helm/helm-2to3
+- name: Helm Acceptance Tests
+  ownersLink: https://raw.githubusercontent.com/helm/acceptance-testing/master/OWNERS
+  repos:
+  - https://github.com/helm/acceptance-testing
