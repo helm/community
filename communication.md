@@ -64,7 +64,7 @@ edition of which has happened in Portland, Oregon in February 2018, [the second 
 [Stack Overflow]: https://stackoverflow.com/questions/tagged/kubernetes-helm
 [timezone table]: https://www.google.com/search?q=0930+am+in+pst
 [Twitter]: https://twitter.com/helmpack
-[weekly development meeting]: https://zoom.us/j/696660622
+[weekly development meeting]: https://zoom.us/j/696660622?pwd=MGsraXZ1UkVlTkJLc1B5U05KN053QT09
 [Helm Community Meetings playlist]: https://www.youtube.com/playlist?list=PLVt9l4b66d5EY5Xs9OVJgvO5ss9WzrSY0
 [SIGs]: https://github.com/kubernetes/community/blob/master/sig-list.md
 [SIG-Apps]: https://github.com/kubernetes/community/tree/master/sig-apps
