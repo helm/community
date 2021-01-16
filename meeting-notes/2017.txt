@@ -1,0 +1,736 @@
+Helm Minutes for 2017
+
+December 14, 2017
+Announcements
+Helm Summit CFP is open (are we extending deadline?)
+Helm 2.8 soon after Kubernetes 1.9 is released
+Standup:
+Justin:
+Issue triaging
+Michelle: KubeCon SIG-Apps meeting
+Deployments with injected values about the environment
+Helm summit planning and mailing list setup
+Steve:
+Lot of discussions a KubeCon
+Internal discussions about Helm and security, maybe some afterward discussions
+Looking over issue list
+Matt Farina
+Helm Status YAML/JSON output done
+How to pass in custom user agents? (For CI)
+OWNERS files for k/charts; instituting this as policy this week
+All k8s org projects will now have stale issue closer
+CircleCI fixed
+Matt Butcher
+KubeCon updates about SK, Alibaba, etc.
+Suggest skipping meetings for rest of year
+Matt Fisher
+Alibaba: Using a forked Kubernetes with Helm
+SIG-Apps Update and Deep Dive meetings: Good discussions on Helm dev summit, esp. On whether we should use CRDs
+Looking at Adam’s PR for 1.9 support
+Taylor
+Focusing on Helm summit
+Lots of sponsorship asks
+Triaging CFPs with Fisher, Adam, Michelle on Dec. 15
+Some PR triaging
+Some ideas about CRDs that might prototype
+Adam
+PR for k8s 1.9
+Heads up on remodeling of Kubernetes types
+[Fisher volunteered to pair]
+Discussion items
+Helm Summit [Michelle]
+Please submit CFPs https://helmsummitpdx-feb2018.splashthat.com/
+Contact Taylor for CFP review
+When do we want the CFP deadline?
+Follow-up in the CFP discussion tomorrow
+Helm security mailing list and email [Michelle]
+Current: helm-security@deis.com
+What do we want the new address to be? Security mailing list?
+Google groups or mailman
+Fisher: Mailman usage is common in open source communities
+KubeCon update
+Kubernetes upgrades for 1.9, and how this breaks/changes Helm
+
+November 30, 2017
+Announcements
+Helm Summit venue is locked in: The Evergreen in Portland, OR.
+21-22 February 2017
+There’s space enough for 200 people or less. It’s “super cute.”
+Nike is co-sponsoring with Microsoft. There or may not be Nike swag available.
+Standup:
+Taylor
+Working through backlog of PRs.
+Coordinating Nike side of sponsoring the summit.
+Reviewing Michelle’s Tiller plugin.
+Adam
+KubeCon preparation.
+Starting in on working on Kubernetes 1.9-related changes.
+Brian
+
+
+Steven
+Discussing Tiller security with internal teams considering using Helm.
+Michelle
+Working on a plugin called “secure-tiller” to lock down Tiller for a particular Kubernetes namespace. It deploys Role and RoleBinding objects to restrict Tiller’s permissions. She’s soliciting feedback on whether this pattern and convention is helpful and desired.
+Working on securing the venue for the Helm summit.
+Matt Fisher
+Triaging issues, including a few related to security.
+gRPC upgrade
+Should we wait until after KubeCon to release?
+Helm version 2.8 would bring parity with Kubernetes version 1.9.
+Matt Farina
+Working on slides for presentation at KubeCon.
+Sprig library interface oddities needed accommodation, for a pending release.
+Matt Butcher
+Cleared out PRs in the queue on Thanksgiving.
+Published the secure Tiller/TLS configuration blog post.
+There are coming changes to the Helm documentation site.
+KubeCon and the Helm Team
+Michelle is planning meetings, and wants to know who wants to participate.
+Lots of people new to Helm will be there. Keep that in mind when pitching Helm.
+Michelle is working on a “cheat sheet” to help explain what’s changing in Helm to keep pace with Kubernetes evolution.
+We’d like to find people who are not maintainers to speak on their use of Helm.
+Be on the lookout for experience reports, and encourage people to attend the Helm summit a couple of months later.
+Discussion
+Stepping down from core maintainership role gracefully: Introduce a new category for “emeritus” where one rescinds a previously-held voting role. Open an issue in which to discuss this procedure. The Kubernetes Steering Committee has guidelines that we could borrow.
+There are parties that may show up at KubeCon that will paint the Helm community in a bad light. We’ve been improving the documentation in preparation.
+Be professional, level-headed, and set a good example. Confrontation isn’t helpful. Matt Farina is willing to intervene and mediate.
+
+Action Items:
+Share documentation that addresses these concerns.
+
+November 16, 2017
+Announcements
+Helm v2.7.2
+Standup:
+Taylor
+Issue sherpa’ing
+Bug reported with tiller memory leaks
+Working with michelle on the helm dev summit
+Adam
+Released v2.7.1
+Brian
+Triage the TLS issue that was released in v2.7.2
+Steven
+Asked to place a discussion around pluggable tiller authentication backends
+Michelle
+Working on the helm dev summit side as usual
+Been going through the UX for setting up RBAC
+Matt Fisher
+Triaged issues for v2.7.1
+Peer reviewed the patch for v2.7.2
+Matt Farina
+Starting on work for helm status output as JSON
+Discussion
+Pluggable auth backends for tiller
+IBM wants to integrate their authentication/authorization backend to front tiller
+Some arch discussion around blocking direct access to tiller only to the authentication gateway
+IBM would like to open a ticket to discuss this proposal
+v2.7.3?
+The patch looks good, but there are concerns around the grpc-go PR being backwards-incomaptible between Helm patch releases
+November 9, 2017
+Announcements
+None for today
+Standup:
+Taylor
+Looking at what items need to make it to the next Helm release
+Reviewed the "symlink-walk" piece that we needed to remove because it was part of the facebook-go dependencies. Looking pretty good.
+Matt Farina:
+Moving charts to a model where owners will be able to make PRs themselves.
+Still a little ways out to finalize this, since we need to move to Prow before this can happen
+Justin:
+Was Sherpa Tsar
+Merged an example for overrides
+Nikhil:
+Working on new chart for Portus Registry
+Will run it by folks once it's complete to get some feedback
+Discussion Topics
+Turning on RBAC by default (kensey - Issue 3098 in GitHub)
+Chart PR that was reviewed - reformat chart using RBAC (enable/disable + service account)
+Most of the other kubernetes teams have moved to use RBAC by default
+Ideally make a decision on this by next dev-meeting
+Helm Summit (Taylor)
+Current dates were oo close to KubeCon, so makes sense to reschedule
+Moved out to Feb 6th and 7th
+CFP deadline to moved out to a week after KubeCon
+The venue is still being finalized, should be safe to book travel once venue is finalized
+Assignments for next week
+Issue Sherrif - Taylor
+Notes - Justin
+Meeting Lead - <TBD>
+November 2, 2017
+Announcements
+Microsoft folks will be away all next week
+If you are a core maintainer and not already on the kubernetes-helm-core google group, please request access here
+Helm Summit CFP is open. Submit a CFP to speak at the summit here
+If you’re interested in helping with the schedule and sort CFP submissions, please contact Taylor Thomas
+Plans to release a v2.7.1 sometime in the near future
+Standups
+Matt Farina
+Got a few PRs merged on bringing out the app version and maintainer URL to Chart.yaml
+Raised a question about charts should be mutable or not; kubernetes/charts are currently mutable
+Matt Butcher
+Got ChartMuseum into helm’s incubator with Matt Farina
+Chatted with Farina about helm templating ideas
+Plans this week are to continue with helm comunity stuff
+Michelle
+Reached out to Sarah (Kubernetes) and Dan (CNCF) to advise on where we should post community meeting recordings
+Fisher
+Issue queue triaging
+Working on documentation
+Need alias for security leaks
+Taylor
+Issue sherpa this week
+Issue got dropped about deployments. One user is considering dropping helm due to this bug so we should strive to take a closer look into it
+Finalizing some venue stuff for the dev summit, looks like it’s going to be in downtown portland
+Adam
+Worked on trying to tamper down the PR queue along with Fisher
+Focusing on helping out Michelle on the helm dev summit
+Michelle
+Talking to lots of users last week on Helm
+Posted the presentation on helm from last week so others can learn
+Helm summit is on her list of TODOs: CFPs, venues, schedule etc.
+Reached out to Sarah and Dan(?) on how we want to upload the helm dev summit videos
+Justin
+Jumped into the context deadline exceeded issue
+Fisher has commented on that issue to *hopefully* move the conversation/troubleshooting forward
+Steven
+Helping people over the istio helm chart, how to get it installed into the cluster and how to add it to your own service using istio sidecar injection
+Found a bug when submitting a chart with no objects caused an error; there’s an argument forming around a chart should be installable even if no resources are deployed
+Discussion topics
+What other mailing lists do we need other than Kubernetes-helm-core for core team communications?
+Need alias for security leaks
+Justin: should we pre-seed discussion about what is on the table for breaking changes in Helm 3?
+We should rope in everyone on a 45 minute dev call to discuss what’s the scope of the project for helm 3, whether charts compatibility should break between Helm 2 and Helm 3, etc.
+Should we discuss about the helm summit at KubeCon?
+Yes
+Assignments for next week
+Issue Majaraja: Justin
+Meeeting notes: Steven
+Meeting lead: Taylor
+
+October 26th, 2017
+Announcements
+Helm v2.7.0 was released this Monday
+Helm v2.8.0 is planned to go out after Kubernetes 1.9 in December as agreed upon last meeting
+Standups
+Adam Reese
+Released Helm v2.7
+Brigade launch has been taking up most of his time this week
+Matt Fisher
+Also assisted with Helm v2.7 release
+Steven Harris
+Concerns around confusion with values.yaml -- there are a lot of different ways to configure values. --reuse-values, --set, changing values.yaml, `helm inspect values`
+Taylor Thomas
+Jumping back this week
+Working on the helm summit, hopefully more progress next week
+Needs some more help on reviewing CFPs for the summit: Fisher and Reese raised hands
+Matt Farina
+Has 2 PRs in helm related to charts
+Adam said that he will get to reviewing them this week
+Discussion topics
+Fisher wants to propose a talk about how to propose and document new features in helm at the dev summit in Jan
+One concern around Helm 3: chart compatibility. We should strive to be compatible with Helm 2 charts now that there are a lot of them
+Steven brought up the discussion from this week’s SIG-Apps meeting from Brian Grant
+Fisher and others will be attending the working group to discuss ideas proposed by Brian and see if these can be distilled into features for Helm 3 (or Kubernetes in general)
+Assignments for next week
+Issue sherpa: taylor
+Meeting notes: fisher
+Meeting lead: steven
+October 19th, 2017
+Announcements
+Helm Summit Interest Survey is out: https://goo.gl/forms/UBTTS7JaoZpSzoar1
+Cut the release for 2.7.0-rc1 - Thanks Fisher, Adam and Taylor
+Standups
+Matt Fisher
+Helped out with the release
+Tag was not being built on CircleCI, had to use API directly to cut the tag
+Same issue happening on Draft so it might be something related
+Currently looking through this issue to get tags to work again so we don’t have to do a manual API Post to build the tag
+Planning on doing the release notes and documenting how to do that
+Looking for any issues on the rc1 release but haven’t found any
+If all looks well, we could release by next week
+Michelle Noorali
+Issue Maharani this week
+Created a google group for the Helm core team
+Sent out Helm Summit Survey to gauge people’s interest in attending
+Link: https://goo.gl/forms/UBTTS7JaoZpSzoar1
+44 responses so far
+Sending out CFP form today for the Helm Dev Summit
+Will create a google group for the Helm community at large
+Venue is looking to have a max capacity of 200 at this time, looking at other options
+Reach out to michelle if interested in setting schedule stuff for the summit
+Date might be changing to Jan 16th/17th
+Adam Reese
+Issue grooming, PR reviews
+Helped released 2.7-rc1
+Justin Scott
+This week want to participate more in helm
+Interested in telepresence. Pretty cool, didn’t work
+Taylor
+More helm dev summit organizing
+Matt Farina
+Working with the charts team for loosening CI linter rules
+Matt Butcher
+Taylor had some impromptu helm things going
+All the Helmettes went to the KubeCon after party together, from core maintainers to new users
+Met with SK Telecom using Helm to deploy all their Openstack mega clusters
+Lots of discussions around what people like and don’t like about Helm
+Out on vacation next week
+Bitnami announced their new Kubeapps product
+Discussion topics
+Kubernetes 1.9 planning
+Wednesday December 13th
+The rc1 is set for 12/6
+Look at releasing helm 2.8 at the end of the year
+Keep in mind KubeCon is Dec. 6-8
+Helm 2.7.0 release date
+Looking at Monday or Tuesday of next week if no issues arise before then
+Venue options and preferences
+Fisher said that he’s interested in seeing the Nike campus :3
+Assignments for next week
+Issue sherpa: Taylor
+Meeting Notes: Matt Fisher
+Meeting Leader:
+
+October 12th, 2017
+Announcements
+Standups
+Adam
+K8s 1.8 support
+Working with Matt Farina on some PRs, will be following up this week
+Matt Fisher
+Steven
+Using helm around different environment-based values
+Looking into/reading about the CronJob issue
+Matt Butcher
+Had a meeting with App Registry and ChartMuseum
+Following up with ChartMuseum dev wants to put it into helm incubator
+Outcome of the meetings was there was strong ChartMuseum as the backend and Monocular as the front-end for a chart repository experience
+Launching new OSS so being busy for the next 2 weeks or so
+Justin Scott
+Playing around with telepresence (sorry Fisher) :P
+Taylor
+Issue sherpa this week
+Trying to lasso issues into the 2.7 release, continuing to assist in the RC
+Nick
+Got helm/tiller merged into SUSE’s CaaS platform
+Matt Farina
+Submitted a preemptive bug fix
+Updates on the charts repo: They are linting and running various static tests with Circle to automate all the things
+Discussion
+Secrets backend
+Docs
+Conversion from ConfigMaps to Secrets
+Decision is to go ahead and merge and add documentation outside of PR
+2.7 Release
+Adam in charge of cutting release
+K8s support again….We need to support 1.7 and 1.8, which means supporting 2 API versions for this release
+This PR should probably be pulled off of 2.7 and fixed upstream
+RC release date: Monday, Oct. 16th
+Helm Summit
+Figuring out final details about the venue, should have news in the next few weeks
+FakeClient PR
+Some input and help needed. We need to make sure we help quickly on this
+Dashboard Authentication example
+Steve saw some code with using user roles to allow better access. Not the best option, but other apps are progressing with authentication
+See https://github.com/kubernetes/helm/pull/3025
+
+Assignments for next week:
+Issue Sherpa: Michelle
+Meeting Lead: Fisher
+Note taker: Steve
+October 5th, 2017
+Announcements
+Helm v2.6.2
+Standups
+Matt Fisher
+Cut v2.6.2 with help from Adam
+Issue sherpa’ing
+Adam Reese
+Assisting Fisher on the Helm v2.6.2 release
+Working on porting k8s 1.8 support on top of Helm. There’s some nil errors occurring during testing
+Also an issue to do with docker/distribution in glide
+Fisher mentions that there is an open PR to switch over to dep which may fix that
+Taylor
+Working on PR support for 2.7
+Need to figure out the 2.7 release timeline
+Want to get back on Helm commandeer stuff
+Matt Butcher
+Getting back onto the swing of things, been at conferences all last week
+Working/chatting with the creator of ChartMuseum
+Working with the service catalog team on sprig PRs which should get incorporated into Helm
+Mike Goodness
+Finished wrap-up on calico network policies at TicketMaster, so far so good
+Should be able to spend some time reviewing community PRs on charts
+Steven
+Jail chart tiller?
+Looking at checking tiller’s capabilities to check kubernetes api versions for conditional logic in charts
+Brian
+Just listening in this week
+Justin
+Working on different operators like prometheus
+Matt Farina
+Added CI to every chart PR, which runs `helm lint` on CircleCI
+Get meetings for ChartMuseum, AppRegistry etc. to sort through all of this
+Michelle (Matt Butcher speaking on behalf of her)
+Working with karen on helm dev summit
+Taylor is working with michelle on finding venues in portland
+Working with Fisher on creating a Helm-dev google group for notes, voting etc.
+Discussion
+Helm 2.7 timeline
+Butcher asks if there’s anything other than k8s 1.8 that should get in before we cut 2.7
+Taylor mentions there’s the secrets backend that would be good to get in, but we’re still working on getting some documentation for that PR
+Matt Farina relays community unrest around the release delay between a kubernetes release and a helm release supporting that kubernetes release
+We should cut a release candidate once k8s 1.8 support is in Helm so users can test Helm on k8s 1.8 and try that out
+Assignments for next week:
+Issue Sherpa: Taylor (next week: michelle)
+Meeting Lead: Adam
+Note taker: Taylor
+September 28th, 2017
+Announcements
+
+
+Standups
+Taylor
+Merged PRs that should be part of the patch release
+Fisher
+Issue sherping
+Facebook Go deps not compatible with Apache v2 or MIT license - need to pull these out
+Maciej
+Getting back to Helm-y stuff
+Resuming work on proposal of existing releases as chart deps
+Ramp up review counts
+Adam
+Just getting back up to speed after being ill :(
+Steven
+Using Helm quite a bit, new clusters coming online
+Scripts for installing and upgrading Helm
+Justin
+A couple issues
+Working on galera cluster operator
+Mike
+Working with Calico network policies using a chart
+Need to give the prometheus operator & alb ingress chart some love
+Adnan
+Something about CI?
+Discussion
+Facebook Go dependencies
+Include in patch release 2.6.2?
+Matt Farina: remove sooner than later
+Cutting patch release
+Some bug fixes still not merged
+Taylor to create 2.6.2 milestone
+Not sure we're in a position to release 2.7 next week
+2.6.2 scheduled for tuesday or wednesday next week
+Authentication webhook
+Taylor to have chart to show for this
+Moving to offline discussion
+Declarative app management doc
+Discussed WG formation SIG-CLI meeting
+SIG-Apps and SIG-CLI effort, Helm should be involved
+Assignments for next week:
+Issue sherpa: Matt Fisher
+Meeting lead: Steven
+Note taker: Maciej
+September 14, 2017
+Announcements
+Standups
+Steven
+Talked about application deployments using Helm and `kubectl rollout status`
+Lypht
+Asked about how to deploy charts sharing common values.yaml
+Taylor mentions https://github.com/skuid/helm-value-store
+Improved documentation on common charts?
+Adnan talked about possibility of `helm create` pulling in the common chart
+Mike
+Working on maintaining Helm chart PRs
+Working out the storageClass pattern for official charts
+Working on high quality, solidly reproducible charts
+Adnan
+Did a webinar yesterday with Helm, went rather well
+Matt Farina
+Talked about chart repositories at the last SIG-Apps meeting
+Different implementations: kubeless, app registry, traditional helm way
+Private chart repositories: app registry vs. dockerhub style
+Adnan: Perhaps incubate app registry as a Helm 3 “official” registry
+Adnan: perhaps just remove the concept of `helm repo update` and a local index.yaml?
+Spun out a larger discussion on Helm 3 chart hosting, migration paths for kubernetes/charts etc.
+Justin
+Issue triaging over the week
+Matt Fisher
+Issue triaging, assisting first-time contributors with their PRs
+Discussion
+Helm 3 chart hosting, as seen above
+Should we come up with a proposal template for proposals?
+Just want to push back-channel discussion over to the helm dev meetings, more lax proposals
+Assignments for next week:
+Issue sherpa: Justin
+Meeting lead: Taylor
+Note taker: Adnan
+September 7, 2017 [Recording]
+Announcements
+If you need edit access to this doc, let Michelle know
+2.6.1 was released!
+Standups
+Maciej
+Worked on Rudder Federation
+Proposal for having existing releases be dependencies
+Adam
+Issue sherpa for the week
+Going to be looking at deployments not rolling
+Starting work on k8s 1.8 for Helm
+Butcher
+Working on releasing new sprig version
+Working with Openstack people on running Tiller as a DaemonSet
+Did something else small :)
+Michael
+Lots of chart PRs
+Michelle
+Reviewing PRs (specifically Amanda’s PR for indexing nested charts)
+Fisher
+Reviewing PRs, merged Helm template into core
+Should we add a kube version variable to template
+Steven
+Catching up on issues
+Trying out ksonnet
+Justin
+Working on writing tests for recursive builds (taking over another PR)
+Chart sorting
+Taylor
+PR reviews
+Needs another review on https://github.com/kubernetes/helm/pull/2721
+Demos
+Helmet (Butcher)
+An intellisense completion tool for Helm on the command line
+https://github.com/technosophos/helmet
+Discussion
+Helm Summit
+Possible location
+Portland
+Georgia
+Happening in early January
+Kube version in Helm template
+Related PR: https://github.com/kubernetes/helm/pull/2898
+We can mock things out like we do in tests. We would mock against the current kubernetes version we build against
+Template is no longer just for debugging, but also for rendering templates. It isn’t a preferred use case, but we are ok with adding in flags to enable this functionality
+Output formatting for Helm
+This is a complex issue that Adam already tried
+It might be cool to have, but there will be some work
+The main benefit would be viewing what the release looks like from a machine readable standpoint
+Helm dev meeting length
+Meeting will now start at 9:15 and go for 45 minutes
+Taylor to announce in channel
+Assignments for next week:
+Issue batman/butler: Butcher
+Meeting moderator: Adam
+Note taker: Fisher
+August 31, 2017 [Recording]
+Announcements
+One PR merged for 2.6.1, need to discuss when we want to release
+Standups
+Fisher
+Issue triaging, reviewing PRs. No significant feature work
+Butcher
+Asked about the `helm template` PR
+Justin mentioned it’s ready for review but not merged yet
+Working on chart stuff but not core Helm
+Michelle
+No issue updates for this week
+Updated the Deis youtube channel playlist
+Seeing if the channel playlist should live in CNCF or in the Kubernetes channel
+Maciej
+Working on federation rudder
+Adam
+Reviewed Maciej’s e2e PR, might want to hold off on merging until 2.6 is out to test tag release automation
+Possibly merge after 2.6, then do a couple test tags to make sure it goes through the whole release pipeline without blocking the impending release
+Brian
+Not present
+Taylor
+Was the issue maharaj this week, kudos to fisher and justin for triaging issues this week
+Doing PR reviews this week
+Chatting about secrets backend for Tiller, due to the size needs he asked for another review from the core team
+Robots are taking over Helm’s issue labels
+Butcher’s saying that we’ve been pushing back on moving over to the kubernetes-helm org for a while
+Any bots that are CNCF-related (like the CLA bot) could be pulled in once we move orgs
+Going to move forward with seeing how we can configure the PR sizing bot and see how we deal with them moving forward
+Lachie
+Not present
+Steven
+Working on Helm adoption internally
+Looking at integrating with artifactory
+Over the weekend had some time to look at some of the issues and PRs
+Adnan
+In the community repo, there’s a PR for meeting notes to reference the single google doc (this one)
+Discussion in the charts repo about moving away from annotations over to fields in the spec
+Lots of people are adding network policy stuff which is nice to see
+Justin
+General issue triaging
+Taking on the work for recursive build feature
+Demos
+Discussions
+Helm 2.5.1 issues to cherry pick?
+The subcharts being deleted when not present in requirements.yaml
+Possibly adding in the regex case-sensitive issue on helm search? https://github.com/kubernetes/helm/pull/2876
+Fixup with relative index.yaml https://github.com/kubernetes/helm/pull/2862
+Planning for next week
+Issues: Adam Reese
+Meeting moderator: Maciej
+Note taker: Taylor Thomas
+August 24, 2017 [Recording]
+No announcements
+1 ticket for a 2.6.1 release, moving forward with 2.7.0
+Standups
+Fisher
+Issue queue
+Taylor
+Working on scaffolding for helm commandeer
+Identified bug on helm delete, community member took this on after
+PR is out
+Would warrant 2.6.1 release
+Butcher
+Planning related stuff
+Beginning helm 3.0 phase the beginning of January
+Kubernetes Core has asked us if we would start releasing when kubernetes releases within a week or so of a Kubernetes release
+Lachie
+Is there anything we do could do as chart maintainers to start testing against kubernetes 1.8
+Michelle
+Still waiting on initial cost projects for helm summit and helm core maintainer sessions. Will probably happen in January. Looking for sites.
+Looked into this PR: https://github.com/kubernetes/helm/pull/2824
+Think it’d be best to nest helm readme command under helm inspect
+Helm Q&A time during next SIG Apps meeting. Here is the form.
+Adnan
+There is a discussion going on in charts around functions to be namespaced
+https://github.com/kubernetes/charts/issues/1785#issuecomment-323642628
+Maciej
+Working on e2e tests https://github.com/kubernetes/helm/pull/2846
+Created a framework, not about creating scenarios
+Using gingko
+For each test case, create new namespace
+Waiting on review and feedback
+Started writing proposal on using existing helm releases for dependencies
+Looking for feedback
+Demos
+Discussion Topics
+Look at Maciej’s proposal for re-using existing helm releases as dependencies
+Planning
+Issue Maharaja: Taylor Thomas
+Meeting moderator: Michelle Noorali
+Note taker: Matt Fisher / Matt Butcher
+
+Aug 17, 2017
+
+Topics:
+
+Note taking
+Recording
+Helm Commandeer
+CircleCI/testing
+Automation of Homebrew, etc
+Volunteer for triage, note taking
+
+
+
+Taylor:
+• Helm comandeer
+
+Majiec:
+• e2e testing: basic framework for running and checking
+• Want to talk about CircleCI capacity for running these
+
+Fisher:
+• Issue triager for last week
+  • Caught up on old untriaged issues
+
+Justin:
+• Closed a bunch of ancient issues
+• Little stuff like the manifest ordering patch
+
+Steve:
+• “Helm on Helm” to install Tiller via a chart
+• Issue queue managing
+
+Adnan:
+• 0.4.0 of Monocular released
+• New chart maintainer joined last week
+
+Lachie:
+• Azure installing Tiller by default, working on some similar RBAC stuff to Steve
+
+Michelle:
+• Community meeting with Karen Chu (MS) on organizing Helm Summit
+• Onboarding with Majiec
+
+Adam:
+• Release of 2.6
+
+Butcher:
+• 2.6 stuff
+• Getting ready for 2.7
+
+Ronan:
+• Documentation update run soon
+
+
+
+Note Taking and Recording:
+
+Where do we store notes? What do SIGs do?
+
+Google Doc for collaboration
+Rotating meeting leads and note taking every week is fine?
+Minutes will go in https://github.com/kubernetes-helm/community
+
+
+Next week’s…
+
+Meeting leader: Fisher
+Note taker: Michelle
+Issue Sherpa: Justin
+
+
+
+Recording:
+One of the SIG-Apps leads will record via Zoom
+Set up YouTube channel (Michelle)
+Each week, add link to the repo
+
+
+
+Helm Commandeer
+
+Adopt existing resources into a chart/release
+Use Case: Bootstrap cluster, install Tiller, then turn around and capture the bootstrapped resources as charts/resources
+Butcher/Scott: Capturing existing resources for already-deployed Kubernetes clusters
+Steve: Trimming out state information is painful. Might be nice to have a “spec” that an object can be imported into
+Majiec: Two arguments for doing this as a plugin instead:
+It can make use of Helm as libraries
+It forces improvements of the API
+Lachie: Concern is with starting to confuse what the “source of truth” is for features.
+Taylor: Okay, I do it as a plugin, with the goal of making it a “gold standard” plugin
+
+
+
+CircleCI/automation/etc
+
+Majiec: The discussion so far is that we are up to limits of CircleCI. But my own experience is that we have been able to run tests for about :30 in CircleCI. Maybe we still can run a Docker-in-Docker Kubernetes cluster
+Adam: I actually reserved you a dedicated e2e resource
+Scott: It would be great to be able to kick off building OS packages and have that trigger on releases, as an extension of release management.
+Fisher: Maybe you (Scott) and I can chat about that
+Lachie: Chart maintainers are also talking about that today
+
+Template
+Announcements
+
+
+Standup
+
+
+Discussion
+
+
+Assignments
+Issue Sherpa:
+Notes:
+Moderator:
+

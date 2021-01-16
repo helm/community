@@ -1,0 +1,597 @@
+Helm Minutes for 2020
+
+March 12, 2020
+Assignments for this meeting:
+Moderator: Matt Butcher
+Notes:  Scott Rigby
+Issue triage: Matt Fisher, Bridget Kromhout
+
+Announcements
+Early access to CNCF Hub is available: https://hub.cncf.io/
+Standup
+Bridget: not much this week
+Taylor: Triage
+Matt Fisher: Triage, follow ups
+Adam: spent more time on deprecated k8s API versions
+Marc: Added completion to 2to3 plugin. Finished fish shell completion. Reviewing in-memory cache concept
+Martin: also quiet week. A few things around migration plugin. Added in capability to remove a release on cleanup. Good to see people using it, giving feedback etc. Thanks to Fisher for review of docs on library charts
+Scott: not much this week, heads down. Yay about cncf hub!
+Jacob: Worked on ownership issue. Adds a few new annotations we'd need to commit to, so please have a look. https://github.com/helm/helm/pull/7649 After merge, plans to work on import command (commandeer) https://github.com/helm/helm/issues/2730
+Josh: not much to add. Hoping to get eyes on a PR: sourcing dependency charts from OCI https://github.com/helm/helm/pull/7613
+Matt Butcher: Presenting to ToC on Tuesday
+Discussion
+Release 3.1.2? [Farina]
+Will cut later today [probably by Farina] unless someone else get there first
+Vision for HelmHub: how to choose the right chart for a product? [Marc]
+The stable and incubator Helm chart repositories, currently listed on the Helm Hub, have begun a 1 year deprecation timeline. After 6 months they will be de-listed from the Hub (soon to be CNCF hub). See helm/charts > Status of the Project and Deprecation Timeline
+The Helm Hub has a process for Adding distributed Helm repos, and the stable and incubator repos have a process for Deprecating a Chart once this is completed
+Orgs and individuals can host distributed Helm repos however they wish, but if they want to use Helm-created tools (chart testing, releasing, etc) they can follow this example to use Helm Chart repo Actions: https://github.com/helm/charts-repo-actions-demo
+There is a stub issue to help track migration, here https://github.com/helm/charts/issues/21103 (this will be fleshed out soon. While each deprecated chart README links to it's new home, this issue primarily to help the community see the migration at a glance)
+We have engaged with a number of orgs who develop the apps to host charts for those apps (here is a working list that will be added to that github issue soon https://hackmd.io/VgK7_DUpS6CLLT4HSncmDg)
+Helm.sh used to have a link to the sig-apps meeting recordings (not helm-specific) but now just points to https://github.com/helm/community/blob/master/communication.md#meetings - do we have a specific link or playlist we want to publish for the Helm dev call? These get recorded - but where do people watch them? [Bridget] / Posting Helm dev call videos [Marc]
+https://www.youtube.com/playlist?list=PLVt9l4b66d5EY5Xs9OVJgvO5ss9WzrSY0
+Fisher will migrate videos from Zoom to Youtube
+Adam points out there’s a doc in keybase with the necessary info
+Helm v2 utility library (https://github.com/maorfr/helm-plugin-utils/) request move to Helm org [Martin]
+Discuss next week
+Docs:
+Improvement of library chart docs  https://github.com/helm/helm-www/pull/526  [Martin]
+One review done by Matt Fisher. Can we get another core maintainer review?
+Plugin shell-completion (which is in 3.2) https://github.com/helm/helm-www/pull/506 [Marc]
+Fisher just approved and merged
+Follow-up meeting on kube 1.16^ [Marc]
+Adam will talk to Farina
+Please include Martin and Marc
+Should we split this file by decade? 😁 Slow on a phone in the subway. [Marc]
+Butcher: we could migrate past years to a markdown doc in github - Marc to open issue in community repo
+Please take a critical look at https://github.com/helm/helm/pull/7649 (resource adoption)! [Jacob]
+
+Assignments for next meeting:
+Moderator:  Matt Fisher
+Notes:   Bridget
+Issue triage: Matt Butcher / Bridget
+
+
+March 5, 2020
+Assignments for this meeting:
+Moderator: Adam
+Notes: Matt Farina
+Issue triage:
+Josh
+Matt Farina
+
+Announcements
+none
+Standup
+Matt Fisher
+Looking at PRs for upcoming milestones to see where we’re at
+Looking at a PR that does `--force`
+Josh D
+Issue sherpa-ing
+Did not complete Chart Museum release
+Matt Butcher
+Helm graduation tasks - shoutout to Michelle Noorali for her help on that
+Helm Security Assurance case - to get CII Silver badge
+Possibly not here next week if traveling
+Matt Farina
+Has been working on Helm graduation (less pressure due to KubeCon delay)
+Helm is on a list with other projects for graduation consideration March 17th. (Hopefully security assurance is done by then.) Working on pitch deck for 17th. Helped with issue triage this week.
+Martin
+Library charts docs work
+PR reviews
+Scott
+Chart testing/release work with Reinhard
+Worked to move charts out of charts repo (e.g., working with nginx project maintainers to host the chart)
+Paul
+Both KubeApps and Helmfile now support Helm 3.
+PR in to script craft release notes: https://github.com/helm/helm/pull/7636
+Jacob
+PR open around resource ownership. Make helm more intelligent on adopting resources. Needs work still.
+Bridget
+KubeCon EU work (intro to Helm maintainer session with Reinhard) is now put off
+Adam
+Worked on upgrading Kubernetes and depreciated K8s resources
+
+
+Discussion
+Kubernetes broken versioning [Adam] https://github.com/helm/helm/issues/7219
+We rely on the libraries kubectl uses - and that no longer supports some old versions
+Farina: this problem is going to keep happening/get worse (because the API server/kubectl won’t work with older versions)
+Farina: should we add Helm lint rules around this?
+Fisher: yes; we should give a warning/message in these cases
+Adam: we could build a binary outside of helm for conversion
+[new meeting warranted]
+[ran out of time]
+Release 3.1.2? [Farina]
+Vision for HelmHub: how to choose the right chart for a product? [Marc]
+Helm.sh has a link to the sig-apps meetings - do we have a specific link or playlist we want to publish for the Helm dev call? [Bridget]
+Issue triage: how’s it going? Trends? Thoughts? [Bridget]
+
+
+
+Assignments for next meeting:
+Moderator: Matt Farina
+Notes:  Scott Rigby
+Issue triage: Matt Fisher, Bridget Kromhout
+
+
+
+Feb 27, 2020
+Assignments for this meeting:
+Moderator: Josh
+Notes: Martin
+Issue triage: Farina
+Announcements
+Fisher, Taylor, and Bridget are at an event today so won’t be on the call
+Farina did a webinar on Helm security: https://www.cncf.io/webinars/helm-security-a-look-below-deck/
+Standup
+Marc:
+Cobra is very open to Go completion
+Adding support in Helm for Fish
+Adam:
+Reviewed some PRs
+Pushed a PR for fixing a lib
+Jacob:
+Resource ownership issues
+Matt Farina:
+Issue sherpa this week
+Lots of support questions
+Martin:
+Some PR reviews
+Some bug triaging
+Josh
+Talking ChartMuseum bugs
+One is: Storage cache issue
+New release of CM on the way
+Discussion
+Contributing Guide? https://github.com/helm/helm/issues/7585 [discussion suggested by Bridget, based on issue opened by Matt Farina]
+How do we handle things at project level? All the bits and pieces.
+Then handle things at code level? Maybe better code doc/GoDoc.
+How do you dive in? How you get started?
+How do you lower the barrier?
+Farina to maybe drive this outside of the weekly meeting?
+Gpg signing [mattfarina] https://github.com/helm/helm/issues/7599
+Best practice for handling kube 1.16 removed APIs? Helm v2 or Helm v3? [Marc]
+Big issue we need to be able to handle
+Vanilla `kubectl` can handle this, Helm needs to be able to diff against deprecated api to new api in cluster
+Adama to investigate
+CRDs not available during `dry-run`: https://github.com/helm/helm/issues/7449 [martin]
+Do we document that this is a limitation?
+Should this issue be marked as a feature?
+Resource ownership refactor https://github.com/helm/helm/pull/7649
+Resource ownership does not guarantee exclusivity https://github.com/helm/helm/issues/7699
+Assignments for next meeting:
+Moderator: Adam
+Notes: Matt Farina
+Issue triage:
+Josh
+Matt Farina
+
+Feb 20, 2020
+Assignments for this meeting:
+Moderator: Adam
+Notes: Bridget
+Announcements - none!
+Standup
+Martin
+Migration plugin:
+Kube context/kubeconfig can be set on the fly now
+Fun bug found about back-end storage (we weren’t catching setting that with args)
+Possibly need to release 3.1.1 - error not being propagated up correctly
+Fisher
+PR reviews
+Marc
+Completion coded in go - posted to cobra
+Working on k8s 1.16 at work - so dealing with challenges that are showing up in Helm issues -
+Bridget
+Working on Intro to Helm for KubeCon EU with Reinhard
+Farina
+Helm Hub - linting - github actions
+Webinar on Helm security
+Finding issues - putting issues into backlog
+Jacob
+Working on a bug to update resources to new API versions that exist in the cluster
+May suggest a new ownership heuristic soon (opt-in with label or env variable) (Fisher: maybe as a lookup)
+Adam
+PR reviews/merges
+XDG discussion with Farina
+Discussion
+Restore issue triage position? [mattfarina]
+Assign specific person/persons to do triage for a specific week
+Fisher: can we do assignments async on the maintainers list?
+Bridget: we should document how to do the triaging
+Farina: maintainers who aren’t core maintainers could also sign up
+Martin: new core maintainers can learn how to triage by pairing
+Farina: let’s start by reinstating the role and writing docs
+Add a “NEWS” file to help with release notes? https://github.com/helm/helm/issues/7581 [Marc]
+Merge conflicts mean a single file is a challenge
+Adam suggests an update to the github template
+Fisher will link to another tool that helps.
+What versions of Helm should be in docs? https://github.com/helm/helm-www/issues/497 [mattfarina]
+Fisher: Ronan added version dropdown list between individual versions - 2.14 does not have a specific need to be on there
+Adam: we’re constantly changing docs (not synced with specific versions)
+Farina: k8s does it with each minor release but each release is a breaking change - let’s remove the process and just have “helm 2” and “helm 3” but in helm 3 docs, specify minor version when the change came in
+Adam - include a section for anything that’s changed in the docs
+Fisher: bring it back to Ronan
+Farina: will continue convo with Ronan
+Note: topics after this point were not discussed on Feb 20 and are being suggested for Feb 27
+Should we cut 3.1.1? [martin]
+Errors not being propagated from template/install/list
+Contributing Guide? https://github.com/helm/helm/issues/7585 [Bridget, based on issue opened by Matt Farina]
+Gpg signing [mattfarina]
+Porting of sql storage driver https://github.com/helm/helm/pull/7635 [martin]
+Namespaces and user access
+Best practice for handling kube 1.16 removed APIs? Helm v2 or Helm v3? [Marc]
+Assignments for next meeting:
+Moderator: Josh
+Notes: Martin
+Issue triage: Farina
+
+Feb 13, 2020
+Assignments for this meeting:
+Moderator: Martin Hickey
+Notes: Matt Fisher
+Announcements
+Helm 3.1.0 released today: https://github.com/helm/helm/releases/tag/v3.1.0
+Standup
+Matt Farina
+Cut the 3.1.0 release, issue triaging, bug fixes
+Matt Fisher
+Triaging PRs for the 3.1.0 release, issue triaging, PR reviews
+Adam Reese
+Nothing to report this week
+Taylor Thomas
+Post-render work, giving a talk next week
+Scott Rigby
+Working on some demos with Helm 3 and the new github actions
+Might work on some demos for the new post-render feature
+Got around to pinging people in SIG-PM regarding the “kubernetes helm charts” repo naming suggestions
+Matt Butcher
+Kubecon stuff: working on the project maintainer’s booth for AMS
+Taking a look at managed hooks a little bit to resurrect the architecture
+Helm CNCF graduation is moving through the process
+Action item: need to fill out the ADOPTERS.md file in helm/helm
+Need to spend some time to fix the gpg signing key for past helm releases
+Marc Khouzam
+Working on PRs: namespaced memory drivers and pre-populating the memory driver for test infra
+Jacob LeGrone
+Hoping to compile an experience doc for his org
+Martin Hickey
+Looking into some bugs regarding passing along the kube context for the migration plugin
+Facilitating discussion around contributing a new project to the helm org
+Discussion
+Scott Morgan: I’ve had a PR sitting around for a while. Looking to find a core maintainer to move this around (7060)
+Martin: how come the apiVersion had to be updated? `helm lint` should work with older chart APIs
+Fisher: to resolve this, let’s add this to 3.2.0 so we can review it for the next release
+Travis raines: https://github.com/helm/chart-testing/issues/202
+Taylor: I’ll have to dig into this one a little more. --wait can be a bit of a finicky thing and can’t tell what’s the issue immediately
+https://github.com/helm/helm/pull/6920 “helm upgrade --install” purposefully ignores installation errors. Why? [Marc]
+Butcher: I’ll review this offline
+Should helm env show XDG paths? https://github.com/helm/helm/pull/6892 Result of offline discussion between Farina and Adam? [Marc]
+Farina: we shouldn’t be showing XDG-related environment variables. We should expose it as a Helm-specific variable in its place
+Action item: farina to push a PR
+Should Helm transform API versions? https://github.com/helm/helm/pull/7575 [Farina]
+Farina: the code has changed significantly since it was originally posted, so I can’t start a discussion on this. We’ll have to revisit this PR before discussing.
+Assignments for next meeting:
+Moderator: Adam
+Notes: Bridget
+
+Feb 6, 2020
+Announcements
+Sessions scheduled for KubeCon EU (Bridget, credit to Karen Chu):
+Intro: https://sched.co/Zx1Z
+Deep Dive: https://sched.co/Zx4K
+
+Standup
+Farina
+Triaging issue queue & pull requests
+Adding items to 3.1.0 at this point
+Looking at translations for the website right now
+Helm hub growing
+Marc
+Posted a PR for memory driver to support namespaces - wants to preload releases in memory driver
+Autocompletion for plugins
+Adam
+Catching up - getting back into Helm
+Martin
+Fix around lockfiles
+In Ghent for config mgmt camp to speak about Helm with Taylor
+Fisher
+Helm website changes around updating helm commands in the docs
+Working with Ronan to have good fallbacks for deprecated commands
+High-level items & focus on 3.1
+Taylor
+Config mgmt camp with Martin - worked up good advanced helm demos
+Working on post-render
+Working on devopsdays Guad. talk (in Spanish!) about Helm
+Butcher
+Working on TOC review docs for graduation - researching “security assurance” cases & markdown doc with list of companies using Helm
+Triaging issues/reviewing PRs - kudos to Martin on a tricky one!
+Bridget
+KubeCon EU talks, yay!
+
+Discussion
+When should we cut the 3.1.0 RC? (Farina, Bridget)
+RC 3.1 tomorrow (Feb 7) - Farina willing to cut the release
+Release 3.1: tentatively, Feb 13
+RC 3.2 March 11, release March 18
+One last sync up on post render [Taylor]
+Farina considered this to be for one-off scripts and trying to understand use case
+Martin: this capability has some inherent risks - perhaps we should document more than restrict
+Farina wants a good pattern for this; Taylor is going to comment/explain future enchancements.
+What should we do with https://github.com/helm/helm/issues/6794? [Taylor]
+Namespace mechanism is more declarative than before - but might be okay? [Taylor]
+Farina: you’re moving namespace choices from one role to another with this change
+Fisher: The role conflicts aren’t fixed by this PR - the lookup functionality is the same.
+Farina suggesting an opt-in flag for auto-creation
+Adam: it was a much-desired feature to limit releases to a namespace
+Should helm-plugin-utils (https://github.com/maorfr/helm-plugin-utils) be moved to Helm org? [Maor/Martin]
+Fisher: is this a Helm2-only plugin? If so we’d want that to be clear
+Farina: there is no license on this repo yet
+Should helm env show XDG paths? https://github.com/helm/helm/pull/6892 [Marc]
+Marc: XDG paths get default values when no set, which are hard to discern
+Farina: debugging is difficult for XDG - this workaround would make our lives easier
+Adam: XDG is unix/linux specific, so we probably want to call this “config root directory” or some such
+Farina: we have an issue about setting locations - the ability to use multiple path separators doesn’t currently work
+Adam & Farina will follow up offline
+Update on --name flag https://github.com/helm/helm/issues/7345 [Marc]
+Marc: Farina noted that many READMEs mention this
+Fisher: core maintainers are making design decisions - we’ll listen but not change based on one community member’s opinion
+[note: meeting ran 45min so we could discuss items d, e, and f]
+Assignments for next meeting:
+Moderator: Martin Hickey
+Notes: Matt Fisher
+
+January 30, 2020
+Announcements
+Jan 29 release of 3.0.3 by Matt Farina: https://github.com/helm/helm/releases/tag/v3.0.3
+Standup
+Marc
+Skip - internet connection flaky
+Farina
+3.0.3 release
+Issue and PR triaging and reviewing
+Butcher
+Issue queue triaging
+Martin
+Working on issue where hash was created in helm v2 and now trying to validate with helm v3. Working on a fix with tests
+Working on setting kubectx or kubecfg as part of migration (plugin)
+Triaging and reviews
+Taylor
+Working through his backlog
+Working on post-render feature with a target on 3.1.0
+Created a repo of advanced Helm demos for an upcoming talk
+Fisher
+Issue triaging and PR queue. Trying to poke some PRs and make sure they have what they need to move on
+Bridget
+Learning about release process
+Discussion
+Let’s discuss a date for 3.1.0 (Farina)
+Farina: Can we do this in mid-Feb?
+Taylor: let’s make sure the k8s libraries are updated
+Yes: Joe Langford did this
+Fisher: let’s check a few regressions, but yes, this could work
+Farina: by the call next week, we’ll know when we can cut the RC
+Fisher: will put some PRs for discussion in the helm dev channel
+Prettify Updated time in helm ls [Martin]: https://github.com/helm/helm/pull/7024
+Breaking change or not?
+Helmsman (a 3rd party tool) is consuming the table and the time
+Potential path forward:
+Move to local timezone and remove the fraction of a second. It’s same format with difference in accuracy
+See what this means for helmsman and parsing the information
+Would be nice for ls and history to be consistent
+Dependency digest differs between Helm 2 and 3: https://github.com/helm/helm/pull/7261 [Martin]
+Need review and feedback if right approach
+Fisher: consistent calculation?
+Farina: there is a complication around dependencies with v1 vs v3 of library
+Martin: some reverse engineering of hash
+Farina will review
+Update on --name flag https://github.com/helm/helm/issues/7345 [Farina]
+Farina: lots of charts use this - we can make it a hidden flag
+Fisher: Helm 3’s refactoring of argument/flag parsing is less complex so this is more straightforward for the CLI - we still have to look at the SDK (might be okay)
+Farina: we’re less worried about the SDK and more about copypasta
+3tutorials
+Taylor: let’s be careful of precedent
+Fisher: let’s assert this is a case-by-case decision, and not a precedent
+Farina: a valid case exists here, and they get a deprecation message. This isn’t a “we support it forever” scenario.
+Assignments
+Moderator:  Matt Fisher
+Notes:  Bridget (unless someone else wants to!)
+
+January 23, 2020
+Announcements
+Standup
+Josh:
+Shifting focus to make OCI distribution mature
+Help get OCI out of experimental
+Marc:
+PR on bash completion in Go now merged
+Porting support to Cobra
+Adapting patch for helm plugins (bash completion)
+Bridget:
+Thinking about issues and PRs
+Scott:
+Connected with Farina on ingress-nginx project
+Jaeger and Kong using new Helm actions
+Farina asks: do we want a blog post about actions?
+Scott thinks yes, now might be the time
+Jacob:
+New proposal for test:
+Upgrade and downgrade
+Issue on way
+Martin:
+Bug triaging, PR review, issues on Slack
+Pushed some PRs with fixes for release checklist - brought v2 fixes in to v3
+Fixed a bug in helm plugin utils project
+Preparing talk with Taylor for config mgmt camp in Ghent
+Farina:
+Reviewing in
+Helm Hub
+Helm core
+Discussion
+Question about SA by default in `helm create`. Is it considered a good practice for every workload to run on its own SA even before RBAC resources are needed (PR where this was added), and if so, why? [Scott]:
+Curious what practice why to create a SA everytime for deploy a chart
+Farina said he reviewed this and he thought this pattern was being used commonly in the chart repo
+No chart maintainers chimed in when Farina asked
+Scott will raise an issue if it needs a change
+Upgrade from failed releases: https://github.com/helm/helm/issues/5595 [Martin]
+Several issues - releases can get into a state that can’t move on; people can be using deprecated APIs
+We’ll have this issue for open a while, for discussion
+Jacob to add comment on how this can fail on first attempt to deploy
+Reintroducing --name flag? https://github.com/helm/helm/issues/7345 [Farina]
+Martin: we need to be cautious about deprecation now that the (metaphorical) horse has bolted - the release is out.
+Marc agrees with Martin’s opinion
+Farina to add a comment to the PR that we have broken compatibility which is allowed. There is a way to work on this.
+Could set a precedence of adding back in deprecated items which is not a great idea
+Community member would like to add Deb and RPM packages for Helm: https://github.com/helm/helm/issues/7003#issuecomment-577527262  [Martin]
+Martin: Is this something we want? They’re talking about hosting somewhere - do we actively support this or remain neutral/they support+we link?
+Farina: Hosting elsewhere could cause a trust issue depending on who - we’d want to be clear that it’s a third party
+Martin: choice is between running it ourselves and pointing to a third party
+Farina: Point out to them that this is third party and he is totally responsible (unless we have maintainers who want to take it on with him)
+3.0.3 and 3.1.0 releases? [Farina]
+Bridget to shadow Farina to get 3.0.3 release out this coming week
+Discuss next week a date for 3.1.0
+Assignments
+Moderator: Bridget
+Notes: Farina (or Josh D)
+January 16, 2020
+Announcements
+We did a CNCF webinar: https://www.cncf.io/webinars/a-conversation-about-helm-3/
+Standup
+Matt Fisher
+CNCF webinar
+Marc
+Big patch (discussion topic to follow)
+Discussing with Fisher about working with memory driver
+Hoping to pre-load it with something (but doesn’t handle namespaces - worried about API compat)
+We can add but cannot alter methods
+Butcher thinks this is an oversight/bug
+Matt Butcher
+Webinar
+Working on getting us closer to graduation
+Matt Farina
+Mostly reviews & triaging - Helm & Helm Hub
+Bridget
+Focused right now on content for the documentation
+Webinar
+Martin
+Linux on s390x
+Deprecated APIs (for discussion)
+Failed deployments - can we help? Make announcements?
+[something I missed which people love]
+PR review
+Jacob
+All good!
+Taylor Thomas
+Webinar
+Postrender
+Feedback to address from community members
+Working on talks for configmgmt camp and devopsdays Guadalajara
+Ping him if you need him on specific PRs
+Discussion
+Auto-completion re-written in Go https://github.com/helm/helm/pull/7323 [Matt Farina]
+Moving it to Go lets us remove kubectl as a dependency
+Request: please take a look/review this - it’s a big change
+Fisher will be taking a look & put it on the 3.1 milestone
+What should be done about the version on master? "unreleased" is currently not being added [Marc]
+Marc was unsure how to post a version to show something would be off master - like “3.0 unreleased” like it used to.
+Fisher explains he & Adam refactored the internal version packaging so the stable release would not have “unreleased” hardcoded
+Fisher: In the makefile there’s a way to specify “unreleased” when not being built from a tag - we should add that (back).
+Action item for Fisher: open an issue explaining the problem and suggested solution
+Handle CRD ingress resources https://github.com/helm/helm/issues/5574 [Matt Farina provided feedback]
+Farina commented on this last May but uncertain why it’s on this list today
+Martin added it today, to see if we can give a more complete answer now
+Farina says we need more eyes on work that will affect CRDs - they’re still challenging
+community charts Helm 3 backwards compatibility is complete (to the best of our knowledge). Does anyone know of other issues that have since come up that aren't listed here? https://github.com/helm/charts/issues/19008 [Scott]
+Fisher: that is a pretty comprehensive issue list
+Hook up Linux s390x as CI platform: https://github.com/helm/helm/pull/7096 [Martin]
+Submitter was asking about hooking a particular test into our CI pipeline
+Farina mentions github actions and “self-hosted runners” as an option
+Martin wonders if we _want_ this to be automated
+Fisher points out that the ARM architecture testing was hosted by a third-party community project (without official support) - could we have the community members who are interested in s390x do the testing?
+Martin mentions that we aren’t automatically running other platforms’ tests either.
+Fisher: the same argument can be made for PPC arch
+Butcher: the problem with new architectures: we cannot guarantee reliability on archs that the core team can’t access
+Farina: so, we document to avoid confusion
+K8s 1.16 and deprecated APIs: https://github.com/helm/helm/issues/7219 [Martin]
+Martin: This is going to be a big issue for people in production
+A community member might work on a plugin for this (like the helm 2to3 plugin)
+This is going to be messy - there’s no clean delineation
+Fisher: other issues like migration of one chart from an older to newer api version - k8s upgrades objects from 1.15 to 1.16, so making it easier for release objects would be good
+Farina: other issues are coming - helm upgrade *should* allow All The Things to work (if we can find a way)
+Bridget: can we recommend replace instead of upgrade?
+Fisher: we should look at the k8s strategy for API version upgrades - this is going to happen with ingress and more
+Martin: we’ll keep an eye on this
+Assignments
+Moderator: Farina
+Notes: Martin
+
+January 9, 2020
+Announcements
+CNCF webinar on Helm 3 w/ maintainers next Tuesday (Jan. 14)
+https://www.cncf.io/webinars/a-conversation-about-helm-3/
+Standup
+Marc
+Cobra help text on stderr has been reverted to stdout
+What is the “needs pick” process?
+Fisher: release triaging for next patch release, tracking what’s been cherry-picked into patch branch
+Taylor:
+Step 1 -> Add to correct milestone.
+Step 2 -> Add the “needs pick” label to the PR
+Working on shell completion
+Taylor
+Post-render PR tidying, getting feedback addressed
+Josh
+Closed a few chartmuseum bugs
+Matt Butcher
+PR - making sure we don't use old directories.
+Discovery client: make sure last set of fixes work
+If you had stale API endpoint declared, it failed to initialized, causing chart rendering to fail
+Martin
+PR reviews, looking at defects
+Looking at Taylor’s proposal
+Scott
+In a large room
+Helm actions work, working with orgs to move charts from community repo to use their own, using action when possible
+Jacob
+Helm rollout logs, adding more watchers for readiness. Getting more logs to the end user without having to use kubectl
+Bridget
+Helm 101 content for upcoming workshops, getting it into a repo for anybody to run
+Matt Fisher
+Panel next week Tuesday w/ other maintainers
+https://www.cncf.io/webinars/a-conversation-about-helm-3/
+PR reviewing
+Feedback on issue queue, making sure things are triaged
+Figuring out what's the story w/ 2.16.2 and 3.0.3, as well as 3.1.0 release
+
+
+Discussion
+https://github.com/helm/helm/pull/6752 needs some reviews [Taylor]
+We should discuss its behavior with `helm template`
+Butcher: the right thing to do is to throw errors vs. default values
+Taylor: are we ok w/ this?
+FIsher: curious if this solves anyones issues
+Taylor: maybe post-render is the better option
+Martin: we may not want this capability
+Taylor: this feels like --wait - took 2 years to make it work properly, so we should be cautious
+Bridget: lets not surprise people in unpleasant ways
+https://github.com/helm/helm/issues/7260 [Taylor]
+Updates on this proposal
+Need to decide on how long we should leave open for comment
+Fisher: Is there a precedent in other orgs (python) for long features left open for discussion?
+Post-render hooks - the ability to add in extra resources after the fact
+Bridget: “we are putting the burden of repeatability on the end user to ensure they are using the correct post-renderer every time” is this going to be okay given sufficient docs?
+Taylor: will probably leave open for 2 weeks
+https://github.com/helm/helm/pull/7320 [Taylor]
+When migrating from 2 to 3, when moving CRDs to crd/ directory, their CRDs will be deleted.
+We’ve always said (in docs etc.) we will not delete CRDs
+Taylor: rather user angry over not working, vs. things being deleted w/out their knowledge
+Auto-completion re-written in Go https://github.com/helm/helm/pull/7323
+Kubernetes nginx-ingress chart [Scott]
+What should be done about the version on master? "unreleased" is currently not being added [Marc]
+Assignments
+Moderator: taylor
+Notes: Bridget
+
+January 2, 2020
+Cancelled for the holidays
