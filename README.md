@@ -23,7 +23,7 @@ issues, mailing lists, meetings, conferences, etc.
 - Follow us on [Twitter](communication.md#social-media)
 - Join us on [Slack](communication.md#slack)
 - Subscribe to our [mailing lists](communication.md#mailing-lists)
-- Join the [weekly meeting](communication.md#meetings) 
+- Join the [weekly meeting](communication.md#meetings)
 
 #### Next, get set-up with the basics (if not already done so):
 
@@ -37,7 +37,7 @@ Now, you can get down to business!
 
 A good way to learn is:
 
-- Check out the code and look at code reviews. Documentation and test are part of the code base. 
+- Check out the code and look at code reviews. Documentation and test are part of the code base.
 - Try reproducing issues and get an overview of user problems.
 - Talk to people on Slack and ask questions.
 
@@ -75,5 +75,5 @@ If you want to work on a new idea of relatively small scope:
 
 [good first issue]: https://github.com/helm/helm/issues?utf8=%E2%9C%93&q=is%3Aopen%20is%3Aissue%20label%3A%22good+first+issue%22
 [issues]: https://github.com/helm/helm/issues
-[pull request]: https://github.com/helm/helm/blob/master/CONTRIBUTING.md#pull-requests
-[owner]: https://github.com/kubernetes/helm/blob/master/OWNERS
+[pull request]: https://github.com/helm/helm/blob/main/CONTRIBUTING.md#pull-requests
+[owner]: https://github.com/kubernetes/helm/blob/main/OWNERS

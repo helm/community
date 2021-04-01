@@ -25,7 +25,7 @@ There is also a [#helm-dev](https://kubernetes.slack.com/messages/C51E88VDG) cha
 
 Issues are used as the primary method for tracking anything to do with the Helm project.
 
-See the [contributing guide](https://github.com/kubernetes/helm/blob/master/CONTRIBUTING.md#issues)
+See the [contributing guide](https://github.com/kubernetes/helm/blob/main/CONTRIBUTING.md#issues)
 for information on how to [file an issue] if you think you have found a bug or have a feature request.
 
 ## Mailing lists
