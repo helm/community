@@ -18,7 +18,7 @@ Helm has a security team and process for handling all security issues. This team
 
 ## Helm Client
 
-The [Helm client/CLI](https://github.com/helm/helm) has a dedicated team maintaining it. The members of that team are documented in the [OWNERS](https://github.com/helm/helm/blob/master/OWNERS) file in the root of the project.
+The [Helm client/CLI](https://github.com/helm/helm) has a dedicated team maintaining it. The members of that team are documented in the [OWNERS](https://github.com/helm/helm/blob/main/OWNERS) file in the root of the project.
 
 This team can be directly contacted at the private address of cncf-helm-core-maintainers@lists.cncf.io.
 

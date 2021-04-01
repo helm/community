@@ -108,7 +108,7 @@ Core maintainers take turns triaging the issue queue. The responsibilities of a 
   - If it violates the SemVer rules, mark it as `Upcoming - Major` and perhaps open a dialog on whether there is an alternate way to do this that will not break our SemVer rules
   - If it is a major feature (new subcommand, new way of doing something), ask if it can be implemented as a plugin or extension
 
-For information on tags and their meaning, see [The CONTRIBUTING.md](https://github.com/kubernetes/helm/blob/master/CONTRIBUTING.md#issues) for the project.
+For information on tags and their meaning, see [The CONTRIBUTING.md](https://github.com/kubernetes/helm/blob/main/CONTRIBUTING.md#issues) for the project.
 
 During your week of triaging, periodically scan back through known recent issues to see what has been updated.
 
@@ -132,7 +132,7 @@ If a PR passes the "Intent" and "Solves Problems" criteria above, we view our go
 
 **SemVer Constraints:** Make sure a PR does not violate the SemVer constraints as explained above. This includes making sure API, ProtoBuf/gRPC, flags, commands, and formats remain compatible. Submitters often do not realize that their changes would break compatibility, so be extra gentle when explaining this.
 
-**Coding Conventions/Idioms:** Our points of reference are [Effective Go](https://golang.org/doc/effective_go.html) and the [Go Code Review Comments](https://github.com/golang/go/wiki/CodeReviewComments) in the Go Wiki. We follow Effective Go closely, and take the Go Code Review Comments as "decent guidelines". 
+**Coding Conventions/Idioms:** Our points of reference are [Effective Go](https://golang.org/doc/effective_go.html) and the [Go Code Review Comments](https://github.com/golang/go/wiki/CodeReviewComments) in the Go Wiki. We follow Effective Go closely, and take the Go Code Review Comments as "decent guidelines".
 
 We tend to avoid comments of the form "This works fine, but another way of doing it is..." unless the other way of doing it conveys clear advantage over the existing way.
 
@@ -165,17 +165,17 @@ Corresponding to SemVer, we have three different types of release:
 - Minor: 2.1.0, 2.2.0, etc. Maintains compatibility per our SemVer rules above, but may add new features, fix bugs.
 - Patch: 2.1.1, 2.1.2, etc. Maintains compatibility, adds no features, but fixes bugs.
 
-Major releases and Minor releases are done by tagging `master` with the version number, and then running the release scripts.
+Major releases and Minor releases are done by tagging `main` with the version number, and then running the release scripts.
 
-Patch versions are done by a more complex process. They start from the `release-X.Y` branch and cherry-pick from `master`. A release branch is forked from the last minor release, and is then maintained in parallel with the master:
+Patch versions are done by a more complex process. They start from the `release-X.Y` branch and cherry-pick from `main`. A release branch is forked from the last minor release, and is then maintained in parallel with the main:
 
 ```
----- v2.3.0 ---- Fix #1 --- Feature #2 --- Fix #3 --- ...  [master]
+---- v2.3.0 ---- Fix #1 --- Feature #2 --- Fix #3 --- ...  [main]
         \              \                     \
         release-2.3 ---- Fix #1 ------------- Fix #3 --- v2.3.1
 ```
 
-Only fixes are pulled from `master` onto the `release-X.Y` branch. Features are not.
+Only fixes are pulled from `main` onto the `release-X.Y` branch. Features are not.
 
 #### Cherry-Picking
 
