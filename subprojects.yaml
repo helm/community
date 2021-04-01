@@ -3,6 +3,7 @@ subprojects:
   ownersLink: https://raw.githubusercontent.com/helm/helm/master/OWNERS
   repos:
   - https://github.com/helm/helm
+  mailingList: cncf-helm-core-maintainers@lists.cncf.io
 - name: Charts
   owners:
   - lachie83
@@ -31,6 +32,7 @@ subprojects:
   - https://github.com/helm/homebrew-tap
   - https://github.com/helm/kind-action
   - https://github.com/helm/hub
+  mailingList: kubernetes-charts-leads@googlegroups.com
 - name: Website
   ownersLink: https://raw.githubusercontent.com/helm/helm-www/master/OWNERS
   repos:
