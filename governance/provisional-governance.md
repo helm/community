@@ -91,7 +91,7 @@ In the event that the Provisional Governing Board must decide upon something, de
 
 ## Appendix A: Voting Members
 
-The following is a list of members who accepted voting positions for provisional goverment:
+The following is a list of members who accepted voting positions for provisional government:
 
 * Josk Dolitsky
 * Scott Rigby
