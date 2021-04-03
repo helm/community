@@ -46,7 +46,7 @@ Charts:
 - Mandatory fields MUST NOT be added to Chart.yaml or requirements.yaml
 - New template functions may be added, but existing functions MUST NOT be deleted.
 - The default output of any command/subcommand SHOULD NOT change, except to fix bugs.
-- Any modifications to chart internals MUST be backwards compatibile with charts produced from Helm 2.0.0 onward.
+- Any modifications to chart internals MUST be backwards compatible with charts produced from Helm 2.0.0 onward.
 
 Command Line:
 
@@ -66,7 +66,7 @@ Code:
 
 Compatibility with Kubernetes:
 
-- A version of Helm MUST be compatibile with the version of Kubernetes that it is developed against
+- A version of Helm MUST be compatible with the version of Kubernetes that it is developed against
 - A version of Helm SHOULD be compatible with the previous two Kubernetes releases
 - A version of Helm SHOULD be forward-compatible to the greatest extent possible
 
