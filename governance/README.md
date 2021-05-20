@@ -18,9 +18,8 @@ The Helm governance refers to projects for the Helm project. The following Helm
 projects currently exist:
 
 * **Helm Core**: The Helm CLI and packages
-* **Charts**: Responsible for the charts repo, related chart tooling (e.g., chart testing), and distributed chart search (the hub)
-* **Monocular**: The chart repository web UI
+* **Charts**: Responsible for chart-related tooling (e.g., chart testing)
 * **ChartMuseum**: The chart repository server
-* **Web and Docs**: The Helm websites other than the hub distributed search
+* **Web and Docs**: The Helm websites
 
 All other repositories are either archived or owned by the org maintainers.

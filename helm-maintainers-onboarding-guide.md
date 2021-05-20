@@ -8,11 +8,11 @@ The primary objective of a core maintainer is to _further Helm's goal of being b
 
 All Helm maintainers are expected to do the following:
 
-- Positively represent Helm, Tiller, and Charts
+- Positively represent Helm
 - Hang out in the #helm-dev and #helm-users Slack channel
 - Make a good-faith effort to come to the public developer's meeting
 - Participate in formal Helm decision making, such as casting an official vote for new maintainers
-- Uphold the Kubernetes Code of Conduct (that is, not just follow, but cultivate that as part of the project's culture)
+- Uphold the [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/master/code-of-conduct.md) (that is, not just follow, but cultivate that as part of the project's culture)
 - Participate in resolution of critical security issues as needed
 
 ## You're Encouraged To…
@@ -22,16 +22,16 @@ A successful team is not a homogenous team. Each contributor brings unique stren
 - Triage the issue queue: This is the tactful process of responding to often-frustrated users who file bugs or request features. We take turns "owning" this responsibility week to week.
 - Slack champion: Champions in Slack are maintainers who proactively work with users in #helm-users. This is quite possibly the most important way we convey Helm's friendly culture.
 - Review PRs: This is the process of reading code from others, offering constructive and friendly guidance when necessary, and ultimately deciding whether it meets the project requirements.
-- Release planning: We are trying to get better at planning ahead, and planning specifics. This is the process of assigning a theme to each release, and then assigning issues to that release. For example, the 2.6.0 theme is "security, stability, extensibility" and the issues assigned had to fit that theme.
+- Release planning: As described in [HIP 0002](https://github.com/helm/community/blob/main/hips/hip-0002.md), we endeavor to plan ahead and plan specifics. This is the process of planning each release, and then assigning issues to that release.
 
 ## If You See Code of Conduct Violations or Bad Actors…
 
-- A Code of Conduct violation is a case where someone appears to have transgressed the Kubernetes Code of Conduct.
+- A Code of Conduct violation is a case where someone appears to have transgressed the CNCF Code of Conduct.
 - A Bad Actor is someone who is causing harm to the project (intentionally or unintentionally) through their words or actions.
 
 If you feel like you are up to it, the best first response to either is an attempt at gentle redirection. If you do not feel like you are up for that, contact one or more of the other core maintainers and let them know about the situation. Collectively, we must make it an obligation to protect the community, and enforce standards of conduct.
 
-If a gentle redirection is not sufficient, code of conduct violations need to be reported through the proper Kubernetes channels. The process of reporting these is documented in the code of conduct. Unless there are mitigating circumstances, Code of conduct violations reported upstream should be shared with the other Helm maintainers so they are prepared to handle the issue as it pertains to Helm while action is handled elsewhere.
+If a gentle redirection is not sufficient, code of conduct violations need to be reported through the proper CNCF channels. The process of reporting these is documented in the code of conduct. Unless there are mitigating circumstances, Code of conduct violations reported upstream should be shared with the other Helm maintainers so they are prepared to handle the issue as it pertains to Helm while action is handled elsewhere.
 
 ## What SemVer Means to Us
 
@@ -61,7 +61,7 @@ Code:
 - Protobuf files MUST NOT have mandatory fields added
 - The public API of anything in `pkg/` SHOULD NOT be modified
 - Go interfaces in `pkg/` MUST NOT be modified
-- The first release of a major feature addition SHOULD be hidden behind an `experimental` feature flag (see Tiller rudders)
+- The first release of a major feature addition SHOULD be hidden behind an `experimental` feature flag
 - Critical security fixes MAY be sufficient cause to ignore the SemVer rules (but we try not to do that).
 
 Compatibility with Kubernetes:
@@ -70,7 +70,7 @@ Compatibility with Kubernetes:
 - A version of Helm SHOULD be compatible with the previous two Kubernetes releases
 - A version of Helm SHOULD be forward-compatible to the greatest extent possible
 
-(The velocity and frequency of major changes in Kubernetes precludes us from making strong compatibility guarantees)
+(The velocity and frequency of major changes in Kubernetes precludes us from making strong compatibility guarantees; see the [Helm Version Support Policy](https://helm.sh/docs/topics/version_skew/) for specific supported versions.)
 
 During a major release, all code is subject to revision, but Chart backward compatibility SHOULD be retained.
 
@@ -94,7 +94,7 @@ Core maintainers take turns triaging the issue queue. The responsibilities of a 
   - Bugs are tagged `bug`
   - Feature requests are tagged `feature`
   - The "default" is to tag an issue as a `question/support`
-  - Anything having to do with docs are tagged `docs`
+  - Anything having to do with docs are tagged `docs` and such issues may be transferred to `helm/helm-www`
   - If the fix is simple (<10 lines of code), tag it `good first issue`
   - If a feature is deemed a Good Idea (TM), but not something we're likely to do in the near future, label it `help wanted`
 - Question/Support
@@ -105,23 +105,26 @@ Core maintainers take turns triaging the issue queue. The responsibilities of a 
   - If it's high severity, add it to the next milestone (patch or feature)
   - Otherwise, add it to the next MINOR release
 - Features:
-  - If it violates the SemVer rules, mark it as `Upcoming - Major` and perhaps open a dialog on whether there is an alternate way to do this that will not break our SemVer rules
+  - If it violates the SemVer rules, open a dialog on whether there is an alternate way to do this that will not break our SemVer rules
   - If it is a major feature (new subcommand, new way of doing something), ask if it can be implemented as a plugin or extension
+  - If a major change is warranted, suggest opening a [HIP](https://github.com/helm/community/blob/main/hips/hip-0001.md)
 
-For information on tags and their meaning, see [The CONTRIBUTING.md](https://github.com/kubernetes/helm/blob/main/CONTRIBUTING.md#issues) for the project.
+For information on labels and their meaning, see [CONTRIBUTING.md](https://github.com/helm/helm/blob/main/CONTRIBUTING.md#labels) for the project.
 
 During your week of triaging, periodically scan back through known recent issues to see what has been updated.
 
-Finally, question/support, feature, proposal and non-updated pull requests _may_ be closed after 30 days of inactivity. It is up to your judgment on whether or not you close one. There is a `lifecycle/frozen` label to flag issues that should not be closed after 30 days. Additionally, Kubernetes supplies automation that will automatically mark issues as `lifecycle/stale` after 30 days, `lifecycle/rotten` after 60 days, and close them after 90 days of inactivity which are not frozen.
+Finally, question/support, feature, proposal and non-updated pull requests _may_ be closed after 30 days of inactivity. It is up to your judgment on whether or not you close one. The Helm project's [stale issue bot](https://github.com/helm/helm/blob/main/.github/workflows/stale-issue-bot.yaml) marks an issue as stale if it has been open for 90 days with no activity, and closes it in an additional 30 days if no further activity occurs.
+
+To flag issues that should not be closed automatically, use the labels `keep open` or (if appropriate) `v4.x`.
 
 ### PR Reviews
 
-Helm is striving to be a properly community-driven project. We desire community-contributed code. The role of the core maintainer, in regards to the code, is to ensure that new PRs _stay true to Helm's intent, solve real problems for real users, and meet our quality guidelines_.
+Helm is a community-driven project. We desire community-contributed code. The role of the core maintainer, in regards to the code, is to ensure that new PRs _stay true to Helm's intent, solve real problems for real users, and meet our quality guidelines_.
 
 - Helm's Intent: Make it easy to package, share, deploy, and manage Kubernetes applications. Our guiding user paradigm is "the package manager for Kubernetes".
 - Solve Real Problems for Real Users: We only want to add features to Helm if they are of benefit to many users and for non-niche use cases. This sometimes means accepting the fact that there are some things that Helm cannot do.
   - Helm is not a testbed for new ideas. We push back on cases where users say "I developed a new technology, and I want Helm to support it."
-  - Many times, the way to address PRs that are niche is to suggest that they be made into plugins or extensions (rudders)
+  - Many times, the way to address PRs that are niche is to suggest that they be made into plugins or extensions
 - Quality Guidelines: _We are not perfectionists. But we are enthusiasts for clarity, maintainability, and consistency._
 
 When reviewing PRs, we need to be actively encouraging to the submitter. Strive to not leave a PR review with only "fix-it" comments. Add at least one positive note (and saying "thanks for the PR" does not count).
@@ -132,15 +135,15 @@ If a PR passes the "Intent" and "Solves Problems" criteria above, we view our go
 
 **SemVer Constraints:** Make sure a PR does not violate the SemVer constraints as explained above. This includes making sure API, ProtoBuf/gRPC, flags, commands, and formats remain compatible. Submitters often do not realize that their changes would break compatibility, so be extra gentle when explaining this.
 
-**Coding Conventions/Idioms:** Our points of reference are [Effective Go](https://golang.org/doc/effective_go.html) and the [Go Code Review Comments](https://github.com/golang/go/wiki/CodeReviewComments) in the Go Wiki. We follow Effective Go closely, and take the Go Code Review Comments as "decent guidelines".
+**Coding Conventions/Idioms:** Our points of reference are [Effective Go](https://golang.org/doc/effective_go) and the [Go Code Review Comments](https://github.com/golang/go/wiki/CodeReviewComments) in the Go Wiki. We follow Effective Go closely, and take the Go Code Review Comments as "decent guidelines".
 
 We tend to avoid comments of the form "This works fine, but another way of doing it is..." unless the other way of doing it conveys clear advantage over the existing way.
 
-**Code Style:** We have automated our style reviews. If the `gometalinter` rules in `make test-style` pass, we tend to not place any additional requirements on the user.
+**Code Style:** We have automated our style reviews. If the `golangci-lint` rules in `make test-style` pass, we tend to not place any additional requirements on the user.
 
 **Testing:** We strongly encourage PR submitters to include unit tests if they add new code. A PR should be _blocked_ if it introduces substantial new code, but that code is not covered by unit tests. The exception to this rule is if the package into which the PR is contributed is deemed "very difficult to test" by the core maintainers. (We do have a few packages like this.)
 
-**Documentation:** If a PR contains a new feature, we tend to require accompanying documentation. This may come in the form of additional help text in the `helm` or `tiller` `--help` section, or it may require additional material in the `docs/` directory. Note that we need to be sensitive to those who do not speak English as a first language. It is okay to drop the requirement when the PR submitter does not feel they can produce quality written help.
+**Documentation:** If a PR contains a new feature, we tend to require accompanying documentation. This may come in the form of additional help text in the `helm --help` section, or it may require additional edits or updates in the docs. Note that we need to be sensitive to those who do not speak English as a first language. It is okay to drop the requirement when the PR submitter does not feel they can produce quality written help.
 
 **Scope:** We try hard to limit our comments to the things the submitter has changed. To that end, we try not to require them to make changes that are not directly related to their fix.
 
@@ -149,9 +152,9 @@ We tend to avoid comments of the form "This works fine, but another way of doing
 A PR can only be merged only if:
 
 - All tests are passing for that PR (Circle is green)
-- The PR has one LGTM (small, medium) or two LGTMs (large). The GithUb Review tool is used to LGTM.
-- The PR's milestone is set to the current Minor or Patch release. NEVER, EVER MERGE PRs LABELED `Upcoming - Major`
-- The CLA bot has passed for the user, or you have done the due diligence to ensure that the user has signed the CLA.
+- The PR has one LGTM (small, medium) or two LGTMs (large). The GitHub Review tool is used to LGTM.
+- The PR's milestone is set to the current Minor or Patch release.
+- The DCO bot has passed for the PR.
 
 Miscellaneous rules:
 
