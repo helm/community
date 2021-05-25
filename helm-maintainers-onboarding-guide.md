@@ -61,7 +61,7 @@ Code:
 - Protobuf files MUST NOT have mandatory fields added
 - The public API of anything in `pkg/` SHOULD NOT be modified
 - Go interfaces in `pkg/` MUST NOT be modified
-- The first release of a major feature addition SHOULD be hidden behind an `experimental` feature flag
+- The first release of a major feature addition SHOULD be hidden behind an `experimental` feature flag. (See [Enabling OCI Support](https://helm.sh/docs/topics/registries/#enabling-oci-support) and [add feature gates](https://github.com/helm/helm/pull/6185) for an example.)
 - Critical security fixes MAY be sufficient cause to ignore the SemVer rules (but we try not to do that).
 
 Compatibility with Kubernetes:
@@ -107,7 +107,7 @@ Core maintainers take turns triaging the issue queue. The responsibilities of a 
 - Features:
   - If it violates the SemVer rules, open a dialog on whether there is an alternate way to do this that will not break our SemVer rules
   - If it is a major feature (new subcommand, new way of doing something), ask if it can be implemented as a plugin or extension
-  - If a major change is warranted, suggest opening a [HIP](https://github.com/helm/community/blob/main/hips/hip-0001.md)
+  - All features and breaking changes MUST be described in a [HIP](https://github.com/helm/community/blob/main/hips/hip-0001.md), and that HIP must pass the usual process. (See HIP 12: "[Helm 4 Development Process](https://github.com/helm/community/blob/main/hips/hip-0012.md".)
 
 For information on labels and their meaning, see [CONTRIBUTING.md](https://github.com/helm/helm/blob/main/CONTRIBUTING.md#labels) for the project.
 
@@ -153,7 +153,7 @@ A PR can only be merged only if:
 
 - All tests are passing for that PR (Circle is green)
 - The PR has one LGTM (small, medium) or two LGTMs (large). The GitHub Review tool is used to LGTM.
-- The PR's milestone is set to the current Minor or Patch release.
+- The PR's milestone is set to the current Minor or Patch release. Ensure that in the course of Minor and Patch release work, you never merge PRs labeled with the next Major version. For example, while v3 is the current Major version, we do not merge PRs labeled with [v4.x](https://github.com/helm/helm/pulls?q=is%3Aopen+is%3Apr+label%3Av4.x).
 - The DCO bot has passed for the PR.
 
 Miscellaneous rules:
