@@ -107,7 +107,7 @@ Core maintainers take turns triaging the issue queue. The responsibilities of a 
 - Features:
   - If it violates the SemVer rules, open a dialog on whether there is an alternate way to do this that will not break our SemVer rules
   - If it is a major feature (new subcommand, new way of doing something), ask if it can be implemented as a plugin or extension
-  - All features and breaking changes MUST be described in a [HIP](https://github.com/helm/community/blob/main/hips/hip-0001.md), and that HIP must pass the usual process. (See HIP 12: "[Helm 4 Development Process](https://github.com/helm/community/blob/main/hips/hip-0012.md".)
+  - All features and breaking changes MUST be described in a [HIP](https://github.com/helm/community/blob/main/hips/hip-0001.md), and that HIP must pass the usual process. (See HIP 12: "[Helm 4 Development Process](https://github.com/helm/community/blob/main/hips/hip-0012.md)").
 
 For information on labels and their meaning, see [CONTRIBUTING.md](https://github.com/helm/helm/blob/main/CONTRIBUTING.md#labels) for the project.
 
