@@ -104,4 +104,4 @@ The following licenses and contributor agreements will be used for Helm projects
 
 * [Apache 2.0](https://opensource.org/licenses/Apache-2.0) for code
 * [Creative Commons Attribution 4.0 International Public License](https://creativecommons.org/licenses/by/4.0/legalcode) for documentation
-* [Developer Certificate of Origin ](https://developercertificate.org/) for new contributions
+* [Developer Certificate of Origin](https://developercertificate.org/) for new contributions
