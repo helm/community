@@ -8,14 +8,13 @@ The Helm project is made up of several codebases and services with different rel
 
 * Helm - the package manager
 * Charts - community curated charts
-* Monocular - a web interface for browsing one or more chart repositories
 * Chartmuseum - a chart repository with support for pushing charts, auth, and more
 * chart-testing - container based chart testing tools
 
 The services provided include:
 
 * Documentation for those who want to create, distribute, depend on, and operate packages
-* Public chart search and discovery
+* Public chart collaboration
 
 ## Maintainers Structure
 
@@ -63,7 +62,7 @@ The Org Maintainers will select a chair to set agendas and call meetings of the 
 
 Project maintainers are responsible for activities surrounding the development and release of code, the operation of any services they own (e.g., the documentation site), or the tasks needed to execute their project (e.g., community management, setting up an event booth). Technical decisions for code resides with the project maintainers unless there is a decision related to cross maintainer groups that cannot be resolved by those groups. Those cases can be escalated to the org maintainers.
 
-In some cases a groups of maintainers are responsible for more than one repo (e.g., charts maintainers managing the charts, chart-testing, charts-tooling). In other cases the maintainers are responsible for a single project (e.g., chartmuseum or monocular).
+In some cases a groups of maintainers are responsible for more than one repo (e.g., charts maintainers managing the charts, chart-testing, charts-tooling). In other cases the maintainers are responsible for a single project (e.g., chartmuseum).
 
 Project maintainers do not need to be software developers. No explicit role is placed upon them and they can be anyone appropriate for the work being produced. For example, if a repository is for documentation it would be appropriate for maintainers to be editors.
 
@@ -105,4 +104,4 @@ The following licenses and contributor agreements will be used for Helm projects
 
 * [Apache 2.0](https://opensource.org/licenses/Apache-2.0) for code
 * [Creative Commons Attribution 4.0 International Public License](https://creativecommons.org/licenses/by/4.0/legalcode) for documentation
-* [Developer Certificate of Origin ](https://developercertificate.org/) for new contributions
+* [Developer Certificate of Origin](https://developercertificate.org/) for new contributions
