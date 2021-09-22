@@ -40,16 +40,16 @@ The Helm Org maintainers are responsible for:
 Changes to org maintainers use the following:
 
 * There will be between 3 and 9 people.
-* Any project maintainer is eligible for a position as an org maintainer
+* Any project maintainer of any active (non-archived) Helm organization project is eligible for a position as an org maintainer.
 * No one company or organization can employ a simple majority of the org maintainers
 * An org maintainer may step down by emailing the org maintainers mailing list. Within 7 calendar days the [helm mailing list](https://lists.cncf.io/g/cncf-helm) needs to be notified of the change
 * Org maintainers MUST remain active on the project. If they are unresponsive for > 3 months they will lose org maintainership unless a [super-majority](https://en.wikipedia.org/wiki/Supermajority#Two-thirds_vote) of the other org maintainers agrees to extend the period to be greater than 3 months
-* When there is an opening for a new org maintainer, any person who has made a contribution to any repo under the Helm GitHub org may nominate a suitable project maintainer as a replacement
+* When there is an opening for a new org maintainer, any person who has made a contribution to any repo under the Helm GitHub org may nominate a suitable project maintainer of an active project as a replacement
   * The nomination period will be three weeks starting the day after an org maintainer opening becomes available
   * The nomination must be made via the [public Helm mailing list](https://lists.cncf.io/g/cncf-helm/)
 * When nominated individual(s) agrees to be a candidate for maintainership, the project maintainers may vote
   * The voting period will be open for a minimum of three business days and will remain open until a super-majority of project maintainers has voted
-  * Only current project maintainers are eligible to vote
+  * Only current project maintainers of active projects are eligible to vote
   * When the number of nominated individuals matches the number of openings each individual needs to have a yes vote from a super-majority of those that voted
   * When there are more individuals than open positions voting will use [Condorcet](https://en.wikipedia.org/wiki/Condorcet_method) ranking on [CIVS](http://civs.cs.cornell.edu/) using the [Schulze method](https://en.wikipedia.org/wiki/Schulze_method)
 * When an org maintainer steps down, they become an emeritus maintainer
@@ -64,6 +64,8 @@ Project maintainers are responsible for activities surrounding the development a
 
 In some cases a groups of maintainers are responsible for more than one repo (e.g., charts maintainers managing the charts, chart-testing, charts-tooling). In other cases the maintainers are responsible for a single project (e.g., chartmuseum).
 
+To be considered active maintainers, it is required for maintainers to be associated with at least one active, non-archived project. If only listed on archived projects, they become emeritus project maintainers and are no longer eligible to become org maintainers.
+
 Project maintainers do not need to be software developers. No explicit role is placed upon them and they can be anyone appropriate for the work being produced. For example, if a repository is for documentation it would be appropriate for maintainers to be editors.
 
 Changes to maintainers use the following:
@@ -72,6 +74,7 @@ Changes to maintainers use the following:
 * Maintainers MUST remain active. If they are unresponsive for > 3 months they will be automatically removed unless a [super-majority](https://en.wikipedia.org/wiki/Supermajority#Two-thirds_vote) of the other project maintainers agrees to extend the period to be greater than 3 months
 * New maintainers can be added to a project by a [super-majority](https://en.wikipedia.org/wiki/Supermajority#Two-thirds_vote) vote of the existing maintainers
 * When a project has no maintainers the Helm org maintainers become responsible for it and may archive the project or find new maintainers
+* When maintainers no longer maintain active projects due to project archival or removal, they become emeritus maintainers unless they join another Helm project as maintainers.
 
 ## Decision Making at the Helm org level
 
