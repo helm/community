@@ -70,7 +70,7 @@ Changes to maintainers use the following:
 
 * A maintainer may step down by emailing the [Helm mailing list](https://lists.cncf.io/g/cncf-helm)
 * Maintainers MUST remain active. If they are unresponsive for > 3 months they will be automatically removed unless a [super-majority](https://en.wikipedia.org/wiki/Supermajority#Two-thirds_vote) of the other project maintainers agrees to extend the period to be greater than 3 months
-* New maintainers can be added to a project by a [super-majority](https://en.wikipedia.org/wiki/Supermajority#Two-thirds_vote) vote of the existing maintainers
+* New maintainers can be added to a project by a [super-majority](https://en.wikipedia.org/wiki/Supermajority#Two-thirds_vote) vote of the existing maintainers. While nomination will happen on the public [Helm mailing list](https://lists.cncf.io/g/cncf-helm), voting will happen on the private maintainer list.
 * When a project has no maintainers the Helm org maintainers become responsible for it and may archive the project or find new maintainers
 
 ## Decision Making at the Helm org level
