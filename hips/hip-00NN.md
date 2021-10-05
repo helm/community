@@ -1,0 +1,81 @@
+---
+hip: "00NN"
+title: "Helm repo support Git protocol"
+authors: [ "yxxhero <aiopsclub@163.com>" ]
+created: "2021-10-05"
+type: "feature"
+status: "draft"
+---
+
+## Abstract
+
+This document describes the introduction of git protocol for helm charts.
+
+## Audience
+
+Using a git URL as a repository in requirements.yaml will be a nice-to-have feature for organizations that house their helm charts in a git repository and would like to maintain private access to those charts.
+
+The format supported is:
+
+```
+dependencies:
+- name: "{dependency name}"
+  repository: "git://{git repo url}"
+  version: "{git ref name}"
+```
+where:
+{git repo url} is any url type that a git clone ... command would accept (an ssh location, an https url, etc.).
+{git ref name} is an existing tag or branch name on the repo (a commit sha cannot be used at this time)
+For example:
+
+```
+dependencies:
+- name: "a"
+  repository: "git://https://github.com/rally25rs/helm-test-chart.git"
+  version: "master"
+```
+
+## Rationale 
+
+What it basically does is, if it find a registry that starts with `git://` then:
+* create a temp directory.
+* Using `github.com/Masterminds/vcs` to fetch the repo at the specified branch/tag into the temp dir
+* Treat the cloned git repo similar to a file:///path/to/temp/dir style requirement; use chart.LoadDir to load that directory (which in turn applied the logic for filtering the files through .helmignore) and archives it to charts/
+* Delete the temp dir.
+
+### Caveats / Known Limitations
+* Since this spawns git as a child process, git has to be available on the system and in the path.
+* There is currently no handling for forwarding stdin to the git child process, so if git asks for input, helm will likely appear to hang as git tries to prompt for input. It will cause an issue if you are trying to reference a private repo with an SSL cert that needs a password, or with an https url that requires username/password authentication. (yarn package manager, ansible, and other tools have this same issue). 
+
+## Specification
+The specification for this HIP is broken into two (3) major sections: 
+
+* Implement Getter 
+* Definition and identification of GIT protocol format 
+* As an experimental characteristic 
+
+For example: 
+
+```
+dependencies:
+- name: "a"
+  repository: "git://https://github.com/rally25rs/helm-test-chart.git"
+  version: "master"
+```
+
+## Backwards compatibility  
+Experimental state, no affect other logic.  
+
+
+## Reference implementation 
+* [https://github.com/helm/helm/pull/9482](https://github.com/helm/helm/pull/9482) 
+
+
+## Open issues 
+The issues below are still unresolved. 
+* [https://github.com/helm/helm/issues/9461](https://github.com/helm/helm/issues/9461) 
+
+
+
+
+
