@@ -18,7 +18,6 @@ of security team members, listed below.
 Name               | Key URL                                              | Fingerprint
 ------------------ | ---------------------------------------------------- | -----------
 Adam Reese         | [link](https://keybase.io/adamreese/pgp_keys.asc)    | 49D0 9C86 C3DC 8DA3 F0A0 7622 1EF6 1234 7F8A 9958
-Adnan Abdulhussein | [link](https://keybase.io/prydonius/pgp_keys.asc)    | 5111 DA73 DF12 D8E8 12CA 462F 2CDB BFBB 37AE 822A
 Matt Butcher       | [link](https://keybase.io/technosophos/pgp_keys.asc) | ABA2 5295 98F6 626C 420D 335B 62F4 9E74 7D91 1B60
 Matt Farina        | [link](https://keybase.io/mattfarina/pgp_keys.asc)   | 672C 657B E06B 4B30 969C 4A57 4614 49C2 5E36 B98E
 Matt Fisher        | [link](https://keybase.io/bacongobbler/pgp_keys.asc) | 967F 8AC5 E221 6F9F 4FD2 70AD 92AA 783C BAAE 8E3B
