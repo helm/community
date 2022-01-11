@@ -2,6 +2,7 @@
 
 * [Adam Reese](https://github.com/adamreese)
 * [Josh Dolitsky](https://github.com/jdolitsky)
+* [Karen Chu](https://github.com/karenhchu)
 * [Martin Hickey](https://github.com/hickeyma)
 * [Matt Butcher](https://github.com/technosophos) (chair)
 * [Matt Farina](https://github.com/mattfarina)
