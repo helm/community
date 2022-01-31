@@ -1,0 +1,2400 @@
+Helm Minutes for 2021
+=====================
+
+December 16, 2021
+Assignments for this meeting
+Moderator:    Butcher   
+Notes:   Karena   	 
+Issue Triage:     was unassigned for the week that ended today
+
+Announcements
+This is the last meeting of 2021
+no Helm call on Dec 23 or Dec 30
+We will resume this call on Thursday January 6, 2022.
+Next release: minor release 3.8 on Jan 19, 2022
+Not a patch release
+Milestone in progress (review PRs, ideally by Jan 10!): https://github.com/helm/helm/milestone/113  
+Release candidate goes out Jan 10 (monday before)
+
+Discussion
+[Karen] KubeCon CFP reminder, May 17-20, Valencia Spain - Hybrid Event
+Deadline is tomorrow, December 16 - https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/program/cfp/ 
+Maintainers talk deadline is later in January
+If two talks: Panel + Non-panel (in the past, could be two co-speaker talks)
+Early bird pricing ends January 7
+[Karena] cfp topics?
+[Scott] helm 4, sdk improvements for extending to other tools
+[Butcher] I have also heard that they are looking for good case-study or “this is how we use Helm” talks from people CNCF describes as “users” rather than “contributors"
+[Farina] idea for Scott … flux, helm controller .. ‘how we built something using the helm sdk’
+[Scott] workarounds they might be able to highlight, improvements?
+[Andrew] oci level distributions … how client model might change, how package, etc.
+[Scott] OCI alignment
+[Farina] List of things: https://github.com/helm/helm/issues/10393
+When fall back don’t pass url, pass directory (think is a minor issue)
+[Butcher] correct fall back sequence
+[Farina] version range support.. Only one unsure about
+Work w ORAS team to satisfy version range support
+
+Assignments for next meeting - Jan 6, first meeting of 2022!
+Moderator:   Karena     
+Notes:     Bridget  	 
+Issue Triage:     Dec 16-Dec 23 (Allen Bai), Dec 23-Dec 30 (Scott), Dec 30-Jan 6 (Butcher)
+
+December 9, 2021
+Assignments for this meeting
+Moderator:    Marc    
+Notes:     Bridget	  
+Issue Triage:     Farina
+
+Announcements
+3.7.2 was released yesterday
+Butcher: mostly dependency updates but also some bugfixes
+Meeting next week, then a break until January
+
+Discussion
+[Paul Vollmer] demo of helm-playground, a webapp to render helm charts in the browser.
+https://paulvollmer.net/helm-playground 
+Early stages - interested in feedback on https://github.com/paulvollmer/helm-playground 
+Tool for testing/quick iteration
+Renders automatically when changing values
+Perhaps we could set up play.helm.sh eventually - what’s the next step to bring this to the community?
+Currently no data recorded/only local WASM
+Next step: HIP to incorporate this into helm docs
+[Butcher] compare to vscode plugin for helm, to see how to incorporate with IDE
+D Peraza - could incorporate helm test
+Butcher: be interesting to be able to upload a chart or template
+Paul: goal is to allow people to see results immediately
+Butcher: webassembly is an interesting way to package up templates
+
+
+[suggested by Bridget] any update from Farina, Josh, and Butcher’s discussion of Moving OCI integration from experimental to full feature · Issue #10393 · helm/helm 
+They met and triaged the list in that issue; currently 6 items need to happen:
+ Adopt Helm best practice for altering build affix in versions when pushing to OCI #10166
+ Move internal/experimental/registry out of internal package #9188
+ Documentation only: Helm v3.7.0 OCI Helm push to ecr gives 404 Not found #10169 (comment)
+ Forthcoming issue: @jdolitsky re DOCKER_CONFIG
+ OCI: no version range support for dependencies/helm install #9694
+ helm registry login cannot use existing config file for authentication #10156
+
+[Bridget] do we want to get a second review of https://github.com/helm/helm/pull/9318 and get this bugfix for Helm pull fails if pulling from a repository that redirects to another domain · Issue #9317 · helm/helm merged in for 3.8?
+Mentioned - we shall see 
+
+
+Assignments for next meeting - Dec 16, last meeting of 2021!
+Moderator:    Butcher   
+Notes:   Karena   	 
+Issue Triage:     TBD
+
+
+
+December 2, 2021
+Assignments for this meeting
+Moderator: Farina     
+Notes:    Karena  
+Issue Triage: week 1 Scott, then week 2 Butcher    
+ 
+Announcements
+3.7.2 scheduled for Dec 8 - https://github.com/helm/helm/milestone/115 
+Second wednesday of every month
+[Bridget] when to get in any last minute items?
+[Farina] end of this week is the best - has to be a bug (not feature)
+
+Discussion
+
+[Bridget] Schedule for the rest of this year(!)
+Thursday Dec 9 - meeting as normal
+Thursday Dec 16 - meeting as normal
+Thursday Dec 23 - cancelled
+Thursday Dec 30 - cancelled
+Thursday Jan 6 - back to normal
+
+[Josh] If OCI will not ship for 3.8 due to various reasons, consider transferring internal/experimental/registry/ into new Go module “helm.sh/registry” (github.com/helm/registry) so vendors can start innovating and improving
+Josh/Scott/Farina met to discuss getting OCI out of experimental
+Concerns: lack of dev resources / feature gaps
+https://github.com/helm/helm/issues/10393
+Version ranges .. not finished
+Business logic to implement api’s ..?
+Lessons learned: more proj mgmt
+What is the MVP?
+[Josh] need document to clearly outline the requirements and issues to work on
+Alias support: https://github.com/helm/helm/issues/10013
+[Farina] Need to go through the list to determine what still needs to be worked on, what needs to be added, etc.
+[Joe Julian] distinction between sufficient API and feature complete
+Farina/Josh/Butcher meeting this week to discuss further
+Additional topics?
+[Luke] https://github.com/helm/community/pull/224 if there is time
+Release objects stored wherever they are stored
+[Farina] strict decoding of yaml objects .. unsure if do that with release objects. Okay with recording in a release object. Generally okay but wants to look into more details to verify.
+[Butcher] could potentially put behind a feature flag .. question: will it break the API on the release object? Build processes would have to take on the burden of building the tar balls
+[Farina] digest checking and reproducible digests would be great .. want to keep in scope
+
+Defer to next week when Kent can join [Bridget] Kent Rancourt asking about introducing new template file: https://github.com/helm/helm/issues/10074#issuecomment-973097624 
+
+Assignments for next meeting
+Moderator:    Marc  (and Butcher on dec 16)   
+Notes:     Bridget	  
+Issue Triage:     Farina
+
+
+November 25, 2021 - no meeting (US Thanksgiving)
+
+November 18, 2021
+Assignments for this meeting
+Moderator:     Butcher
+Notes:    Bridget 
+Issue Triage: Farina   
+
+ Announcements
+[Bridget] no Helm call next week for US Thanksgiving Thursday Nov 25
+[Bridget] 3.7.2 scheduled for Dec 8 - https://github.com/helm/helm/milestone/115 
+Add your bugfixes now!
+Patches have been added already!
+Get those k8s dependency fixes in, with a single PR to cover the content of those automated dependabot PRs - help wanted on that PR
+[Farina] Allen Bai as Triage Maintainer
+Congrats! Next step: PRing in himself to https://github.com/helm/helm/blob/main/OWNERS#L12 
+Thanks to all for patience as voting can take time
+
+Discussion
+[Scott] OCI update
+upgrade oras to 0.5.0, refactor client oci logic to use new oras.Copy() #10294
+ORAS project meeting today
+Plan to cover ORAS project community maturity #9
+Josh: experimental features will wait for after 1.0
+Farina: we’re interested in the Go API
+also semver contract
+Dependency issues - older k8s packages being imported - keep eye on containerd versioning
+WIP to remove containerd dep https://github.com/oras-project/oras-go/issues/52
+Thanks to Josh, Farina, and all working to get this over the finish line
+Josh: number 1 request for OCI is semver matching
+https://github.com/oras-project/oras-go/issues/47
+
+
+[Farina] An alternative template delimiter - https://github.com/helm/helm/pull/10299 
+Other systems like Prometheus have options like this
+However, affects execution
+[Butcher] Also might cause a breaking change - a silent failure if a chart couldn’t be rendered
+Scott - new chart version?
+Butcher: yes, this is a severe breaking change to templates - we’d have to do a version increment on charts.
+Farine will update issue
+Butcher: likely we’d want a HIP for this as well
+
+
+[Farina] Reproducible builds (and further security things)
+https://reproducible-builds.org/ 
+https://slsa.dev/ 
+Joe J: https://twitter.com/puerco/status/1461176447742226440 SLSA in this month’s patch releases of k8s
+We’ve had PRs in the past but would need tests etc
+[Scott] yes, as long as we feature-flag this
+[David P] does the tar spec claim it will create the same digest output?
+[Farina] Go sort order issues, and the timestamp, are why this varies
+[Scott] chart repo automation currently has to work around this
+
+Defer to Dec 2 [Bridget] Kent Rancourt asking about introducing new template file: https://github.com/helm/helm/issues/10074#issuecomment-973097624 
+
+
+Assignments for next meeting (no meeting Nov 25 - next meeting Dec 2) 
+Moderator: Farina     
+Notes:    Josh  
+Issue Triage: week 1 Scott, then week 2 Butcher      
+
+November 11, 2021
+Assignments for this meeting
+Moderator:   Karena 
+Notes:   Butcher 
+Issue Triage: Scott shadowing Martin   
+
+
+Announcements
+[Marc] Welcome yxxhero as new triage maintainer!
+Vote was a while back, but he is now officially in OWNERS file
+Still some open votes for the maintainers, so vote now!
+[Marc] Patch release cancelled for this month - No new commits since 3.7.1
+There were no committed changes, so nothing to release.
+Farina: We will discuss getting some momentum
+[Bridget] no Helm call for US Thanksgiving Thursday Nov 25
+Just a reminder that since many maintainers are in US, we will cancel that meeting
+Karena: We had discussed canceling some other meetings during the holiday season
+
+
+
+Discussion
+ [Bridget] Josh opened an issue to discuss what we’d like to see in OCI support: https://github.com/helm/helm/issues/10312 - any new thoughts? Next steps?
+Josh opened an issue for what should be coming, and it would be good to get some opinions recorded. We can return to discussion when Josh is present. 
+
+ [Bridget] Can someone check and perhaps merge the current dependabot PRs? (do we want this to be part of triage tasks for the week?)
+There are several Dependabot PRs that should get some attention. And the longer we wait, the harder they are to merge.
+Could this be considered triage work?
+ 
+
+
+[Farina] How do we get more merged?
+Core maintainers are quite busy right now (with other things), and with no single corp overseeing Helm, we need to come up with a way to get people engaged in reviewing/merging
+We have more maintainers, but not enough to make a big difference here
+So what can we do to help with that?
+Dpereza: Will more maintainers fix this?
+Farina: Maybe, but that does require more work
+dpereza: RH does indeed have interest in doing more than this, but we’re unclear on how to start that. What do we do TODAY to set us up to be stronger maintainers in the future? (There are 3-5 people on this team)
+Farina: I will help get this going. Feel free to come bug me to help you. I’m in ALL the Slacks.
+Karena: What about the dependabot PRs?
+Bridget: Can these be triage tasks? Or are they more than that?
+Farina: Three of them need to be combined into one big PR, and that will require someone to actually do the work. One big k8s library update.
+Marc: Someone from RedHat did this k8s merge in the past. Does anyone remember who? [Will look up]
+Farina will write the Help Wanted issue for tracking the k8s upgrade
+Marc: It was Shoubik who had done some in the past.
+Discussion about asking Shoubik to do this again (David will follow up).
+
+[Bridget] What do we think of this Slack integration request? https://github.com/helm/helm/issues/10291 
+Installing the slack app on the repo… do we want to do this?
+Do projects do this? Is this a good idea? Does anyone want to investigate?
+Butcher: I will track this one
+
+Assignments for next meeting  
+Moderator:     Butcher
+Notes:    Bridget 
+Issue Triage: Farina      
+
+
+November 4, 2021
+Assignments for this meeting
+Moderator:   Martin Hickey
+Notes:   Bridget Kromhout
+Issue Triage:   Scott Rigby - will reach out to other folks for backup
+
+Announcements
+[Bridget] Next scheduled release: 3.8.0 on January 12th, 2022 https://github.com/helm/helm/milestone/113 - review items in there!
+Is 3.7.2 still planned for Nov 10? https://github.com/helm/helm/milestone/115 has no items in it yet
+[fisher] No. we preemptively create the milestone per HIP 2: https://github.com/helm/community/blob/main/hips/hip-0002.md . If nothing is scheduled for a milestone, then we have nothing to release
+[bridget] okay. I wasn’t sure how late an item could be added.
+[Fisher] when we have nothing to release we extend the date
+
+
+Discussion
+[Bridget] Upcoming holidays - shall we cancel this call for US Thanksgiving on Thursday Nov 25? [yes] Thursday Dec 23? perhaps Thursday Dec 30? [let’s ask closer to the date]
+Bridget and Karena will be out for all three
+Fisher: generally speaking most people won’t be at the calls these dates
+Martin: I will also be out
+Resolution: We will cancel the Nov 25th call and ask about the December ones closer to the time.
+[Bridget] does anyone know offhand if the OCI support as of 3.7.1 fixes this bug? https://github.com/helm/helm/issues/8090 
+[fisher] that should be fixed as of Helm 3.7+. Added a comment
+We can revisit this if it doesn’t work in 3.7+
+[Josh] clarity around :version versus --version: https://github.com/helm/helm/issues/8090#issuecomment-961222358 
+[Scott] update on ORAS/Helm OCI progress
+upgrade oras to 0.5.0, refactor client oci logic to use new oras.Copy()
+Josh D, can we connect on how to update the test?
+Josh: new API in oras makes it more flexible - this PR validates it still works with the new API - but there is an issue with how layers are sorted - perhaps need to hear from Farina? But it may not matter.
+[Fisher] possibly docker may rely on order for layers - “if docker relies on layers being ordered in a certain way because of the nature of a copy-on-write filesystem”
+Scott: PR in question: https://github.com/helm/helm/pull/10294 
+
+Assignments for next meeting  
+Moderator:   Karena 
+Notes:   Butcher 
+Issue Triage: Scott shadowing Martin    
+
+
+October 28, 2021
+Assignments for this meeting
+Moderator:    Marc
+Notes:  Karena
+Issue Triage:  Scott shadowing Farina
+
+Announcements
+[Marc] New triage maintainer: yxxhero
+Welcome!
+[Karena] KubeCon Maintainer Session - Combined views (in-person + virtual): 1223
+
+Discussion
+[Marc] Should triage maintainers be added to the OWNERS file?
+[Farina] makes sense to have it
+AI: Marc to send email to maintainers
+[Josh (who cannot attend)] Merge me! https://github.com/helm/helm-www/pull/1228
+Several issues is the queue related to OCI may be prevented, since the current registry docs are misleading/contain old commands
+People have command line documentation
+old vs. new
+[Scott] I am reviewing
+[Adam] - PRs to bump
+https://github.com/helm/helm-www/pull/1228
+Labeling releases:
+https://github.com/helm/helm/pull/8099
+Alternatively https://github.com/helm/helm/pull/9560
+[Farina] Expectations: next minor release (January) for these PRs
+[David Peraza] question on pre-GA install
+[Farina] k8s versions look semantic but are not semantic
+Helm uses a semver check
+According to semver, use ascii character map so start w/ using zero
+[Farina] could have better help documentation
+[Scott] quick update from last week on Helm OCI & ORAS dependency. Moving forward!
+Communicating closely w ORAS maintainers (Josh, Sajay, Avi etc)  and collabing with volunteers (David P, Andy Block, Josh Wolf, Tom Runyon)
+[Marc] Triage maintainers
+Voting on Allen too
+And Scott
+
+Assignments for next meeting  
+Moderator:   Matt Farina
+Notes:   Bridget Kromhout
+Issue Triage:   Scott Rigby - will reach out to other folks for backup
+
+October 21, 2021
+Assignments for this meeting
+Moderator:    Bridget
+Notes:  Scott
+Issue Triage:  Farina
+
+Announcements
+[Bridget] 3.7.1 patch release went out last week. Next scheduled release: 3.8.0 in January https://github.com/helm/helm/milestone/113 
+
+Discussion
+[Bridget] does someone want to check and approve/comment on the outstanding dependabot PRs? https://github.com/helm/helm/pulls/app%2Fdependabot 
+Dependabot will keep them up to date, so if they’re still open, we can review and merge them 
+
+[Scott] feedback on OCI status
+Issue, SDK users can not import helm's OCI support, because it is EXPERIMENTAL (note this is by design for now for a good reason)
+quick note on earlier idea for helm/registry breakout proposal. Chat prior to HIP
+Met with Josh & Matt Farina before and during KubeCon
+Now: prefer to instead help push Helm OCI support over the finish line. Shoot for January
+Scott: people should not be using experimental features in production, but they are. Next steps: the gaps are almost all closed, so suggest we push over the finish line. Biggest blocker: oras backwards compatibility
+Target: the January 3.8.0 release
+Volunteers:
+Scott
+Andrew Block
+David Peraza
+Josh Wolf
+[Scott] will push this forward
+set up a simple collaborative process for the busy folks who want to help (scheduled meeting? just async? whatever is pragmatic & easiest)
+start with checklist of required things to do
+coordinate with Bridget
+coordinate with other ppl who have volunteered to collaborate on this
+coordinate with Josh for reviews
+
+
+[David] New member asked to bring this up in call: https://github.com/helm/helm/pulls/mmulholla 
+ Will follow up (we were KubeCon-ing last week)
+
+[Farina] summary of community online meeting during KubeCon
+OCI and CRD questions as usual
+		
+[Bridget] HIP review: https://github.com/helm/community/pulls 
+Anyone can comment
+
+Assignments for next meeting  
+Moderator:   Marc
+Notes:  Karena  
+Issue Triage:   Scott shadowing Farina
+
+
+October 14, 2021
+Cancelled due to KubeCon :-)
+Join office hours on Bevy instead!
+Tuesday, October 12 • 9:00am - 9:45am Pacific 
+Friday, October 15 • 10:30am - 11:15am Pacific
+
+
+October 7, 2021
+Assignments for this meeting
+Moderator:   Karena
+Notes:  Scott
+Issue Triage: Farina
+
+Announcements
+[Bridget] reminder: no Thursday Oct 14th Helm weekly dev call due to KubeCon
+Join office hours on Bevy instead!
+Tuesday, October 12 • 9:00am - 9:45am Pacific 
+Friday, October 15 • 10:30am - 11:15am Pacific
+[Farina] 3.7.1 patch release next week (being cut by Farina)
+Cutting this on Wednesday next week : https://github.com/helm/helm/milestone/114 
+https://helm.sh/docs/community/release_checklist/ 
+Marc: new pick and push process
+
+
+
+Discussion
+[Nick Jennings/Ramindar/Dhanashree] Surfacing container logs in Helm?
+https://github.com/helm/helm/pull/7728  and https://github.com/helm/helm/issues/5952 
+Matt Farina: check out the https://github.com/helm/chart-testing project
+Joe: could potentially be a helm plugin. Not yet sure if you do it within the atomic loop (though you could if you made your own command).
+Matt Farina: Nick is looking to do something that's not custom
+Joe: agree, though it could start out custom prior to a HIP
+Nick: agree that would be a good way to move ahead
+Marc: legit use case though right?
+Matt Farina: workaround is not use atomic flag, and manage the rollback logic on one's own (follow Unix philosophy of "do one thing well", rather than complexity of single command with all of those flags)
+Karena: ensuring there is a clear next step
+Nick: yes recommending partners either to not use atomic flag, or re-run without atomic flag on failure. And the next step is either 1. HIP, or 2. Helm plugin. Matt Farina recommends again looking at helm-testing project because surfacing some of those logs for testing has already been done
+
+
+ [Tom Runyon] Standardize Annotations to identify images used by Helm Chart.
+ArtifactHub uses the annotation `artifacthub.io/images` to identify images used by the chart [Reference].   This helps ArtifactHub show the scan results that are not clearly visible by rendering/templating the chart e.g. here. 
+Other use cases exist (e.g. bundling artifacts for airgapped/off line deployments, generating SBOMs, etc) and having a global (helm) standard would facilitate tooling built around the specification of images required to use the chart.
+Proposed:  `helm.sh/images` as seen below:
+
+Andrew Block: this is important for Red Hat - “related images” - https://docs.openshift.com/container-platform/4.8/operators/operator_sdk/osdk-generating-csvs.html#olm-enabling-operator-for-restricted-network_osdk-generating-csvs 
+Scott Rigby: agrees there should be a standard - this doesn’t require much from Helm other than stating something is “supported”
+Farina: we’d need to agree and document
+Tom R: happy to do that work
+Farina: this would definitely need to be a HIP and I would be supportive of it
+
+
+(move to Oct 21?) [Scott] If time, feedback on earlier idea for helm/registry breakout proposal. Chat prior to HIP
+
+
+
+Assignments for next meeting (Oct 21! No meeting Oct 14)
+Moderator:  Bridget (or other!)  
+Notes:  Karena 
+Issue Triage: Farina for week 1; someone needed for week 2  
+
+September 30, 2021
+Assignments for this meeting
+Moderator: Scott 
+Notes:  Bridget
+Issue Triage: Butcher
+
+
+Announcements
+[Bridget] Hosts needed for KubeCon online office hours (held on Bevy):
+Tuesday, October 12 • 9:00am - 9:45am Pacific (to be led by Matt Farina)
+Friday, October 15 • 10:30am - 11:15am Pacific (to be led by…?)
+[Bridget] 3.7.1 patch release would be during KubeCon - schedule adjustment?
+Farina: I can still cut this release that day
+[Bridget] reminder: no Thursday Oct 14th Helm weekly dev call due to KubeCon
+[Scott] Oct 5th 10 AM PST, Martin & Scott present a feature showcase on Helm + Flux at CloudNative @Scale SF: https://twitter.com/r6by/status/1443596965946744839
+
+
+Discussion
+[Farina] Artifact Hub storing validation in OCI registry for charts there…
+	- “The repository metadata file can now be added to Helm OCI repositories. This allows using features like verified publisher or ownership claim on OCI based repos. For more information about how to add it to your repository please see the Helm OCI section in the repositories documentation.”
+Artifact Hub asking for input/feedback on this feature, and asking you to add the metadata files - similar to provenance files
+This is different from “verified publisher” - see https://artifacthub.io/docs/topics/repositories/ - important for businesses etc
+
+[Bridget] Inactive repo cleanup - I’m proposing we archive three repos due to minimal content and no activity:
+https://github.com/helm/query-store-quay-logs - Farina: running this stopped working - nobody noticed - Farina will send out a lazy-consensus and run it by the charts team
+https://github.com/helm/repo-audit - was a tool intended for audit/features - unsure about what we should do about this - perhaps there is a way to do this via artifact hub - check for digest changes/security/provenance files/chart-testing-tool/etc - interesting to dperaza - Farina will change master branch to main
+https://github.com/helm/specs - based on a request to document specs - Farina believes we need to do this - Farina will change master branch to main
+
+
+[Bridget] OCI/mediatype question - do we know what we want to do with https://github.com/helm/helm/pull/10182#issuecomment-927377309? 
+Farina: this is an issue with user confusion around experimental features - plugins will be a more clear delineation in the future
+
+[Scott] who wants to make a PR against Helm Governance for using the private maintainers list for new maintainers voting.
+[Bridget] I already have a PR open against governance to update from last year’s HIP-005: https://github.com/helm/community/pull/210 
+Bridget will request that clarification - according to farina, self-nominations should happen on public list, then vote on private list
+
+
+Assignments for next meeting
+Moderator:   Karena
+Notes:  Scott
+Issue Triage: Farina
+
+September 23, 2021
+Assignments for this meeting
+Moderator:  Matt Farina
+Notes:  Bridget
+Issue Triage: TBD
+
+Announcements
+[Bridget] Karen Chu has added the last year of meeting recordings to the playlist linked on https://github.com/helm/community/blob/main/communication.md#meetings 
+
+Discussion
+[Bridget] September is proposed as a Helm 4 decision time - what is our next move? (Brought up by Butcher at the Sept 7 meeting - defined in HIP 12) 
+ [Bridget] The original plan mentioned possible kickoff activities at kubecon north america 2021, which is fast approaching.
+Butcher: the plan is for a release engineer and perhaps also a PM/architect role - the HIP said we’d have this person in place by the end of September - thus far we are slipping timeline-wise - perhaps we need to revisit post-holiday-season.
+Butcher so perhaps we amend HIP-12 with a redefinition of the roles to two instead of one, and for a resumption post-holidays
+Action item: Butcher to carry out HIP replacement (lol)
+
+[Bridget] 3.7.1 for bugfixes?
+OCI: Allow any mediatype for layers on download #10176
+[Josh] old charts being rejected is not ideal, but this bugfix would allow less-strict checking.
+[Farina] debated in the original issue as to whether we should accept the old media type as well - what’s changed?
+[Josh] the community reaction has motivated this increase in flexibility
+[Farina] we should log deprecated media type - patch is in a couple weeks
+[Farina] instead of experiments, we should look at plugins in the future (because of how this has been treated)
+[Josh] helm-push plugin is broken due to “helm push”
+https://github.com/helm/helm/issues/10175  
+Action item: Josh will submit update for the patch release
+
+
+[Karen Chu] Helm at KubeCon
+Ways to participate
+Online office hours (RSVP - held on Bevy): Tuesday, October 12 • 9:00am - 9:45am Pacific and Friday, October 15 • 10:30am - 11:15am Pacific 
+Hosts needed! Please sign up here and we can connect you with CNCF - Karen will connect with you to ensure you are signed up on Bevy.
+Maintainer session: Wednesday October 13, 2021 11:00am - 11:35am PDT Concourse Hall 150 ABC + Online  
+Project Pavilion booth
+Online
+In person  - possible to sign up for participation (we have it half the day - mornings each day)
+
+
+[Andrew Block] Helm + Sigstore: Presentation plus very short demo
+Helm Sigstore Plugin Demo: https://www.youtube.com/watch?v=cjY26RRHpo8 
+Sigstore is not SIG Storage
+cosign, rekor, fulcio
+https://github.com/sigstore/helm-sigstore 
+Scott Rigby: please join the Helm chart talk at KubeCon
+
+
+Assignments for next meeting
+Moderator: Scott 
+Notes:  Karena
+Issue Triage: Butcher
+
+September 16, 2021
+Assignments for this meeting
+Moderator: Karena
+Notes: Bridget
+Issue Triage: Fisher
+
+Announcements
+Helm 3.7.0 has been released https://github.com/helm/helm/releases/tag/v3.7.0
+Fisher: community identified code regressions, which are now fixed - RC3 was cut and now we’ve released 3.7.0
+[Marc] should we clarify the breaking change further (OCI charts only)?
+Fisher: yes, there are significant changes to the experimental OCI support - see the HIP on the OCI support: https://github.com/helm/community/blob/main/hips/hip-0006.md 
+Charts will need re-uploading
+Fisher: documentation needs to be updated in accordance with this change
+[Marc] we may need to clarify the release notes
+Farina: Josh D did a gist on how to update: https://gist.github.com/jdolitsky/66e0768ceedb6eab7395422e86e16a53 
+Action item: Release notes update by Marc
+
+
+
+Discussion
+Helm 3.8.0 release date
+[fisher] I looked at the calendar and tentatively scheduled it for January 12, 2022 (second Wednesday, four months from now). Lazy consensus vote?
+Fisher: the HIP says quarterly - 4 months from now would land in January
+Farina: January is good - but Jan 3 would be too soon to cut the release - let’s push a week - RC 2nd Wed in Jan, Release 3rd Wed in Jan
+Action item: Fisher will send email & update the release calendar
+Marc will add Fisher to the calendar
+[Karena] Triage shadowing session
+[Karena] pairing is challenging - can we schedule a session for walking people through triage?
+[Fisher] perhaps we need to define what this is?
+[Bridget] Do we want a one-off triage onboarding/shadow session?
+[dperaza] Async would be valuable as well, but I would attend a one-off orientation
+Stephane: also please record the session and document it
+Karena: resolution: 
+[Bridget] KubeCon logistics
+Shall we cancel the Thursday Oct 14th Helm weekly dev call? [yes]
+Who wants to host online office hours, Friday Oct 15 10:30am-11:15am pacific, https://sched.co/mtNO? [Maybe Farina but let’s check later]
+Who’ll be onsite for KubeCon? (We have an in-person project pavilion spot.)
+[Karena] Please comment here if you’re going to be onsite in Los Angeles
+Bridget: I’m planning to be there
+Karena: I’ll be there!
+
+
+[Marc]: Wondering if dynamic completion of plugins could have security implications? https://helm.sh/docs/topics/plugins/#dynamic-completion
+Butcher: Helm can’t secure unknown 3rd-party code on behalf of the user
+
+[Karena] Helm youtube channel
+Who maintains/uploads community videos?
+[fisher] The CNCF provided a zoom plugin that will automatically upload Zoom recordings to YouTube. They own the account, but have shared access to myself and Karen (Helm Community Manager)
+[Scott] progress on helm session technical focus on charts
+[Bridget] Skipped this so pulling it out to highlight it 💖
+Building, publishing, sharing charts!
+[David] Can we demo sig-store for the community call?
+Fisher: we’ve had demos here before but it’s nice to have a video ahead of time to pre-watch and then discuss on the call 
+Farina: a recorded demo on youtube is far easier to share
+
+Assignments for next meeting
+Moderator:  Matt Farina
+Notes:  Bridget
+Issue Triage: TBD
+
+September 9, 2021
+Assignments for this meeting
+Moderator: Matt Fisher
+Notes: Karena Angell
+Issue Triage: Matt Butcher
+Announcements
+[fisher] Helm 3.7.0 delayed due to a few code regressions
+Cut 3.7.0-rc.3 and look to release 3.7.0 after that
+Next hour, release candidate is out
+Next Tuesday for 3.7.0 GA
+Discussion
+[fisher] Helm 3.7.0-rc.2 update
+[fisher] there is a fix available now available for #10112: https://github.com/helm/helm/pull/10117
+Reviewed and approved
+[Bridget] Helm at KubeCon NA 2021 - updates?
+Project talk: 
+Helm: The Charts and the Curious - https://sched.co/lV7H
+Helm project booth
+Online office hours
+Friday, https://sched.co/mtNO
+Scott, Paul, Carlos, Karena are giving a talk on how to improve your chart workflow - focused on people who are looking to better automate their talks, join us online or at kubecon
+[Bridget] Triage maintainer nominations - updates?
+One is being onboarded
+If anyone else - there’s a HIP: https://github.com/helm/community/blob/main/hips/hip-0014.md
+[Bridget] Self-nominate! It’s easy and fun!
+Don’t have to be proficient in Go or Helm - it’s a good way to learn
+Joe Julian & Scott Rigby interested
+[Andrew Block] Sigstore + Helm - https://www.sigstore.dev/
+Sigstore for signing/verifying content
+Helm package signing
+https://medium.com/@sabre1041/setting-up-your-own-rekor-transparency-log-server-using-helm-fc7bbeafb59c
+https://medium.com/@sabre1041/integrating-helm-into-the-sigstore-project-d51564ea001f
+Sign Helm charts - not rewriting how they are signed today - taking content and publishing to a transparency log
+Interested in feedback - future presentation will demo to the group
+Farina: would love to see Helm work published to transparency log
+Pgp keys?
+Farina: pgp was when we created things - integration with gpg not as good anymore
+Josh: helm push - if sees  file, will upload over oci distribution … would be cool to detect sigstore plugin
+
+Assignments for next meeting
+Moderator: Karena
+Notes: Butcher
+Issue Triage: Fisher
+
+
+September 2, 2021
+Assignments for this meeting
+Moderator:   Martin
+Notes:   Karena
+Issue Triage:  Farina 
+
+
+Announcements
+3.7.0 release Wednesday Sept 8: https://github.com/helm/helm/milestone/111 
+Revamped OCI integration
+Breaking change to previous OCI experiment
+Under experimental flag
+Josh dolitsky
+Useability
+Any volunteers to test??
+API changes:
+push/pull from registry, certain manifests pull from there (breaking change)
+Action package - tried to move some of the api stuff out
+“should be” clearly documented
+CRDs out of the chart - helm show crds
+SIGTERMS on upgrade/install
+
+Discussion
+ [Itai Spiegel] Including external files in chart. https://github.com/helm/helm/pull/10077 
+Broke api compatibility - PR not ready for review yet
+ [Butcher] Helm 4 Release Manager
+“It is time!”
+Release manager - most of architectural decisions
+Roadmarkers
+PM’y but more architect role
+25-30 hours of work per week
+Decide by end of september - go/no-go then
+Or nominate Adam ;)
+Needs to be existing maintainer of helm/helm code base
+Requires some coding and managing PRs with PR authors
+David: break up the role?
+Andy: cover multiple geos
+Julian: 30 hours per week for how long?
+6 months?
+Butcher: We could also break it into PM-like tasks and coding tasks, and create two distinct roles
+Once decide on person(s), can kick off the process
+What are the bounds for this release?
+[Scott] Feedback on HIP process for detecting changes to objects that are the result of a Helm release (rather than only mutations to the storage like helm-diff)
+Command that compares helm storage state with a live cluster state
+Helm controller from flux and Helm operator had to do a lot of workarounds to ascertain the info - should this be a HIP?
+Farina: Helm 3 - 3-way merge patch
+Mutating web hooks
+E.g. Service mesh
+A tool like this might fail / raise those thing instantly in a case like this
+Farina: what’s the use case?
+Butcher: And Kubernetes itself mutates things (in ways that change from k8s release to k8s release)
+Butcher: a HIP sounds like a great way to discuss this
+[Karena] Blog post for this release
+Loves the mentions so far about what's landing in this release
+Any other notes over the next 3 mins?
+Farina: a bunch of new features. Maybe have time to craft full release notes Wednesday? Will have to look at closed pull requests because there were so many
+
+Assignments for next meeting
+Moderator:   (Bridget if no other volunteers)
+Notes:   Karena
+Issue Triage: Matt Butcher 
+
+
+August 26, 2021
+Assignments for this meeting
+Moderator:  Adam
+Notes:  Bridget
+Issue Triage:  unassigned
+
+Announcements
+3.7.0 RC scheduled for Mon Aug 30 (next week!), with 3.7.0 release Wednesday Sept 8: https://github.com/helm/helm/milestone/111 
+Call to action: review (and/or update) PRs for 3.7.0
+
+Discussion
+[Farina] Download cache HIP and security… https://github.com/helm/community/pull/185 
+[Farina] Possible security issue if index.yaml file intercepted/changed, leading to a wrong version being installed
+[Farina] Perhaps checking which version is being requested would mitigate?
+[Butcher] that reduces the risk to local filesystem attacks
+[Farina] this cache also covers cache environment variables
+[Butcher] we have extraneous cache environment variables
+[Martin] for helm 4 - one cache to rule them all!
+[Karena] how does this tie back to the overall security story?
+[Farina] many factors for security - like signed indexes - but yes, a security-centered approach is wise
+[Farina] we should discuss https://github.com/sigstore/helm-charts 
+[Karena] Andy would like to come on to discuss
+[David Peraza] let’s discuss/bring in more folks
+[Farina] We could look into more caching items before Helm v4
+
+[Martin] Would functionality to clean failed revisions be useful? Came up as a conversation in https://github.com/helm/helm/issues/10056. 
+[Farina] In Helm 3 there is a limit of 10 by default
+[Martin] Failed revisions that people want the ability to clean up
+[Farina] We don’t garbage-collect if all the release objects are failures
+[Farina] perhaps we should start with a garbage-collection plugin?
+[Martin] that is better than telling people to edit the cluster directly
+[Farina] a plugin called `gc` would be a good place to start
+[Martin] will raise as a feature and see if someone has the bandwidth
+
+[Farina] Helm v4 - context, dependency injection container, or something else… 
+not being able to get to information we didn’t know we needed is making the SDK hard or unusable for non-Helm apps. 
+See https://github.com/helm/helm/pull/10008 as an example. 
+Looking for way to solve this in v4.
+[Farina] plugin can have wrong directory due to tight coupling
+[Farina] dependency injection may be the way to do this
+[Farina] hypper work has shown this currently has some issues but we don’t have a way to avoid it now - perhaps in v4 we can change it.
+[Butcher] context object or directory perhaps, but building a dependency injection pattern may be useful
+[Farina] context or CLI will both work interactively vs in a CI pipeline
+[Butcher] possibilities chainable context tuple pattern
+[Karena] Do we want to have a working group at KubeCon?
+[Butcher] Karen did request space for a planning session
+[Martin] remote participation options?
+[Bridget] I can join a device from an in-person session as needed
+
+[Martin] Do changes to an interface break backwards compatibility according to Go conventions? 
+We have precedent in Helm 3 where an interface was changed in https://github.com/helm/helm/pull/8363. 
+Should we therefore allow it to be changed in https://github.com/helm/helm/pull/9702? 
+Can’t see it mentioned in the backwards compatibility HIP: https://github.com/helm/community/blob/main/hips/hip-0004.md 
+https://go.dev/blog/module-compatibility
+[Martin] we can probably get this in for 3.7
+[Farina] this isn’t documented in the backward-compatibility rules
+[Butcher] but it is documented in go’s guidelines
+[Adam] modifying an interface is a breaking change
+[Martin] we did merge a PR that breaks the interface
+
+[Bridget] do we have any update on adding triage maintainers?
+[Farina] Need a few more votes from maintainers for the first candidate
+
+Assignments for next meeting
+Moderator:   Martin
+Notes:   Karena
+Issue Triage:  Farina 
+
+
+August 19, 2021
+Assignments for this meeting
+Moderator: Bridget Kromhout
+Notes: Matt Fisher
+Issue Triage: TBD
+
+Announcements
+3.7.0 RC scheduled for Mon Aug 30, with 3.7.0 release Wednesday Sept 8: https://github.com/helm/helm/milestone/111 
+Call to action: review PRs for 3.7.0
+New FAQ entry for tiller download questions: https://helm.sh/docs/faq/troubleshooting/#tiller-installations-stopped-working-and-access-is-denied 
+
+Discussion
+[Itai Spiegel]  Add --include-file flag for external files: https://github.com/helm/helm/pull/8841 
+Writing a helm chart for deploying applications, using the first helm chart as a dependency
+Looking for a summary of Helm’s architecture to help move the feature forward
+[Fisher] recommended step - first, reach out to the original author of the PR - perhaps you can see if their timeline matches yours
+Itai: yes, I sent him email with no response
+[Fisher] It’s fair to work on an alternative if you don’t hear back
+Adam - he can open a new PR with the existing commits (Butcher: as long as the DCO is in place from the original committer)
+Adam (on rollback): when you send up files on an install, these files are added as templates, not configuration in parts of the chart
+Additionally, there is a security concern of including files
+Itai: we’re fine with this. The security concerns is not important in our case.
+Bridget: just because security concerns are not important in this use case doesn’t mean we shouldn’t be concerned about security leaks
+Itai: okay. So I’ll go and test/document this with regards to `helm rollback`
+[Bridget] progress on OCI support - https://github.com/helm/helm/pull/9782 
+[Fisher] Adam, Butcher, and I have reviewed this PR in detail - the only removals are internal so in terms of public packages, nothing has changed - one change to adjust, and another PR to merge first.
+Adam & Fisher to pair
+[Bridget] Call-to-action to contact Josh Dolitsky later [emailed]
+[Stephane] next steps for https://github.com/helm/helm/pull/9180
+Had some conversations with FIsher about how to get this into Helm 3.7.0
+[bridget] added to Helm 3.7.0 for visibility
+
+Assignments for next meeting
+Moderator:  Adam
+Notes:  Karena
+Issue Triage:  TBD
+
+
+August 12, 2021
+Assignments for this meeting
+Moderator:    Adam Reese
+Notes:  Bridget Kromhout
+Issue Triage:  Matt Farina
+
+Announcements
+3.7.0 RC scheduled for Mon Aug 30, with 3.7.0 release Wednesday Sept 8: https://github.com/helm/helm/milestone/111 
+patch release (3.6.4) scheduled for Wed August 11 has not occurred: https://github.com/helm/helm/milestone/112 
+PRs were not in shape for merging
+Cancel 3.6.4 and move those items to the 3.7.0 milestone?
+Farina will do this cleanup step
+Call to action: review PRs for 3.7.0
+
+Discussion
+ [Fisher] HIP 14 (Helm Triage Maintainers) update
+https://github.com/helm/community/blob/main/hips/hip-0014.md 
+Let’s sign on new maintainers at a lower commitment level, to help with PR review and triage
+This role does not handle release management or event coordination
+HIP is approved - Fisher has created github “Team”
+Some candidates in the pipeline
+Nominate candidates using the same process as for core maintainers
+Action item: PR this clarification in - this role falls under https://github.com/helm/community/blob/main/governance/governance.md#project-maintainers specifically for helm/helm
+ [Martin] Generate `values.schema.json` during  `helm create` https://github.com/helm/helm/issues/10009 
+Should this be added or do we keep the scaffold chart simple and the basics to better help users onboarding to Helm?
+Adam: “create” should be as simple as possible - let’s not add to the base “create” command
+Fisher: https://github.com/karuppiah7890/helm-schema-gen - this plugin is not currently maintained, but this discussion happened before
+Farina: “create” is already too complex - Helm 4 could make that simpler - but starter templates could also be easier.
+Fisher: compare https://github.com/cargo-generate/cargo-generate - values schemas can be quite opinionated
+Martin: next steps - I might create a proposal and perhaps a HIP for Helm 4
+Scott: we’ve talked about a “wizard” before but that is too much complexity for helm itself (as opposed to being a plugin)
+Fisher: yeoman is great for creating wizard-like templates. we've been using it in a few projects. https://yeoman.io/ 
+Scott: docs improvements ideas could be migrated over from the legacy charts repo
+Martin is going to carry this discussion forward (helm create, templates, best practices, wizards…)
+Adam: the `helm create` command is tied with our backwards-compat constraints, so let’s keep it simple to put the practices elsewhere, to preserve optionality
+Scott: Decoupling that could make backwards compatibility for v4 easier to maintain
+[Martin] `helm repo update` commands return exit code 0 regardless of errors or not https://github.com/helm/helm/issues/10016 
+[Martin] Code implemented to just output any errors but does not return an error back to cobra. Is this expected behaviour? 
+[fisher] dropped a comment in the ticket providing some historical context
+Fisher: “helm serve” was mostly a convenience but this behavior might be a workaround for that
+Fisher: define “failure” - what if _some_ updates succeed and others (like helm serve) don’t and that is expected?
+Fisher: we could consider this change for Helm 4 with a HIP - let’s not surprise people by changing 5-year-old behavior.
+Martin: agreed, this is how it works, but maybe we reconsider this for Helm 4
+Fisher: _all_ failing definitely is exit code 1, but it’s ambiguous after that (as to if we need _any_ or _all_ to succeed).
+Farina: it’s possible that a CI system could end up silently succeeding in doing a non-update (which could surprise unfortunately). Let’s get a HIP with a good case with examples of apt and similar
+[Bridget] should we create a new blog post or FAQ item with the current status of tiller images to point people to when they’re asking, now that the legacy storage bucket is starting to be cleared out?
+Action item: Bridget to write updated FAQ entry
+
+Assignments for next meeting
+Moderator: Bridget Kromhout
+Notes: Matt Fisher
+Issue Triage: TBD
+
+August 5, 2021
+Assignments for this meeting
+Moderator: Marc K    
+Notes: Jasper 
+Issue Triage: Matt Farina
+
+Announcements
+Next patch release (3.6.4) scheduled for Wed August 11: https://github.com/helm/helm/milestone/112 
+3.7.0 RC scheduled for Mon Aug 30, with 3.7.0 release Wednesday Sept 8: https://github.com/helm/helm/milestone/111 
+
+Discussion
+[Bridget] is there an open issue or HIP that relates to “OSI model for signatures”? A note at the end of https://helm.sh/docs/topics/provenance/ implies there might be, but I do not see it. 
+[Farina] Unlikely going down this path. May go down sigstore path. 
+[Shoubhik] https://github.com/sigstore/helm-sigstore 
+Doc needs to be updated to reflect latest. [action item: Bridget]
+[Farina] Helm 4 (and the release engineer) Target Oct 2021
+HIP 12: https://github.com/helm/community/blob/main/hips/hip-0012.md
+Need to identify Release Engineer for Helm 4 
+Require to be Helm/helm maintainer to be release engineer
+Role and responsibilities: Person who oversees Helm 4 from technical coordination
+[Scott] Want to help with SDK component. Can help wrangle and flesh out SDK-related stories (I have a new vested interest in this side of things, as I'm also co-maintaining Flux, specifically will help maintain the Flux Helm Controller)
+[Martin] Do we have enough stories, features for Helm 4?
+Defined in HIP on how to short circuit progres to halt development
+Kick off meeting to be scheduled
+[Shoubhik] When should we discuss what will go into Helm 4
+[Farina] Opportunity for breaking changes. Require HIP to describe request
+Consider topic of Helm Releases on cluster
+[Farina] Helm is a package manager and does not enforce a specific style. Need to understand how it works in a specific scenario.
+[David] Helm having multiple resources in templates but the user does not have permission to perform action
+[Farina] Helm work like other tools and depends on user permissions, Helm stores releases in secret. Can have a limiting experience. Helm can store information in other locations (eg configmap). 
+Can we improve the experience earlier during or before the installation 
+[Paul C] Opportunity for a plugin to perform this check
+Consider split responsibilities to install different components of a chart
+[Farina] This is release management and beyond scope of a package manager 
+[Scott] SDK issues. For example, race conditions when using SDK for storage locking within package. Locking could be moved to the CLI. Here is a related issue in helm/helm, but we have many more in fluxcd
+This may be fixed by https://github.com/helm/helm/pull/9180
+[Farina] Opportunities to improve Helm 4 CLI and SDK
+Need to brainstorm for using SDK to flush out stories 
+Action item for Scott to lead
+Need to consider alternatives on how to capture this feedback.
+[Marc] PR to add some completion descriptions (HIP 8)
+For 3.7?
+https://github.com/helm/helm/pull/9421
+https://github.com/helm/community/blob/main/hips/hip-0008.md
+[Bridget] Where to track Helm 4 ideas? Attached to a HIP or create separate HIPs?
+[Farina] use HIP to track all changes
+
+Assignments for next meeting
+Moderator:    Scott Rigby
+Notes:  Bridget Kromhout
+Issue Triage:  Matt Farina
+
+July 29, 2021
+Assignments for this meeting
+Moderator:   Marc Khouzam
+Notes:     Karena Angell
+Issue Triage:    Matt Fisher/Martin
+
+Announcements
+Next patch release (3.6.4) scheduled for Wed August 11: https://github.com/helm/helm/milestone/112 
+3.7.0 RC scheduled for Mon Aug 30, with 3.7.0 release Wednesday Sept 8: https://github.com/helm/helm/milestone/111 
+
+Discussion
+[Martin] Support for bearer token authentication https://github.com/helm/helm/pull/8447 
+Farina: it’s stale because it still needs work
+Farina: want to pass via stdin, need to be security conscious
+Farina: just need to think through the implementation details in the PR
+AI - Farina to follow-up
+[Martin] Go SDK installing Kubernetes resources to the wrong namespaces https://github.com/helm/helm/issues/8780 
+Farina: two namespaces - k8s resources diff than the records; can only set it once when you instantiate
+Need to instantiate k8s client with new namespace
+Farina: no way to change this until Helm v4
+Farina: there is a very ugly way (running long running services that want to keep doing things) to do this currently, Helm v4 would be to simplify this
+AI - Farina to share code (from https://github.com/rancher-sandbox/hypper) where it’s done
+Farina: initializing isn’t setting it right
+
+Assignments for next meeting
+Moderator: Scott Rigby    
+Notes:    Jasper 
+Issue Triage: Matt Farina
+
+July 22, 2021
+Assignments for this meeting
+Moderator:    Martin Hickey
+Notes:     Karena Angell
+Issue Triage:    Martin Hickey/Matt Fisher
+
+Announcements
+Next patch release (3.6.4) scheduled for Wed August 11: https://github.com/helm/helm/milestone/112 
+3.7.0 RC scheduled for Mon Aug 30, with 3.7.0 release Wednesday Sept 8: https://github.com/helm/helm/milestone/111 
+
+Discussion
+[Martin] Install chart from remote repo should it get the latest dependencies https://github.com/helm/helm/issues/9962 
+If helm repo add and then the person says helm install
+Fisher: expectation, would fetch during build or helm dependency update
+Andrew: hard dependencies
+Fisher: shouldn’t run a helm install and have it run and get any dependencies without you knowing
+Fisher: further inspection needed
+AI: ill look into more
+
+ [Martin] Helm create a namespace from template which it installs into https://github.com/helm/helm/issues/9965 
+Namespace plus custom labels
+Fisher: tricky problem to solve
+Fisher: Helm 1&2, original assumption, installed by Sys Admin
+People didn’t setup acl’s for their grpc endpoints
+Mitigated in 1&2, things stored in release record vs release namespace
+Changed in Helm 3, user installs
+Resource quotas in namespaces, etc
+Helm 3 - move to kubectl approach
+Create namespace ahead of time
+Same as CRD problem
+Fisher: Documentation? How to manage namespaces outside the chart
+Fisher: namespace mgmt recommendation - one is to use helmfile
+
+ [Martin] Adopt resources to a release https://github.com/helm/helm/issues/9958 :
+Any docs for this feature?
+Potential bug: https://github.com/helm/helm/issues/9958 
+Issue with migrated releases because labels/annotations didn’t exist prior to Helm 3.2.0
+Fisher: If you can get hold of Jacob, best person to talk to
+Fisher: Alternative, look through the code and create a HIP
+A little familiar with the code
+AI: Martin to reach out to Jacob
+
+[Karena] Helm 3.7 blog / release themes:
+Any themes popping up for next major release
+Do people think it is a good idea? Do anyone want to work with Karena to create a blog of it?
+Fisher: happy to help
+Open Initiative PR?
+Also look at Helm 4 HIPs 
+Fall? Helm 4 discussions starting
+[Fisher] call for more reviews on Helm Triage Maintainers HIP https://github.com/helm/community/pull/199
+Martin: should look at it too
+
+Assignments for next meeting
+Moderator: Marc Khouzam    
+Notes: Karena Angell     
+Issue Triage:   Matt Fisher
+  
+
+
+July 15, 2021
+Assignments for this meeting
+Moderator:    Bridget Kromhout
+Notes:     Jasper Chui
+Issue Triage:    Matt Farina
+
+Announcements
+[Farina] Yesterday (Wed July 14) patch release (3.6.3): https://github.com/helm/helm/releases/tag/v3.6.3 
+[Farina] Next patch release (3.6.4) scheduled for Wed August 11: https://github.com/helm/helm/milestone/112 
+[Farina] 3.7.0 RC scheduled for Mon Aug 30, with 3.7.0 release Wednesday Sept 8: https://github.com/helm/helm/milestone/111 
+
+Discussion
+[Bridget] repo cleanup project
+We merged https://github.com/helm/monocular/pull/691/ - should the repo be archived in the github UI?
+[Farina] We can click the clicky
+should we archive https://github.com/helm/query-store-quay-logs ? 
+[Farina] Need to check if its still in use
+Used to store metrics for quay
+Data kept for 2 months from public source. Source of data into this repo
+[Farina] 3-way merge patch and CRs https://github.com/helm/helm/issues/9937 (feature or bug)?
+Need to clarify expected use case 
+Not intended for CR
+[Adam] Written when kubernetes does not support 3 way merge
+Behaviour has changed and needs to be updated
+Which release should include this
+Documentation is too general
+[Martin] Inconsistency bug and documentation bug, could break backwards compatibility
+[Bridget] Open issues in repo to address the documentation bug
+Target fix for Helm v4
+[Farina] Feature change needs to be included in major release
+behaviour change needs to be behind a flag
+[Marc] Building in Kubernetes without Docker, any experiences?
+Build container in a kubernetes cluster
+[Andrew Block] Use Shipwright and Buildah
+[Josh] use Kaniko
+[Farina] Docs bug or Helm bug with no repo dependencies… https://github.com/helm/helm/issues/9928 
+Sub chart in a chart can only exist in a directory in a repository not a chart archive. Doc says that it could
+[Adam] Would work if it’s listed as a dependency
+[Farina] It is not a dependency
+[David] Doc bug and feature to support archive in future release
+[Martin] How did it work in 3.x?
+[Farina] Checked original source. It is not a regression
+[Farina] version field and file:// in dependencies… should it be optional? It was until a recent bugfix but it’s not documented as optional… https://github.com/helm/helm/issues/9944 
+PR already submitted to fix
+Is this a doc defect for a file?
+Suggestion: Update doc to mark this as optional in the file scheme  
+Next step: Version is required and not optional
+Identify as a bug to be addressed
+
+Assignments for next meeting (note: Farina, Bridget, and Adam will be gone - volunteers needed)
+Moderator:     Martin Hickey
+Notes:      Karena Angell
+Issue Triage:   Martin Hickey
+
+
+
+July 8, 2021
+Assignments for this meeting
+Moderator:   Adam
+Notes:  Karena  
+Issue Triage:   Farina
+
+Announcements
+Next patch release (3.6.3) scheduled for Wednesday July 14th: https://github.com/helm/helm/milestone/110 
+Farina: one more pass at PRs this week then gtg
+
+Discussion
+[Farina] indexes in OCI registries
+(continued from last week)
+Butcher: they’re storing the apt index in an image layer
+Experiment with a plug-in
+ [Farina] --repo flag and username/password https://github.com/helm/helm/issues/9599 and https://github.com/helm/helm/pull/9760 
+Note, this same idea would apply to `helm install` and `helm upgrade`
+https://github.com/helm/helm/issues/9599
+Doesn’t do set when `helm repo add`
+Is it a bug but is anything else actually using it?
+Bug or feature change?
+Fisher: feature addition in helm 3, PR merge
+Farina: like it, when should it be released?
+AI: Farina to dig into it to look if is a regression or needs to be in 3.7
+Adam: should apply to any repo
+[Farina] Move to GH Actions… https://github.com/helm/helm/issues/9921 
+Example of CI issues… https://github.com/helm/helm/pull/9763 
+Takes 30 mins / timeouts on linting
+CircleCI performance issues
+Fisher: this is going to get worse over time, GitHub Actions could help run tasks in parallel
+Josh: GH action for golang ci lint tool - maybe consider
+Farina: linter deprecated error?
+Adam: open PRs will have to rebase on it
+Josh: if use GH Actions, can keep running Circle in parallel
+Farina: start doing Windows testing in GH Actions
+[Fisher] HIP: Helm Triage Maintainers https://github.com/helm/community/pull/199
+Intermediary role? Help triage, shadow
+[Bridget] relevant to Adding HIP 7 to document subprojects https://github.com/helm/community/pull/156 as well? Roles for charts maintainers?
+[Marc] Is updating a single repo safe?
+https://github.com/helm/helm/pull/9845
+What happens if you update in one repo, will it update all?
+Marc: recipe does a helm repo add (which doesn’t do an update)
+Helm repo add; helm repo update
+Andrew: wants more control over when to update
+Marc: risk in inconsistency
+Farina: dependency mgmt handled, thinks it’s okay
+Reduce bandwidth, and mem
+[Scott] Maintainers track talk for KubeCon NA
+Technical talk focusing on Charts for the Application Distributor role (working doc for anyone interested in contributing to content we end up talking about). We'll schedule some collab sessions for slides etc
+CTA: any topics you think should be covered? Speak up!
+[Marc] Dependabot details?  Why hasn’t it picked up Cobra 1.2.1?
+Too many dependabot issues?
+Please create a PR!
+
+
+
+Assignments for next meeting
+Moderator:    Matt Fisher
+Notes:     Jasper Chui
+Issue Triage:    Matt Farina
+
+
+July 1, 2021
+Assignments for this meeting
+Moderator:  Bridget
+Notes:   Butcher
+Issue Triage:  Fisher
+
+Announcements
+Farina: releases
+Released 3.6.2 as fix for regression this week.
+Fixes a bug that became more pronounced by security fix
+Next patch release (3.6.3) scheduled for Wednesday July 14th: https://github.com/helm/helm/milestone/110 
+Ask: Maintainers, please review PRs in that milestone
+
+Discussion
+[Bridget] helm org cleanup continues
+Can we complete https://github.com/helm/hub/pull/484 so we can archive the helm/hub repo?
+Bridget: Process was started but not complete. Anything blocking completion?
+Can we archive https://github.com/helm/repo-audit ? Seems to be an experiment that may be concluded.
+Bridget: Any reason not to archive?
+Farina: This was started for helm hub and charts to audit and make suggestions. For example, checks digests in index file. I don’t know if people still want to build this. Part of chart maintainers projects
+
+[Farina] Automatically adding repos during build processes… https://github.com/helm/helm/issues/9840 and https://github.com/helm/helm/pull/9841 
+Certain commands will error out if a repo has not been added, forcing the user to add the repo manually
+These issues want to add a repo on the fly, but that causes a security issue. (A new source of dependencies is added to your system at the chart author’s whim)
+Butcher: this can mask the source of untrusted packages - with the recent software supply chain attacks, this is particularly inadvisable
+Joe T: this is similar to distro package naming conflicts
+
+[Adam] annotations nested in List objects are not respected https://github.com/helm/helm/issues/9829 
+(continued from last week)
+Adam: Annotations on items within a Kubernetes list objects are not respected. Only top-level items on a Kubernetes manifest. This is because during the top parse of an object, we only check its object metadata. What we should do is respect annotations on objects embedded in the list.
+Paul: It seems fair to say that we only respect annotations on the top-level object, and ignore the items in the list
+Farina: A “keep” on a nested item in a list: How would we handle that?
+Adam: We’d have to do something like “if this is a list, then iterate on the items in the list.” and that will actually turn very complex over the lifetime of an installation. So I would prefer what Paul suggested.
+Farina: The alternative seems to be complicated and brittle logic. We could do something in `helm lint` to warn a user of this. And update docs. 
+
+[Bridget] https://github.com/helm/community/pull/172 Proposal for HIP-0010 on the distributed pick process - we have a second LGTM now - can we merge?
+Bridget: We think this is ready to merge.
+Farina: I will do one final review and merge
+
+
+[Farina] indexes in OCI registries
+(continued from last week)
+Quick review of where we ended last week. 
+Farina: Should we support indexes inside of an OCI registry, ignoring the locking problem? And how do we support searching, version resolving, etc. The main thing is that we want to continue supporting all of the features available outside OCI registries now
+Josh: In OCI, can list tags on a namespace, which means we could list versions if we knew the name of the chart. Index files in OCI today would suffer the same race condition that we have today. With my current PR, we are adding extra rules to OCI so that the chart name MUST be the last element in the name, but we could reserve other parts of the namespace for other things -- like putting the YAML file. If we could host a list of just the basenames and not versions… We could add an extension to the Docker Distro server…
+Farina: Would prefer not to need registry-side add-ons
+Josh: Could, for example, create a list object that would list all of the chart names for a given user…
+Farina: But… (I missed the objection)
+Josh: We could make a new media type for the existing index file and store/retrieve that, pointing to the full blob path
+Farina: If you have a namespace, can you list all the things in it?
+Josh: No. And by design it seems changes to the spec will take longer [Butcher: See Vincent’s email on OCI dist list two weeks ago]
+Farina: The search functionality is the outstanding problem. Apt transport on OCI has come around recently. Curious how that works. https://github.com/AkihiroSuda/apt-transport-oci
+Josh: Only thing in the Discovery API on OCI Dist is which tags for a given object. 
+
+
+Assignments for next meeting
+Moderator:   Adam
+Notes:  Karena  
+Issue Triage:   Farina
+
+
+
+June 24, 2021
+Assignments for this meeting
+Moderator: Scott 
+Notes: Karena (Andy in for Karena)
+Issue Triage: Adam
+
+Announcements
+Farina: Next patch release (3.6.2) scheduled for Wednesday July 14th: https://github.com/helm/helm/milestone/110 
+Looking for reviewers
+Butcher: Congrats to Martin for becoming an Org Maintainer for Helm! https://twitter.com/HelmPack/status/1408093811050311689 - also bringing in https://github.com/hickeyma/helm-mapkubeapis 
+
+Discussion
+[Bridget] What remains before we can archive the helm/hub repo? See question in https://github.com/helm/hub/issues/439#issuecomment-820598759 
+Final steps have been complete and archive can be completed
+Deprecation notice needs to be added
+Action: Scott will PR in the “Obsolete” and click the “archive repo” in settings. PR: https://github.com/helm/hub/pull/484
+[Farina] managedFields and manager… https://github.com/helm/helm/issues/9859 
+New field in metadata
+Added in 1.18 and displayed in kubectl output. Hidden starting in 1.21
+New field for Helm to be created to denote the tool that performed the action
+[Farina] indexes in OCI registries
+Challenge is that no metadata can be queried (no search API)
+https://hypper.io/ is talking about putting index files into OCI registries
+Fisher: review of HIP 6 OCI PR is ongoing
+Challenge in a race condition and locking
+What is managing the creation of the index?
+Helm CLI? What about those not using the CLI
+Josh: Why are we trying to implement a search mechanism?
+Farina: Its important to be able to determine what is available and what specific versions
+Scott: to follow-up next time OCI/Helm semver question: how do we want to handle chart semver metadata (+) as it's illegal in OCI spec?
+Topic to be continued next week or in another forum
+
+[Adam] annotations nested in List objects are not respected https://github.com/helm/helm/issues/9829 
+Only looks at top-level object
+Maybe: cascade down?
+Would be breaking change
+If anyone has any thoughts, provide details in the issue and follow up next week.
+
+[Can move to next week] [Bridget] https://github.com/helm/community/pull/172 Proposal for HIP-0010 on the distributed pick process - we need a second LGTM, I think? Can we move this one forward?
+
+Assignments for next meeting
+Moderator:  Bridget
+Notes:   Scott
+Issue Triage:  Fisher
+
+
+June 17, 2021
+Assignments for this meeting
+Moderator: Matt Farina 
+Notes: Bridget
+Issue Triage:  Adam
+
+Announcements
+[Farina] Helm 3.6.1 released. 
+This was a security release (affects usernames/passwords for repositories)
+Added a new flag to preserve the old behavior when needed
+Next patch release scheduled for Wednesday July 14th
+
+
+Discussion
+[Bridget] HIP 6 OCI changes in flight for 3.7.0 (End of August): https://github.com/helm/helm/pull/9782 - please review!
+Josh: thanks for comments
+Butcher: yesterday we tri-paired (Adam: tri-pairitops!)
+Too large to review in one pass - we started with running everything, then looked at impacts on public API and actions
+Josh: will respond to the first round of comments
+Josh: tests: https://github.com/bloodorangeio/acceptance-testing/blob/hip-6-push/testsuites/registries.robot 
+Butcher: read the HIP before trying this out - the HIP dictates the UX
+
+[Bridget] HIP 4 - can we merge this in? Question for Marc/others https://github.com/helm/community/pull/145#issuecomment-848912289 
+Needs a confirmation about not being able to change *.yaml at all
+Needs another approval
+Marc: this is the backwards-compat HIP - one unaddressed concern about yaml compat
+Farina: we use strict parsing now, for security reasons - for those files we’re locked into the current schemas but can use annotations if we need to add things before Helm v4
+Butcher: the security audit is here: https://github.com/helm/community/tree/main/security-audit 
+Scott: we need to update the docs 
+Fisher: this is due to limitations in yaml parsing libraries and how they handle duplicate keys - if someone wants to contrib that to the yaml parsing lib we could relax it in Helm v4
+Scott: I will update the docs
+Marc: I’ll reach out if I don’t see it there
+Butcher: I’ll add the list to that comment thread on the issue
+Farina: once that’s in, I’ll review it.
+
+
+[Marc] Why was updating a single repo removed in helm v3? 
+“helm repo update <repo>”
+Missing PR?
+https://github.com/helm/helm/pull/5182 
+With many repos configured on my machine, a script would benefit from only updating the repo it cares about
+Or helm repo add could cause an automatic update when repo exists?
+Farina: This appears to have not been brought over to v3 - this would be an easy feature request to port over
+Fisher: possible considerations around chart locking, but I don’t think we _chose_ to not port this.
+
+[Josh] mailing list votes - should we add reminders to this call?
+Farina: someone needs to track down all potential votes
+Butcher: the project adoption one will be simple majority (4 org maintainers)
+Mailing list vote this time for Martin
+
+Assignments for next meeting
+Moderator: Scott
+Notes: Karena 
+Issue Triage: Adam
+
+June 10, 2021
+Assignments for this meeting
+Moderator: Marc 
+Notes: Jasper
+Issue Triage:  Matt Farina
+
+Announcements
+No patch release yesterday, as it would have been within 4 weeks after a minor release
+Next patch release scheduled for Wednesday July 14th
+Summer vacations make things quiet at the helm! 
+[Farina] Tend to see some slow down in the summer
+
+Discussion
+[Bridget] HIP 6 OCI changes in flight for 3.7.0 (End of August): https://github.com/helm/helm/pull/9782 
+[Farina] Make OCI available as GA
+Please review PR 
+[Marc] What can be changed?
+[Farina/Adam] As long as it doesn’t have UI impact can be changed 
+[Farina] Some experimental commands are available when experimental mode is enabled
+HIP (4?) in flight that defines what can change
+Maintainers to Review and determine next steps
+[Farina] Target end of July to ensure it doesn’t break anything. 
+[Joe] A number of files are being modified and removed
+Does impact public API
+[Martin M] PR backlog  (154 PRs open)
+What is the plan to bring this down to a manageable level?
+[Farina] Usually hovers around ~100
+Hoping to start going through these PRs if someone else can take over triage
+Steps to maintainer is to provide constructive feedback on PR review
+Anyone can provide review 
+[David] Should we wait until tests are passing?
+Security scan is gated but should not stop reviews
+[David] Testing and verifying fix will be useful
+[Farina] ensure test format is consistent with other tests
+[Bridget] Chartmuseum repos proposed for Helm org membership: https://github.com/helm/community/issues/191 
+[Marc] Martin will cherry pick for next release
+Release branch will be ready by day of release
+7 PRs in 3.6.1 milestones that are not reviewed
+[Farina] Will try to review to get it in
+Any help is appreciated
+
+Assignments for next meeting
+Moderator: Matt Farina
+Notes:  Bridget
+Issue Triage:   Adam
+
+June 3, 2021
+Assignments for this meeting
+Moderator: Scott Rigby
+Notes: Matt Fisher
+Issue Triage: Matt Butcher
+
+Announcements
+[none]
+
+Discussion
+[Josh] Various HIP 6 questions
+Experimental flag, internal/ vs. pkg/, removal of “helm chart”
+“Pusher” interface - implement uploader plugins identical to downloader plugins?
+Multiple requests made to fetch .prov, even though both chart and prov can be fetched at once
+[fisher] is there a way to pass along the chart cache here? There’s a HIP open about provenance/chart caching that could help here too.
+Is there a way in memory to extract chart metadata from .tgz raw bytes?
+[fisher] I believe pkg/chart/loader has functions for this
+“read” function - reader interface
+[fisher] https://github.com/helm/helm/blob/bf486a25cdc12017c7dac74d1582a8a16acd37ea/pkg/chart/loader/archive.go#L188-L189
+Output for “helm push” / “helm pull” - what info should we print to console? We have the chart metadata as well as the digest+size for the following OCI layers: manifest, config, chart, prov
+[fisher] would this be useful to append as a PR to HIP 6?
+Add --digest=<digest> flag on “helm pull” to verify manifest digest? Later?
+The registry client not enforcing ref name - should people be able to push/pull charts wherever to/from they want when using it as a library?
+[josh] looking for feedback on these items
+[farina] we probably need to have all the new work land under “experimental” before we move to GA. Once made public, changes cannot be made until Helm 4
+[josh] the underlying client is being completely overhauled, so it would be easier to change it all underneath. Is this OK?
+[fisher] while it’s experimental, we can make whatever changes make sense - go ahead if needed to move the experiment forward
+[scott] are there any thoughts on pulling out the registry package into a separate library/repository?
+[josh/farina] I think the ORAS project handles this
+ORAS: https://github.com/oras-project/oras
+[farina] when can that become available for other projects? What are the requirements for removing experimental flag?
+
+
+
+[Simon K] Anything else needed for https://github.com/helm/helm/pull/9713 (brought up by David last time)? Next steps?
+[fisher] will need two maintainers to review it (cdndoit18 is not a maintainer)
+Adding a reproducible test case is a great way to help people see more
+[Paul] Does anyone want to enter a Helm team for CNCFaceoff (https://twitter.com/mattstratton/status/1397565630975463432  )
+[bridget] If they do, how should they reach out?
+There’s a form in the tweet thread. - https://twitter.com/mattstratton/status/1397567060012580864
+
+
+[Bridget] notification emails from ArtifactHub - do we need to do any followup?
+ [farina] most of these emails come from charts that were in Helm Hub. It’s been more chatty because it’s scanning everything by default. I’ve been cleaning up these notifications as it’s out of our hands
+[farina] if you post something on Artifact Hub, you can subscribe to notifications to be informed of any security issues
+
+
+
+Assignments for next meeting
+Moderator: [Bridget if nobody else volunteers] 
+Notes: Jasper
+Issue Triage:  Matt Farina
+
+
+May 27, 2021
+Assignments for this meeting
+Moderator: Adam Reese
+Notes: Karena Angell
+Issue Triage: Matt Farina
+
+Announcements
+[Farina] 3.6.0 is released
+[Farina] the release date for 3.7 is set to Wednesday September 8, 2021
+Kubernetes 1.22 is scheduled for August 4th; this gives us time to test.
+Looking ahead: there will be one more k8s release in 2021 (1.23)
+[Butcher] Emeritus maintainers
+Thanks, Vic & Brian!
+Martin Hickey has been nominated as a new org maintainer
+Discussion
+[Farina] Generating reproducible tarball fix - https://github.com/helm/helm/pull/9674 
+Is it a breaking change to drop the timestamp?
+Fisher: need to address a couple of things in the PR before moving forward. Spend time writing a unit test would be helpful
+Farina: agree, need more testing - concerned removing the date could be a breaking change. Focus on whether stripping the date is a breaking change.
+Butcher: Because some people use the hash to see when the tar has been rebuilt, even if its contents were the same
+Butcher: And the Go implementation is different than BSD and Gnu tar, too
+Scott: https://github.com/helm/helm/pull/9674#discussion_r640793402
+Maybe feature flag could solve it
+Follow-up: Farina going to go back and address some things in PR
+[David P] Wanted to bring attention to https://github.com/helm/helm/pull/9713 as being blocked from running the gate checks cause it is a first time contributor. He will benefit from the automation to improve the PR as needed.
+[fisher] approved.
+Fisher: more nuanced - bitcoin mining!
+Marc: trust github automation?
+[Adam] Global values https://github.com/helm/helm/pull/9333 
+Needs another maintainer’s eyes on it
+Fisher: wants to proceed with caution 
+[Scott] If time, Farina do we want to discuss KubeCon NA session ideas on this call?
+Farina: tech focused talk on charts
+Fisher: yes, if other CfP doesn’t get accepted
+AI: Farina will start a doc
+
+Assignments for next meeting
+Moderator: Scott Rigby
+Notes: Matt Fisher
+Issue Triage: Matt Butcher
+
+May 20, 2021
+Assignments for this meeting
+Moderator: Marc Khouzam
+Notes: Jasper Chui
+Issue Triage: Matt Farina
+
+Announcements
+[Farina] Next release is 3.6.0, planned for next week: Wednesday May 26th
+RC available for your evaluation: https://github.com/helm/helm/releases/tag/v3.6.0-rc.1 
+Please test it out and let us know if there are any issues
+[Bridget] Helm at KubeCon EU was a huge hit! Thanks to all who participated; start thinking about KubeCon North America! Numbers from Karen Chu: 
+Tuesday, May 4 Helm office hours attendees: 458
+Wednesday, May 5 Helm office hours attendees: 312
+Thursday, May 6 Helm office hours attendees: 233
+Helm project booth visitors: 1,233
+[Karena] KubeCon NA - CfP deadline is this Sunday 11:59 PM PDT
+Bridget is happy to review any proposals
+[Bridget] Thanks to Karena for her work revising the FAQ on the docs site. It was previously focused on helm2->3, and she’s making it a more general FAQ.
+Looking for additional topics to document
+[Farina] Vic stepped down from Helm org maintainership
+Credit for the CI infrastructure for stable/incubator - thank you!
+
+Discussion
+[Bridget] Reminder about the Helm repo audit - if you think you have repos to archive, you may be right! Please take a look; let’s keep moving this along.
+[Marc] For Josh, regarding acceptance testing repo 
+[Josh] Needing updates
+HELP WANTED
+[Farina] Pull sizer: designate size of issues 
+Should not be deprecated as there are no alternatives
+Help needed to determine if there are GitHub actions that could be used to achieve this function 
+
+[Bridget] Have you commented on all HIPs of interest to you? https://github.com/helm/community/pulls has various HIPs to check out. 
+
+[Butcher] Continuing discussion for HIP for Helm 4 planning and development process (HIP0012) 
+[Bridget] Should we defer to next week?
+[Farina] Highlights approach for Helm 4, including roles and responsibilities
+Feedback is useful
+[Martin] May need additional updates to branching.  Waiting on feedback from Matt Fisher
+[Bridget] Should we say lazy consensus by next week?
+[Farina] Need approvals from 2 helm/helm maintainers
+[Josh] Is there a requirement to push for Helm 4
+[Farina] Opportunity for breaking changes, api changes, clean up.  Requests from the community. 
+[Martin] Need a list of PRs before Helm 4 kicks off
+
+
+[S Bose] Support for the --hide-secrets flag, PR is good to go https://github.com/helm/helm/pull/9130 
+Bridget: should this go in milestone 3.6.1? 3.7.0?
+[Farina] Requires approval from two maintainers
+Soonest is 3.7.0 as it is a feature addition
+Possibly 3.7.0 (September 8). Month after next k8s release
+
+[David P] Pipeline doesn’t run and need approval from maintainer to approve
+[Farina] This is a good forum to raise this 
+New requirement from Github within last few weeks
+Bridget: https://github.blog/2021-04-22-github-actions-update-helping-maintainers-combat-bad-actors/ 
+
+[Bridget] Welcome Annie Wang, new intern on Bridget’s team
+
+
+Assignments for next meeting
+Moderator: Adam Reese
+Notes: Karena Angell
+Issue Triage: Matt Farina
+
+May 13, 2021
+Assignments for this meeting
+Moderator: Adam Reese
+Notes: Karena Angell
+Issue Triage: (2 weeks) - Butcher, Fisher
+
+
+Announcements
+[Bridget & Farina] Next release will be 3.6.0
+RC planned to be cut Monday May 17th
+release planned for Wednesday May 26th
+[Bridget & Butcher] Butcher’s HIP for Helm 4 planning and development process (HIP0012) has one more week for discussion
+
+Discussion
+[farina] HIP on caching https://github.com/helm/community/pull/185 
+Currently - when pull or install, chart is stuck in cache with index files  - creates conflicts
+HIP - local cache w/ content addressability
+Also helps w/ people who download the same charts over and over again
+Needs two maintainers to look at
+Matt Fisher
+??
+Also, look at to make sure there isn’t anything that can go horribly wrong
+[farina] Hypper Demo https://hypper.io/ 
+Built on top of Helm
+For cluster admins
+Install charts into separate namespaces
+Joe J: shared dependencies but different values?
+Farina: still working through that
+Farina: currently, can alter namespace name and release
+Bridget: use cases?
+Farina: used by tooling, structured like helm, future wrap the sdk
+[karena] new FAQs from office hour sessions
+
+
+Assignments for next meeting
+Moderator: Marc Khouzam
+Notes: Jasper Chui
+Issue Triage: Matt Farina
+
+May 6, 2021
+Cancelled this week - KubeCon EU (various Helm sessions and office hours - https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/program/schedule/) 
+
+April 29, 2021
+Assignments for this meeting
+Moderator: Marc Khouzam
+Notes: Matt Fisher
+Issue Triage: unassigned
+
+Announcements
+[Bridget] Next release will be 3.6.0
+RC planned to be cut Monday May 17th
+release planned for Wednesday May 26th
+[Bridget] Helm org repo audit continues
+[Bridget] Sign up to participate in KubeCon EU next week: https://docs.google.com/spreadsheets/d/1yJyvuzHoOoQk0yiGGUXPfDUCo_mO_UWyryFURc1HOX4/edit?usp=sharing 
+“Meet the maintainer” means staffing the booth in the KubeCon EU event platform
+“Project office hours” are held on Bevy
+[Bridget] Not having this meeting next week Thursday May 6, due to KubeCon EU. On Thursday we do have the KubeCon EU maintainer session with live chat, as well as the office hours session, for all your Helm-meeting needs. 
+
+
+Discussion
+[Marc] Backwards-compatibility for yaml files (Hip 0004): https://github.com/helm/community/pull/145 
+Fisher: security issue based on unexpected overwrites
+Fisher: solved by strict field checking
+Karena: documentation of this limitation would be good
+Marc: why can’t we introduce optional fields?
+Fisher: older versions of Helm would have no notion of this field. Introducing a new field would break strict parsing
+Fisher: let’s be cautious about circumventing security - avoid footguns
+Adam: when strict checking is enabled, it doesn’t error out. It just ignore those fields. Right
+Fisher: I believe strict checking does tell YAML to error out on those fields. By default those fields are ignored
+
+[Marc] Hip 0010 for distributed pick process: https://github.com/helm/community/pull/172
+Marc: This is ready for review. I left if there for when anyone has time to review
+
+[Josh] Registry support + OCI Distribution + ORAS updates
+HIP 006: https://github.com/helm/community/blob/main/hips/hip-0006.md
+The Distribution spec was put up for a 1.0 vote this week
+There is a movement to move the oras project as a CNCF sandbox project
+I will be working on the reference implementation for HIP 6. Expect that to be coming in the next month or so
+Fisher: is the artifacts proposal part of the v1.0 vote or is that separate?
+Josh: putting Helm charts in a registry is not an official part of the “spec”. That being said cloud vendors are supporting these solutions. So it’s not part of the vote but it’s in there.
+Josh: I would ask if you can join the OCI meeting and ask about that
+Paul: does harbor support Helm charts in the registry?
+Josh: short answer yes
+
+[Joe] I tried asking in slack, but can this get into 3.6? https://github.com/helm/helm/pull/9425 
+There's no functional change, but it does create a public library that can be used to check the release readiness after the initial deploy. This will unblock a readiness plugin I want to write, and a fluxcd capability that we need.
+[Bridget] let’s try to get it some reviews after KubeCon EU?
+Added to the 3.6.0 milestone for review
+
+Assignments for next meeting (Thursday May 13th)
+Moderator: Adam Reese
+Notes: Karena Angell
+Issue Triage: (2 weeks) - Butcher, Fisher
+
+April 22, 2021
+Assignments for this meeting
+Moderator: Matt Farina   
+Notes: Karena Angell   
+Issue Triage: Matt Fisher, Joe Julian (shadow)
+
+Announcements
+[Farina] Next release will be 3.6.0
+Target for Wednesday, May 26th for Kubernetes 1.21
+Monday of the week before, RC will be cut - May 17th
+
+Discussion
+[Butcher] HIP for Helm 4 planning and development process (HIP0012)
+What will be selected for development
+When will it be worked on
+How to stop the process if necessary (lack of community resources/involvement)
+Acceptance: project maintainers
+Mid to end of May - May 20th dev meeting, finalize comments/acceptance
+Someone needs to make sure they’re looking at all the HIPs and they work well together
+Shoubhik: High level themes for Helm 4?
+Farina: separate process from content, but sdk changes, feature changes, etc.
+Farina: define process first and pull those discussions into the bigger picture strategy for Helm 4
+
+[Bridget] Helm org repo audit progress
+Can we archive helm/hub and other inactive repos?
+Let’s finish the branch rename for active repos
+Progressing and will continue to progress
+Farina: will help after KubeCon/CNcon
+
+
+[jannfis/shoubhik] Helm integration with Argo CD
+Want to talk about https://github.com/helm/helm/pull/9040
+We need --kube-version for “helm template” badly
+Jann: Maintainer for Argo CD, in Argo community, some people are having difficulties installing charts
+Fisher: validate flag - grabs kube version from live k8s cluster - possibility?
+Jann: separate isolated process for processing manifests using a repo server, no live info from cluster - security requirement
+Farina: is there a conflict setting the kube version and validating? Maybe specify can only have one or the other
+Farina AI: will add to backlog for 3.6.0 [Bridget added to the milestone for review, as of April 29, 2021]
+Shoubhik volunteering to dive deeper into use cases
+Fisher: Helm 2 did not do openapi validation
+
+[shoubhik] Curiosity question :) What’s the due diligence needed when we do kubernetes version bumps? https://github.com/helm/helm/pull/9595 
+
+[Srishti] question : I had a question around the issue I recently raised https://github.com/helm/helm/issues/9620
+Farina: you can still put CRDs in the templates directory
+Farina: You can use a separate chart to template crds: https://helm.sh/docs/chart_best_practices/custom_resource_definitions/#method-2-separate-charts
+Farina: STRONGLY suggest reading the CRDs HIP: https://github.com/helm/community/blob/main/hips/hip-0011.md
+Joe Julian: important reason for CRD templating: conversion webhooks
+Butcher: no changes to CRDs for the rest of Helm 3 lifecycle, Helm 4 HIPs would be a good place to discuss
+
+[dperaza] question: Recording for last contributor summit out?
+[Bridget] CNCF will release that; Helm maintainers don’t control the timing. We expect it around the end of the month.
+
+[Scott] I’ll be archiving some repos that I understand were already discussed, and will update the spreadsheet accordingly! :-) Thanks Bridget for the reminder
+Also PS, I still have not deleted the old meeting time event from my calendar, so when I’m super busy I sometimes come a half hour late. Finally deleting that now lol
+
+Assignments for next meeting
+Moderator:   Marc Khouzam
+Notes:  Matt Fisher 
+Issue Triage: 
+ 
+April 15, 2021
+Assignments for this meeting
+Moderator:   Bridget  
+Notes:    Jasper
+Issue Triage:   Butcher
+
+Announcements
+[Bridget] Branch rename (to “main”)
+in progress for repos under https://github.com/helm
+check your repos and rename if need be!
+Instructions: https://github.com/github/renaming 
+Working checklist: https://docs.google.com/spreadsheets/d/13OjQnpzCRrdFtJ6nhzO7c7JmsKjnyJ48y63ry1GmP14/edit?usp=sharing 
+[Farina] v3.5.4 released
+Next release 3.6.0 Target for May for Kubernetes 1.21
+
+Discussion
+[Marc] Blog about DockerHub rate limits (see last week)
+Should we clarify to community if they may think it is caused by Helm?
+Could use a blog to inform community
+[Joe T] Starting to collect details, could put towards google docs
+[Fisher] Rate limit has been in place since last October
+[Farina] Are we seeing any complaints?
+[Bridget] Not directly, just hearing from community
+[Bridget] To review docs and update as appropriate 
+[Farina] Shameless plug: I’ll be presenting a new project based on Helm and charts ... next wednesday in the Rancher meetup… https://info.rancher.com/online-meetup-april2021  
+[Bridget] Should we use the GitHub “archive” setting on helm/charts and helm/monocular, among others? (https://docs.google.com/spreadsheets/d/13OjQnpzCRrdFtJ6nhzO7c7JmsKjnyJ48y63ry1GmP14/edit?usp=sharing) 
+[Farina] Has a list of repos to be archived
+Monocular: Ready to be archived. Need to inform community
+Bridget to connect with Farina to create list of repos to be archived
+[Butcher] Only maintainers can / should archive repos
+[Marc K] What is the process to identify which PR to include in a release?
+[Farina] Only the PRs that were closed 
+[Butcher] https://github.com/helm/community/pull/145 - backward-compat HIP
+[Fisher] Needs to be approved by core maintainer
+[Marc K] Are referenced implementations required?
+[Fisher] If HIP requires one then it should
+Marc to remove referenced implementation section
+[Marc] Should we have a master list of what cannot change?
+[Butcher] Agree that it should be in the www documentation. Not required before HIP is approved.
+[Fisher] Question deferred to future discussion
+[Marc] HIP will be used for backward compatibility criteria
+[Bridget] PRs to be reviewed 
+
+Assignments for next meeting
+Moderator: Matt Farina   
+Notes: Karena   
+Issue Triage: Matt Fisher, Joe Julian (shadow)  
+
+
+April 8, 2021
+Assignments for this meeting
+Moderator:    Marc K 
+Notes: Karena A   
+Issue Triage:  Adam and Bridget
+
+Announcements
+[Bridget] Branch rename (to “main”)
+ in progress for repos under https://github.com/helm
+check your repos and rename if need be!
+Instructions: https://github.com/github/renaming 
+[Bridget] Helm Contributor Summit is a wrap!
+CNCF will publish videos.
+Shout out to Karen Chu and Matt Butcher for all their work putting it together.
+[Bridget] get those bug fixes in!
+3.5.4 will contain only bug fixes and be released on April 14, 2021
+New “pick” process should help with release
+Marc wants to help w/ release
+AI: Whoever is cutting the release, pull Marc in
+
+Discussion
+[Bridget] Dockerhub rate limiting and defaults
+Potential problem (in https://docs.microsoft.com/en-us/azure/aks/ingress-basic#create-an-ingress-controller) to use a helm chart that points to dockerhub which may have rate limiting (https://github.com/kubernetes/ingress-nginx/blob/master/charts/ingress-nginx/values.yaml#L494)   
+Potential change: https://github.com/kubernetes/ingress-nginx/pull/7018/files (to decouple the registry and repository)
+Anything else to consider here?
+[fisher] the CNCF struck a deal with DockerHub so that any CNCF projects will not be rate limited. ingress-nginx and others may fall into that category. https://github.com/cncf/servicedesk#my-project-is-affected-by-the-docker-hub-rate-limits-policy-changes-what-can-i-do
+Bridget: where should this be documented? ArtifactHub? Helm docs?
+Karena: blog post, Scott +1
+Scott Rigby: we can communicate to users about how this might affect them - charts have images configurable for helm values
+Joe Julian: Helm users might not be k8s admins and might not know about dockerhub rate limits - pointing it out in documentation might be useful
+Scott: even people who use k8s frequently, they might not know where in the supply chain it’s pulled from 
+Bridget: cya for Helm, not a prob created by Helm
+Joe J: be aware of your rate limits
+Joe Thompson: It would be nice if Docker themselves displayed something in the docker logs about "rate limit in effect for this repo" but I dunno if that's even possible with the way Docker works.
+Joe: “Turns out they do!  https://docs.docker.com/docker-hub/download-rate-limit/#how-can-i-check-my-current-rate”
+AI: Blog post, start a draft next week, volunteers?
+
+Assignments for next meeting
+Moderator:   Bridget  
+Notes:    Jasper
+Issue Triage:   Butcher
+
+
+April 1 2021
+Assignments for this meeting
+Moderator:    Adam Reese
+Notes:   Karena Angell
+Issue Triage:   Matt Farina
+
+Announcements
+[Martin] Rename of “main” branch
+Mostly redirection
+Look at Helm slack channel for details
+GitHub will pop-up info too
+Bridget: clean up for others?
+Martin: yes, maintainer by maintainer AI
+Maintainers AI: Update your repos
+[Farina] Archiving of Monocular
+Blog tbd saying ‘use ArtifactHub instead of Monocular’
+[Karena] Contributor Summit on Tuesday! April 6
+
+Discussion
+[Farina] The --dependency-update flag, it’s docs, and it is not matching its functionality… https://github.com/helm/helm/issues/9545
+Create documentation that says ‘only updates in this case’
+Create another flag that updates everything
+Clean up in Helm 4
+Only returns if there are missing dependencies: https://github.com/helm/helm/blob/213a7df2dcd07e8d49fc6acf8a53a540c661ed53/cmd/helm/install.go#L216
+Bug since Helm 2.9 or .. ?
+Joe T: deprecate the old flag, define 2 new flags
+Farina: no deprecation cycle, mark for removal in Helm v4
+Farina AI: Document the ticket to remove
+[Marc] HIP-0010: "Cherry-pick a PR into the release branch right after it is merged into main"
+Marc AI: add a section for the security patch
+[Farina] chart cache in helm https://github.com/helm/helm/issues/9561 
+Index.yaml, use digest to go look at cache
+Bridget: bandwidth discussion, what gets cached, what doesn’t
+Farina: that was about binaries, so prob no impact
+Scott: careful with changes in index.yaml, sounds good
+[Karena] Investigate artifact signing? https://sigstore.dev/what_is_sigstore/
+Farina: provenance files are pgp signed
+Farina AI: Go learn about it
+
+Assignments for next meeting
+Moderator:    Marc K 
+Notes: Karena A   
+Issue Triage:  Adam and Bridget
+
+
+March 25, 2021
+Assignments for this meeting
+Moderator:   Martin Hickey
+Notes:  Jasper Chui
+Issue Triage:  Matt Butcher
+
+Announcements
+ [Bridget] get those bug fixes in!
+3.5.4 will contain only bug fixes and be released on April 14, 2021
+When would we like to cut an RC?
+[Farina] No RC for Patch 
+3.6.0 is the next feature release and will be released on May 26, 2021
+Depending on k8s release schedule (on track)
+Followup end of April on release status
+Contributor Summit April 6, 2021
+Helm Contributor Summit - Tues Apr 6, 2021
+Register: https://community.cncf.io/events/details/cncf-cncf-helm-community-presents-helm-contributor-summit-2021/#/  
+[Bridget] Reach out to Karen if you want to register as an organizer
+[Fisher] Need an LF account to register as an organizer
+Discussion
+ [Farina] Archiving Monocular https://github.com/helm/monocular (Web UI for Helm Chart repositories)
+Maintainers are in agreement to archive project
+Target next week to archive
+Replaced by Artifacthub.io
+Documents to be updated:
+https://helm.sh/docs/community/related/#additional-tools
+[Farina] Hackweek project: How to navigate source code - https://codeengineered.com/blog/2021/helm-vid-series/ 
+Assignments for next meeting
+Moderator:    Adam Reese
+Notes:   Karena Angell
+Issue Triage:   Matt Farina
+
+March 18, 2021
+Assignments for this meeting
+Moderator:  Josh D
+Notes:  Bridget K
+Issue Triage: Josh Dolitsky
+
+Announcements
+ 
+ 
+
+Discussion
+ [Marc] Details of the “needs-pick” process? 
+Label goes on bugs that need to go into a patch release (not a minor)
+What if no patch release until minor release?
+[fisher] If there’s no need to cherry-pick, then we remove the “needs-pick” label.
+Not features (features don’t go into patch releases)
+Does a milestone need to be added/created?
+[fisher] For a patch release, yes.
+What query to use? 
+is:pr label:needs-pick -label:picked
+[fisher] it looks like a number of PRs need to be triaged in that query.
+Butcher: ideally, add “picked” and remove “needs-pick”
+Marc: found some needs-pick and they ended up in a minor release
+Butcher: minor-release might not mark as picked for those pre-picked for a patch release - from the last minor onwards is likely the only that need it
+Resolution: Marc will change labels as desired to correct inconsistencies
+
+
+[Simon Croome] - Linter name validation rules: https://github.com/helm/helm/pull/9416  
+Simon: in 3.3.0, change to add name validation
+Simon: PRs in place to try to correct this (inferring from k8s API is challenging - match on object Kind?)
+Simon: hoping to get movement on this as it’s blocking us from doing releases
+Butcher: Adam can look at PR
+Josh: can you pool the cases from k8s?
+Butcher: API server in k8s does validation after determining if validation is well-formed
+Bridget: 3.5.4 will contain only bug fixes and be released on April 14, 2021 - can we get this PR reviewed by then?
+Butcher: yes, this goes in bugfix. Josh to look first, then Adam
+
+[Butcher] Helm Contributor Summit - Tues Apr 6, 2021
+Register: https://community.cncf.io/events/details/cncf-cncf-helm-community-presents-helm-contributor-summit-2021/#/  
+
+[Farina] Dropping support for Go < 1.14 … https://github.com/helm/helm/pull/9355
+Farina: Cobra dropped below 1.14 support
+Marc: confirms that Cobra won’t confirm 1.14 soon but this hasn’t happened yet
+Farina: the only supported Go versions are 1.15 and 1.16
+
+Butcher: GitHub had a security alert - we audited and are fine.
+
+Josh: I was doing triage this week - do we have rules around squashing vs merge commits
+Farina: no consistency
+Butcher: we had a rule about squashing but haven’t enforced it in at least two years
+Josh: sounds like we don’t have an answer to this?
+Discussion ensues and we find that Butcher, Farina, Bridget, Joe, and more all dislike squashing and history rewrites, so we are not going to mandate any of that.
+
+Assignments for next meeting
+Moderator:   Marc K
+Notes:  Jasper Chui
+Issue Triage:  Matt Butcher
+
+
+March 11, 2021
+Assignments for this meeting
+Moderator: Josh
+Notes: Karena
+Issue Triage: Butcher
+
+Announcements
+[Farina] Helm 3.5.3 released
+3.5.4 will contain only bug fixes and be released on April 14, 2021
+3.6.0 is the next feature release and will be released on May 26, 2021. 
+[Bridget] get.helm.sh funding renewed  
+[Butcher & Karen] Helm Contributor Summit - Tues Apr 6, 2021
+Register: https://community.cncf.io/events/details/cncf-cncf-helm-community-presents-helm-contributor-summit-2021/#/  
+[Bridget] KubeCon EU 2021 Helm content:
+Helm Users! What Flux 2 Can Do For You - Scott Rigby & Kingdon Barrett, Weaveworks 
+Mainly for Helm-only users
+Taking the Helm: Becoming a Maintainer - Bridget Kromhout & Matt Butcher, Microsoft; Karena Angell, Red Hat; Matt Farina, Rancher Labs 
+Office hours (Karen arranging)
+Helm project pavilion booth (Karen arranging)
+[Farina] Helm 2nd security audit - https://helm.sh/blog/helm-2nd-security-audit/ 
+Also includes threat analysis
+
+Discussion
+[Adam] Helm examples repo 
+https://github.com/helm/examples
+Created a straw man - looking for any help
+Bridget: former stable/incubating repo is a good place to start for any docs help
+Farina: let’s use best practices
+Scott: volunteering to help / charts team would be good volunteers too
+AI: Scott to start an issue in the repo for brainstorming
+Scott: GH Discussions?
+Bridget: Not now - the tldr is I’ve seen other projects turn it on, find it unmaintainable, turn it off, and find out that they’ve now hidden all the past discussions. Sounds not quite ready for prime time.
+[Bridget] get.helm.sh download metrics: how should we surface them?
+Fisher: using verizon cdn, unsure how to pull metrics, maybe could scrape the mgmt portal
+AI: no AI
+[Devdatta Kulkarni] highlighting KubePlus (https://github.com/cloud-ark/kubeplus)
+Presentation: https://github.com/cloud-ark/kubeplus/blob/master/KubePlus-presentation.pdf
+Multi-tenant application stacks
+Wrap api around the Helm chart  
+Butcher: resourcePolicy sounds like a good idea
+Able to collect consumption metrics now
+Might be interesting to folks from Orkestra (https://github.com/Azure/orkestra)
+[Joe] Issue w storage size for secrets
+Fisher: opt in to configmaps, move from 2 to 3
+Fisher: talking about alternate storage backends (like mysql)
+https://helm.sh/docs/topics/advoanced/#configmap-storage-backend
+
+Postponed to March 18 [Marc] Details of the “needs-pick” process? 
+Label goes on bugs that need to go into a patch release (not a minor)
+What if no patch release until minor release?
+Not features (features don’t go into patch releases)
+Does a milestone need to be added/created?
+What query to use? 
+is:pr label:needs-pick -label:picked
+
+Assignments for next meeting
+Moderator:  Matt Farina
+Notes:  Scott Rigby
+Issue Triage: Josh Dolitsky
+
+
+March 4, 2021
+Assignments for this meeting
+Moderator: Bridget
+Notes: Butcher
+Issue Triage: Fisher
+
+Announcements
+[Bridget] 3.5.3 milestone due March 10, 2021: https://github.com/helm/helm/milestone/107 
+Cut-off for the Helm release is tomorrow, Mar 5
+Only two issues in the milestone, and changes have not been made, so may be removed from release
+[Butcher & Karen] Helm Contributor Summit - Tues Apr 6, 2021
+Register: https://community.cncf.io/events/details/cncf-cncf-helm-community-presents-helm-contributor-summit-2021/#/  
+Workshop to help new contributors and those who may want to become maintainers
+TA-style maintainers needed for Q&A during chat 
+KubeCon EU: Karen arranging booth and office hours; Bridget arranging recording of contributor-onboarding maintainer session: https://sched.co/iE6C 
+Office hours: Zoom calls at specific times where people can join and chat
+Karen will tell us when it is time to sign up
+Karena, Bridget, and “various Matts” will do a talk
+
+Discussion
+[Bridget] followup on Brendan’s idea about a Helm label project?
+Butcher’s action item was to send info to Farina who was going to talk to sig-apps
+Next SIG-Apps meeting is next Monday
+[Scott & Farina] progress on opening up the functions to the SDK?
+Blocked on OCI experimental flag
+Josh: There is a branch open with some Push (abstraction) work. Oras is also going through some changes to make it more CNCF-supported (maybe part of the distribution project).
+[Karena] Update on CI/CD?
+Farina: Issue is that GitHub actions are pulling Helm fresh each time
+Caching is not as airtight as it should be… no best practices. So we are stalled
+Shoubhik will take a look at it. “Is there an issue to look at?”
+Farina: Maybe on www repo?
+Brief discussion on docs for release process https://helm.sh/docs/community/release_checklist/
+
+
+Assignments for next meeting
+Moderator: Josh
+Notes: Karena
+Issue Triage: Butcher
+
+February 25, 2021
+Assignments for this meeting
+Moderator:  Marc K
+Notes: Scott
+Issue Triage: Matt Farina
+
+Announcements
+[Bridget] 3.5.3 milestone due March 10, 2021: https://github.com/helm/helm/milestone/107 
+Review issues/pr and add to milestone as appropriate 
+Target week before (March 3) due date
+
+Discussion
+[Butcher & Karen] Helm Contributor’s Summit - Tues Apr 6, 2021
+Website is live! https://community.cncf.io/events/details/cncf-cncf-helm-community-presents-helm-contributor-summit-2021/#/ 
+Need volunteers to present
+Registration on the website
+Single track. See Agenda on website
+One goal of this is to help those contributors who may eventually become maintainers
+Plan to work w CNCF to have a dedicated slack channel for this event. People can ask Qs there, and TAs can jump in and answer questions without interrupting the speaker. "backchannel"
+No cost for attending the event
+[Farina] How much of this covers parts of the Helm project that aren't helm/helm (chartmuseum, chart-releaser, etc)
+[Butcher] mainly focused on Helm org, community repo, documentation, and helm/helm (the biggest process load)
+Need more maintainers to help organize
+[Scott] happy to help with various things, including charts and tooling related repos
+
+
+[Butcher] Brendan’s idea about a Helm label project
+k8s in general is trying to come up with more labels, but no org happy to take that on
+Brendan thought, since Helm is how most people organize their manifests, could Helm help canonicalize this?
+Butcher talked with a few people already, but this would be the forum
+Farina: if it's not documented somewhere, I think that would be great
+example "icon" - no standard label for application icon yet
+Farina (re SIG Apps): would this be better to expand in k8s common labels there, or here?
+[Joe J] was thinking SIG Apps so that it can be used in other projects e.g. kudo 
+Farina will take this to SIG Apps to see if that is the right place. If not will bring it back to here
+[Fisher] if it comes back to here, a HIP is a good way to go
+[Farina] would like to see this at a higher level, not buried in documentation. One nice thing in `helm create` it populates these for you. Otherwise these are ont easily discoverable
+[Scott] What steps are needed to open up the functions to the SDK
+getter is already open
+one thing that would help open up is the registry client currently in internal package in helm 
+Scott: Yes we have semver contracts and don’t want to screw those up - but what do we need to get the OCI support finished?
+Farina in same boat. but 2 things would like to have before we make public
+1. APIs solidified. Not sure if done, must talk w Josh
+2. doesn't want to use logrus as a dependency because they're not in maintenance mode. Ideally would not like to pull this in
+3. Really like to see ORAS repo (https://github.com/deislabs/oras) moved out of deislabs and into its own org
+Fisher OCI is still considered a draft.
+Scott: can we keep the experimental flag but also make functions avail to SDK?
+Fisher: some things (like catalog items) changing over time - if stable, we won’t break compatibility
+Scott: hmmm.. Own package/repo for versioning?
+Farina: Scott, do you have time? Action item: Farina and Scott to connect and write a plan.
+
+
+Assignments for next meeting
+Moderator: Bridget
+Notes: Butcher
+Issue Triage: Fisher
+
+February 18, 2021
+Assignments for this meeting
+Moderator:  Scott
+Notes: Jasper
+Issue Triage: Matt Farina
+
+Announcements
+[Bridget] 3.5.3 milestone due March 10, 2021: https://github.com/helm/helm/milestone/107 
+Review issues/pr and add to milestone as appropriate 
+Target week before (March 3) due date
+
+Discussion
+[Marc] HIP for a distributed pick process https://github.com/helm/community/pull/172 
+Process for Patch release identify needs-pick labelled items to include
+Person approves into master also responsible for including in release branch
+[Farina] What would be the process to handle a security release?
+Create a separate branch for Security Release based on previous release
+Does this work for the two recent security releases?
+Discuss proposal on how to handle releases and branches under different scenarios
+Merge back commits from hot fix branch back to master
+Looking for reviewers and feedback
+[Marc] HIP for descriptions for custom completions https://github.com/helm/community/pull/161 
+Cobra has improved handling auto complete
+Where does the description come from?
+Pulls from various sources
+Looking for reviewers and feedback
+Scott: I'll look closer from a charts end user POV 
+[Bridget] good first issue label - can we revisit this one? https://github.com/helm/helm/labels/good%20first%20issue is very stale
+Looking for additional issues that could be labelled with “good first issue”
+
+Assignments for next meeting
+Moderator: Marc K
+Notes: Scott
+Issue Triage: Matt Farina
+
+February 11, 2021
+Assignments for this meeting
+Moderator:  Bridget
+Notes: Karena
+Issue Triage: Matt Butcher
+
+Announcements
+Artifact Hub: Values Schema Reference  [Farina] https://blog.artifacthub.io/blog/helm-values-schema-reference/ 
+Discussion
+When a release fails to update (after the upgrade of Kubernetes manifests) should we display a message or return an error [Farina]
+Inconsistent between Install and Upgrade/rollback
+On Install we display a message to debug log
+Comment in action install says…
+// This is a tricky case. The release has been created, but the result
+// cannot be recorded. The truest thing to tell the user is that the
+// release was created. However, the user will not be able to do anything
+// further with this release.
+//
+// One possible strategy would be to do a timed retry to see if we can get
+// this stored in the future.
+On upgrade/rollback we return an error
+It will upgrade all the k8s assets, doesn’t actually store the secret 
+[M Butcher] Failure of etcd to store something 
+If recorded, will show installing
+[Farina] Just return a non 0 exit code
+https://github.com/helm/helm/pull/9131 is looking to add a case where another error could be returned on upgrade/rollback
+[Scott] should this be a bugfix?
+GitHub Discussions [Farina]
+Disabling github discussions: https://github.com/dotnet/aspnetcore/issues/29935
+[Bridget] What happens to existing discussions?
+[Scott] Will test 
+Discussions last longer than issues
+Homebrew is using discussions
+[M Butcher] Is GH Discussions basically “Stack Overflow by GitHub”
+[Bridget] yes, but don't have the management granularity, would it make it harder for ourselves?
+[Scott] has default categories, can change categories at any point
+Threaded answers, user or maintainer can select the correct answer
+[Josh/Bridget] more things to check / more work for the community/maintainers?
+[Farina] Will send to helm mailing list and other maintainers, revisit in a week or two.
+Better CI practices [Farina & Butcher]
+Costs a lot for downloads every month
+Example: homebrew ~ $25k/mo
+Document best practices
+[Scott] GH actions have artifacts, will look into also look into caching across jobs
+[Bridget] define how to be more prescriptive
+TO DO: “CI Best Practices” on helm docs
+Question about CRDs during helm upgrade [Scott]
+If a CRD exists we don’t try to apply it - but what about updates?
+Could we have a similar functionality on “helm upgrade” to what we have on “helm install”?
+Read: https://github.com/helm/community/blob/f9e06c16d89ccea1bea77c01a6a96ae3b309f823/architecture/crds.md
+Explains pitfalls of handling crd’s
+Farina has opinions :)
+
+Assignments for next meeting
+Moderator: Scott
+Notes: Jasper
+Issue Triage: Farina
+
+February 4, 2021
+Assignments for this meeting
+Moderator:  Adam Reese
+Notes: Jasper Chui
+Issue Triage: Matt Farina   
+
+Announcements
+ChartMuseum v0.13.0 released today (currently in progress..)
+Follows Helm’s release process: same artifact store (get.helm.sh), installer script, release notes, signatures, etc.
+Docker image on GitHub Container Registry
+
+Discussion
+Cancelling patch release of Feb 10th? (4 weeks after 3.5.0) [Marc]
+policy https://helm.sh/docs/topics/release_policy/#patch-releases 
+Should this be cancelled per policy
+[Butcher] Security team scheduled release today so it makes sense to cancel patch release
+Next patch will be in March
+Patches in current release will be bumped to 3.5.3
+HIP for a distributed pick process https://github.com/helm/community/pull/172 [Marc]
+Please review, if approved will impact all maintainers 
+Recent intermittent CircleCI failures - perhaps we need to consider changes to the build pipeline? [Bridget]
+[Butcher] Security issue was found and should be fixed today
+Chart releaser action docs update? https://github.com/helm/helm-www/pull/928 [Bridget]
+Scott says circle back
+[Scott] Reviewed and will leave suggestions for owner to review
+Creating a 4.0 milestone? [Marc]
+4.0 should be delayed as long as possible but good to have community to start tracking
+[Butcher] Milestone 3.0 was opened a year before so good to do the same for 4.0
+[Bridget] Label already exists for 4.0 https://github.com/helm/helm/labels/v4.x 
+Label is sufficient to track 4.0 work
+--hide-secrets https://github.com/helm/helm/pull/9130 Discussion on the state of the PR [Shoubhik]
+Does not work for template but works for Helm Install
+[Adam] Important for this to work with templates
+Quick update on planning the contributor summit [Butcher]
+Topics: How to contribute to project, How to become core maintainer 
+Curriculum in progress (Butcher, Bridget, Karen)
+Talk to CNCF to determine timeframe for sessions
+Talk to this (Bridget, Karen, Butcher)  if you are interested in presenting, working on curriculum
+
+Assignments for next meeting
+Moderator: Scott
+Notes:  Bridget
+Issue Triage:  Butcher
+
+January 28, 2021
+Assignments for this meeting
+Moderator: Bridget
+Notes:  Jasper
+Issue Triage: Josh Dolitsky
+
+Announcements
+3.5.1 milestone in progress
+Rebuild of 3.5.0 with new version of Go (today) with security updates
+No other patches
+Patches and updates will become 3.5.2
+Learning Helm [written by Matts and Josh]
+Covers introduction and how to use it
+Commands of Helm
+Position within CNCF
+Charts
+Registries and plugin
+Appendix on differences between v2 and v3
+To be published soon
+
+Discussion
+Storage improvement brainstorming [Joe Julian] https://github.com/stedolan/jq/issues/2257
+Config and secrets can be very large
+Helm v3: limits to history of 10 items
+Exception if its failing: capture failure log
+Helm used to use Config maps, want Helm to be usable out of box
+Used secrets as it is simple and just works
+Alternative (CRD) may require additional permissions 
+Alternative postgres 
+Looking for alternatives that could fit requirement to be used out of box
+Etcd pulls entire dataset
+Split secrets into two parts
+Split manifest into its own object (separate namespace)
+Config: helm release, secret: metadata
+Where would Values go?
+Secrets stored in secrets (can be referenced)
+[Igor] Confirm that we are trying to simplify how to store runtime data?
+Alternatives: postgres service, sqllite, aggregated api server
+[Matt] Enterprise wanted simpler format
+[Matt] different than programming locally
+Helm is a package manager (need to keep this space)
+Need higher level tool to manage complexity (ansible, chef, flux helm operator)
+Need to make sure when we scale up we handle the simpler case and need to reduce complexity for easy
+Simple case easy to use with Helm, don’t want to optimize for the complex case
+[Igor] Just to be clear: I wasn't raising the point Helm should do more than it does, what I'm saying is there are several ways of interacting with a store, from going "secrets" to CRDs; when using CRDs there is the alternative of storing the runtime data in Etcd (with its limitations) or promote it to a cluster wide aggregated API, where the limitations of Etcd and some other complexities could be avoided.
+Joe to open an issue to continue the conversation to determine next step (HIP or PR)
+Test failure in https://github.com/helm/helm/pull/9276  - apparent mismatch between testing/mariadb 0.3.0-0565674 and testing/mariadb 0.3.0 - action needed? [Bridget]
+in https://app.circleci.com/pipelines/github/helm/helm/2106/workflows/fad17fdc-61dd-4558-9704-b6d930568cc6/jobs/13653 
+--- FAIL: TestSearchRepositoriesCmd/search_for_'maria',_expect_one_match_with_semver_begin_with_zero_development_version (0.00s) 
+helm_test.go:61: running cmd (attempt 1): search repo maria --devel --repository-config testdata/helmhome/helm/repositories.yaml --repository-cache testdata/helmhome/helm/repository helm_test.go:67: does not match golden file testdata/output/search-semver-pre-zero-devel-release.txt
+[Fisher] just a test fluke - never seen it before. Likely just a rebase error. Re-running the test suite passed.
+
+
+Hiding secrets - is this a blocker we should resolve quickly? [Bridget] https://github.com/helm/helm/pull/9130 
+[Farina] Should hide secrets in log
+Should this be in next release as low hanging fruit
+[Farina] Should look into this issue
+[Shoubhik] Can take a look into this issue : Done
+[Scott] fun question: what blockers would we have to revisit the idea of installing missing CRDs from the /crds dir at the version level
+[Farina] What do you mean by version level? CRD capture all version info in each CRD
+Creating a 4.0 milestone to track any feature needing a major release [Marc]
+(but we should avoid a 4.0 as long as possible in my opinion)
+[Shoubhik] Should not signify that its coming
+[Farina] There could be a mismatch
+[Bridget] Stick with milestone 4.0
+[Karena] Charts Chat - is that still active, I have a standing conflict and the notes doc was last updated in 2019
+Is this still happening?
+[Farina] Should be cancelled. Meeting has not been held since 2019.
+[Farina] Meeting has been cancelled.
+[Karena] If people still need help with Charts should they be directed to this meeting?
+Direct to charts channel in community slack
+[Farina] Topics has been covered in this meeting or directly in issues
+
+Assignments for next meeting
+Moderator:  Adam Reese
+Notes: Karena
+Issue Triage: Matt Farina   
+
+
+January 21, 2021
+Assignments for this meeting
+Moderator: Matt Farina
+Notes:  Karena  
+Issue Triage: Matt Butcher
+
+Announcements
+None this week
+
+Discussion
+3.5.1- https://github.com/helm/helm/milestone/107 
+Patch fix milestone
+Updating kube libraries for 1.20.2
+Maintainer doesn’t have to do the upgrades for the libraries
+Usually aren’t breaking
+Volunteer? Shoubhik will attempt
+If need to release Go security patch, 3.5.1 will only the security patch and 3.5.2 will be the rest
+Performance improvements [Farina]
+Index.yaml updates
+Previously, 8mb yaml file - slow to parse
+Json so much faster to parse, both in memory and operations
+Index.json to cut down on processing time (vs index.yaml)
+[Matt Fisher] Redirect? (might be a breaking change)
+Farina: perhaps a start - look at what’s on artifact hub. Explore further.
+Helm repositories with Git [Igor]
+Suggestion: parse tar balls on the fly - grab directly from git
+[Igor] Example: https://github.com/otaviof/chart-streams
+[Bridget] GitHub pages example: https://helm.sh/docs/topics/chart_repository/#github-pages-example
+[Farina] Helm is meant to be simple and like seeing people using the API
+[Matt Fisher] there’s a section in documentation to point to projects
+Nice that it demonstrates the chart repository api
+[Bridget] here is where you can PR in a link: https://github.com/helm/helm-www/blob/master/content/en/docs/community/related.md
+[Josh Dolitsky] Similar, but using plugin vs. http(s): https://github.com/aslafy-z/helm-git
+Storage improvement brainstorming [Joe Julian - deferring a week]
+
+Assignments for next meeting
+Moderator: Bridget
+Notes:  Jasper
+Issue Triage: Josh Dolitsky
+
+January 14, 2021
+Assignments for this meeting
+Moderator:     Marc K
+Notes:  Bridget  
+Issue Triage:  Shoubhik, tbd
+
+Announcements
+3.5.0 released [Farina] - https://github.com/helm/helm/releases/tag/v3.5.0 
+Bridget to coordinate a blog post; Farina to review
+3.5.1 milestone: https://github.com/helm/helm/milestone/107 (second Wed in Feb)
+Date for next minor release [Marc]
+3.6 RC1: Monday May 17th, 2021
+3.6 final release: Wednesday May 26th, 2021
+Marc to update calendar
+ Helm plugins in Artifact Hub [Farina]
+(for example, https://artifacthub.io/packages/helm-plugin/helm-2to3/2to3) 
+List and search - artifact hub is like a search engine
+To do: add this to helm docs
+
+
+Discussion
+Dependabot recommendations (https://github.com/helm/helm/pulls/app%2Fdependabot) - what action do we want to take? [Bridget]
+bump k8s.io/[various] from 0.20.1 to 0.20.2
+https://github.com/stretchr/testify update
+Older containerd issue
+Farina: we shouldn’t do the k8s ones through dependabot - we should do these - cherry-pick into 3.5.1
+But the containerd one is a tough one - a transitive dependency we need to update - we ideally would prefer ORAS to update this
+The testify one could probably be merged & marked as needs-pick - may work best for 3.6 not 3.5.x
+Picks for patches [Farina]
+Marking “needs pick” and then picking them - not a long period of sitting in the branch
+More difficult if the main branch has diverged far from the release branch
+Ideally, whoever merges marks as needs pick and pushes to release branch - would make patch releases quicker
+Marc: we could move this towards a “make release” if this were made more consistent
+Butcher: now that we do releases more consistently, we can pick onto the branch sooner rather than later
+Marc: how about a process HIP to document this? (willing to write it but others can help)
+Plugin discussion for artifact hub [Butcher]
+Butcher: Might we want “helm plugin search”?
+Farina: artifact hub is API driven so external tools are entirely possible
+Butcher: we could do this as a feature HIP
+Bucket redirections [Butcher]
+Farina: no problem thus far
+KubeCon video [Bridget]
+Should be a sea shanty
+Helm 4 wishlist
+Date formatting [issues open already] [Bridget]
+Storage - too large of release storage objects bring kubernetes api to its knees [Joe Julian]
+Farina: we should iterate on this in an experimental fashion in v3
+Could do a tool to migrate from secrets to postgres
+Context-specific storage options instead of env variables
+Joe Julian: also we read all the secrets to get metadata but just need the metadata itself
+Joe Thompson: 1meg request limit also is an issue
+Igor Sutton Lopes: can we use something other than etcd?
+Farina: we can’t assume people can install anywhere other than their clusters
+Igor: alternative backends for storage - discussion for next week
+Farina: with secrets we have encryption, so we have to consider that and not just push secrets to git - could be opt-in
+
+Assignments for next meeting
+Moderator:  Farina
+Notes:   Karena
+Issue Triage:  Butcher
+
+
+January 7, 2021
+Assignments for this meeting
+Moderator: Bridget   
+Notes: Karena 
+Issue Triage: Farina/Josh/Shoubhik  
+
+Announcements
+3.5.0 Milestone · GitHub - 3.5 RC2 (https://github.com/helm/helm/releases/tag/v3.5.0-rc.2)  was cut on Wednesday Jan 6 2021, and 3.5 will be released Wednesday Jan 13 2021.
+
+Discussion
+We must select the date for the next minor release [Marc]
+Move discussion to the mailing list for consensus?
+[Farina] april 19-23 is release week, suggesting May 12, first week after KubeCon Europe (virtual)
+Tentative date: 
+Big risk - any changes from kube release
+Want to make sure follow a quarterly release cadence
+[marc, farina] suggesting follow new kube release schedule - 3 x’s a year
+[farina] suggesting May 26, rc1 would be May 17
+[marc] to send email to maintainer list
+[shoubhik] how to check api changes?
+Check docs, not easy question
+[bridget] would you like to check api questions that may affect helm?
+[farina] any k8s go api changes could break anything for helm
+Tracking changes may be more work than just fixing what’s breaking
+When should a patch release be cancelled? [Marc]
+https://github.com/helm/community/issues/160
+Final point to finish HIP2 (Pre-defined release dates for Helm) https://github.com/helm/community/blob/master/hips/hip-0002.md
+[fisher] justification to cancel a patch release?
+[farina] canceled patch release because minor release (superseded)
+[fisher] patch release == low severity bugs that affect the smallest number of users
+[bridget] if within x days, judgement call
+If within 7 days, wait for minor release to save time for release managers
+Needs more discussion
+Asset pipeline: https://github.com/helm/helm/pull/8697/ - let’s discuss “add Asset Transparency action for GitHub releases” in regards to our CI/CD [Butcher]
+ Asset Transparency project
+[butcher] if generally in favor, would like to get merged
+Please look at and comment so decision can be made w/i the next week
+Contributor Workshop
+[bridget] working w CNCF to schedule the workshop
+[Butcher] 2-block format
+1 - Non-maintainer
+2 - People who are interested in becoming a core maintainer
+Karen has already reached out to people who have done this before
+Timeline: Late first quarter, early second quarter
+Who wants to volunteer from core maintainers for Kube preso?
+Martin?
+Bridget will coordinate 
+
+Assignments for next meeting
+Moderator: Marc
+Notes: Josh 
+Issue Triage: Shoubhik (non-maintainer issues), tbd
