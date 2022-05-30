@@ -1,8 +1,8 @@
 # Helm OCI MediaType Registration
 
-The use of OCI artifacts is one of the packaging methods available in Helm. A Helm OCI artifacts is comprised of multiple component, each defined by a specific Media Type. Media Types are managed by the [Internet Assigned Numbers Authority (IANA)](https://www.iana.org) and each type should be registered with IANA so that it can not only be known by the organization, but also discoverable by end users.
+The use of OCI artifacts is one of the packaging methods available in Helm. A Helm OCI artifacts is comprised of multiple component, each defined by a specific Media Type. Media Types are managed by the [Internet Assigned Numbers Authority (IANA)](https://www.iana.org) and each type should be registered with IANA so that it can not only be known by the organization, but also discoverable by end users. The canonical location for Helm Media Types information below is intended to be the IANA [application registry](https://www.iana.org/assignments/media-types/media-types.xhtml#application).
 
-This document describes the related fields associated with the [registration of a Media Type to IANA](https://www.iana.org/form/media-types).
+This document describes the related fields associated with the [registration of a Media Type to IANA](https://www.iana.org/form/media-types) and exists in this repository only as a convenience to help Helm maintainers transparently update the form submission, as needed. This file may be removed from this repository at any time if no longer useful.
 
 ## Helm Config
 
@@ -46,7 +46,7 @@ This document describes the related fields associated with the [registration of 
 | Intended Usage | Common |
 | Other Information and Comments | N/A |
 
-## Helm Config
+## Helm Provenance
 
 &nbsp; | &nbsp;
 ------ | -----
