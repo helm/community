@@ -2,7 +2,7 @@
 hip: 9999
 title: "Support Helm release data stored in multiple K8s Secrets"
 authors: [ "Ralf Van Dorsselaer" ]
-created: "2022-02-10"
+created: "2022-06-20"
 type: "feature"
 status: "draft"
 ---
