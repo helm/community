@@ -24,3 +24,5 @@ restricted markdown format and can be found in the
 - [hip-0011: CRD Handling in Helm 3](hip-0011.md)
 - [hip-0012: Helm 4 Development Process](hip-0012.md)
 - [hip-0014: Helm Triage Maintainers](hip-0014.md)
+- [hip-0015: Annotation for Images used by Helm Charts](hip-0015.md)
+- [hip-0017: Helm OCI MediaType Registration](hip-0017.md)
