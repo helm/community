@@ -1,0 +1,58 @@
+---
+hip: 9999
+title: "Support for multiple yaml documents in stdin/file"
+authors: [ "Jan-Otto Kröpke <mail@jkroepke.de>" ]
+created: "2020-08-13"
+type: "feature"
+status: "draft"
+---
+
+## Abstract
+
+Helm allows values through stdin. But if stdin contains a multi yaml document, only the first document will be parsed. Currently pass value files through stdin is not really a good replacement if there are multiple value files.
+
+## Motivation
+
+There are several projects to handle secrets inside helm values. For example https://github.com/jkroepke/helm-secrets. helm-secrets acts as wrapper script. The helm-secrets plugin will be parsed all value files, decrypt them if needed an internally re-call helm with the same parameters and modified value files. For a short time period, unencrypted values are on disk and can be leaked. If helm-secrets could pass the values through stdin, such unencrypted values are not longer leakable. See also [ArgoCD security advisory]. 
+
+## Rationale
+
+Helm already has a specification to merge YAML value files. The existing merge strategy should be re-used to merge multiple yaml documents. There is be no different between merge 2 files or 2 documents in 1 file or 2 documents through stdin.
+
+## Specification
+
+Helm already has a specification to merge YAML value files. The existing merge strategy should be re-used to merge multiple yaml documents. There is be no different between merge 2 files or 2 documents in 1 file or 2 documents through stdin.
+
+## Backwards compatibility
+
+There should be no impact to backwards compatibility.
+
+* Older helm version will ignore additional yaml documents in value files and on stdin.
+* Newer helm version will care about additional yaml documents in value files and on stdin.
+
+## Security implications
+
+It is very possible for an attacker to coerce a user to use a multi-line YAML file prior to Helm 3.x, where Helm 3.x introduces multi-line YAML support. Prior to Helm 3.x, nothing would happen. Afterwards, an attacker could potentially override certain values.
+
+## How to teach this
+
+The feature would be added to the documentation and mentioned in the release notes.
+
+## Reference implementation
+
+https://github.com/helm/helm/pull/10867
+
+## Rejected ideas
+
+N/A
+
+## Open issues
+
+N/A
+
+## References
+
+[ArgoCD security advisory]: https://github.com/argoproj/argo-cd/security/advisories/GHSA-63qx-x74g-jcr7
+
+- https://github.com/helm/helm/issues/10866
+- https://github.com/helm/helm/pull/10867
