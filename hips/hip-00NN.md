@@ -1,7 +1,7 @@
 ---
 hip: "00NN"
-title: "Helm repo support Git protocol"
-authors: [ "yxxhero <aiopsclub@163.com>" ]
+title: "Support Git protocol for installing chart dependencies"
+authors: [ "yxxhero <aiopsclub@163.com>", "Dominykas Blyžė <hello@dominykas.com>" ]
 created: "2021-10-05"
 type: "feature"
 status: "draft"
@@ -9,73 +9,80 @@ status: "draft"
 
 ## Abstract
 
-This document describes the introduction of git protocol for helm charts.
+Currently, Helm supports installing dependencies from various registries, however that requires the charts to be published there. There are use cases which are cumbersome when registries are involved, for example:
 
-## Audience
+- private charts for organizations/individuals who do not have the capacity to maintain the infrastructure required to run a private registry
+- testing work-in-progress charts in their umbrella charts
 
-Using a git URL as a repository in requirements.yaml will be a nice-to-have feature for organizations that house their helm charts in a git repository and would like to maintain private access to those charts.
+## Motivation
 
-The format supported is:
+There are existing ways to achieve installation of charts without using a registry, however they are not very user-friendly and require additional tooling.
+
+- A Helm chart repository is effectively an `index.yaml` with links to downloads. Maintaining such a repository does create a burden of scripts and automation (e.g. Github Actions). This is not always feasible for smaller projects. It also does not really offer an obvious and readily available way of testing pre-releases.
+- For the testing use cases, charts can be packaged using `helm package`, however this does introduce manual steps and requires extra work to replicate in CI/CD scenarios.
+- There is a [`aslafy-z/helm-git`](https://github.com/aslafy-z/helm-git) plugin available, however using plugins requires additional setup, which may not always be feasible (esp. in more complex team structures and cluster setups with advanced tooling, e.g. ArgoCD). An additional drawback is that the `Chart.yaml` does not provide a way to specify the plugin requirements.
+
+Installing dependencies from git is an established pattern in other ecosystems even when they are registry-based, e.g. npm (Node.js), pipenv (Python), bundler (Gem) have this option - it would make sense to have the behavior replicated in Helm.
+
+## Rationale
+
+(TBD)
+
+## Specification
+
+The `Chart.yaml` should support the following format for `dependencies`:
 
 ```
 dependencies:
-- name: "{dependency name}"
-  repository: "git://{git repo url}"
-  version: "{git ref name}"
+- name: "<dependency name>"
+  repository: "<protocol>://[<user>[:<password>]@]<hostname>[:<port>][:][/]<path>"
+  version: "<commit-ish>"
 ```
 where:
-{git repo url} is any url type that a git clone ... command would accept (an ssh location, an https url, etc.).
-{git ref name} is an existing tag or branch name on the repo (a commit sha cannot be used at this time)
+- `<protocol>` is one of `git`, `git+ssh`, `git+http`, `git+https`, or `git+file`.
+- `<commit-ish>` is an existing reference (SHA hash, tag or branch name) on the repo.
+
 For example:
 
 ```
 dependencies:
-- name: "a"
-  repository: "git://https://github.com/rally25rs/helm-test-chart.git"
-  version: "master"
-```
-
-## Rationale 
-
-What it basically does is, if it find a registry that starts with `git://` then:
-* create a temp directory.
-* Using `github.com/Masterminds/vcs` to fetch the repo at the specified branch/tag into the temp dir
-* Treat the cloned git repo similar to a file:///path/to/temp/dir style requirement; use chart.LoadDir to load that directory (which in turn applied the logic for filtering the files through .helmignore) and archives it to charts/
-* Delete the temp dir.
-
-### Caveats / Known Limitations
-* Since this spawns git as a child process, git has to be available on the system and in the path.
-* There is currently no handling for forwarding stdin to the git child process, so if git asks for input, helm will likely appear to hang as git tries to prompt for input. It will cause an issue if you are trying to reference a private repo with an SSL cert that needs a password, or with an https url that requires username/password authentication. (yarn package manager, ansible, and other tools have this same issue). 
-
-## Specification
-The specification for this HIP is broken into two (3) major sections: 
-
-* Implement Getter 
-* Definition and identification of GIT protocol format 
-* As an experimental characteristic 
-
-For example: 
-
-```
-dependencies:
-- name: "a"
-  repository: "git://https://github.com/rally25rs/helm-test-chart.git"
-  version: "master"
+- name: "jenkins"
+  repository: "git+https://github.com/jenkinsci/helm-charts.git/charts/jenkins"
+  version: "main"
 ```
 
 ## Backwards compatibility  
-Experimental state, no affect other logic.  
 
+This is backwards compatible from Helm perspective - the existing formats for `dependencies` are still supported.
 
-## Reference implementation 
-* [https://github.com/helm/helm/pull/9482](https://github.com/helm/helm/pull/9482) 
+Charts that start using the new format will effectively be changing their minimum required Helm version, i.e. they would be introducing breaking changes and should bump their major version.
 
+## Security implications
 
-## Open issues 
-The issues below are still unresolved. 
-* [https://github.com/helm/helm/issues/9461](https://github.com/helm/helm/issues/9461) 
+(TBD)
 
+## How to teach this
 
+(TBD)
 
+## Reference implementation
 
+Multiple implementation attempts available for [a discarded earlier draft of a related HIP](https://github.com/helm/community/pull/214):
 
+- [helm/helm#11258](https://github.com/helm/helm/pull/11258)
+- [helm/helm#9482](https://github.com/helm/helm/pull/9482)
+- [helm/helm#6734](https://github.com/helm/helm/pull/6734)
+
+## Rejected ideas
+
+- An [earlier draft for solving the issue](https://github.com/helm/community/pull/214) suggested using URLs like `git://https://...`. There were comments about that approach in the reference implementations, with the suggestion to use the conventions which are already established in other ecosystems.
+
+## Open issues
+
+N/A
+
+## References
+
+- [`npm install` documentation](https://docs.npmjs.com/cli/v10/commands/npm-install) (covers the `git+[protocol]` format)
+- [Python packaging documentation on version specifiers](https://packaging.python.org/en/latest/specifications/version-specifiers/) (covers the `VCS+protocol` format)
+- [bundler documentation on installing gems from git repositories](https://bundler.io/guides/git.html)
