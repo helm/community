@@ -1,7 +1,7 @@
 ---
 hip: "00NN"
 title: "Support Git protocol for installing chart dependencies"
-authors: [ "yxxhero <aiopsclub@163.com>", "Dominykas Blyžė <hello@dominykas.com>" ]
+authors: [ "Jeff Valore (@rally25rs)", "yxxhero <aiopsclub@163.com>", "Dominykas Blyžė <hello@dominykas.com>" ]
 created: "2021-10-05"
 type: "feature"
 status: "draft"
