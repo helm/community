@@ -37,11 +37,11 @@ The `Chart.yaml` should support the following format for `dependencies`:
 ```
 dependencies:
 - name: "<dependency name>"
-  repository: "<protocol>://<hostname>[:<port>][:][/]<path>"
+  repository: "git[+<subprotocol>]://<hostname>[:<port>][:][/]<path>"
   version: "<commit-ish>"
 ```
 where:
-- `<protocol>` is one of `git`, `git+ssh`, `git+http`, `git+https`, or `git+file`.
+- `<subprotocol>` is a protocol supported by `git clone` (e.g. `ssh`, `http`, `https`, `file`, etc).
 - `<commit-ish>` is an existing reference (SHA hash, tag or branch name) on the repo.
 
 For example:
@@ -77,6 +77,7 @@ This is something that needs to be taken into account in security conscious envi
 - The documentation should note the security caveat listed above
 - The documentation should provide the recommendation to prefer registries to git, if possible
 - The documentation should note the implications of git being mutable with a recommendation of pinning to specific hashes
+- The documentation could list the examples for various git protocols, but mention that Helm supports whatever `git clone` supports
 
 ## Reference implementation
 
