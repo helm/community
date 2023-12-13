@@ -57,6 +57,7 @@ When Helm is installing a dependency from git, it should:
 
 - create a temporary directory
 - clone the repo at the specified branch/tag into the temp dir
+  - for performance reasons, a shallow clone of just the latest commit of a specific branch should be performed (i.e. `git clone --depth 1 --branch <commit-ish> --single-branch --no-tags <repo-url> <temp-dir>`) 
 - treat the cloned git repo similar to a `file:///path/to/temp/dir` style requirement; use `chart.LoadDir` to load that directory (which in turn applied the logic for filtering the files through `.helmignore`) and archives it to `charts/`
 - delete the temp dir
 
