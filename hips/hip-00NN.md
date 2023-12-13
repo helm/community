@@ -37,7 +37,7 @@ The `Chart.yaml` should support the following format for `dependencies`:
 ```
 dependencies:
 - name: "<dependency name>"
-  repository: "<protocol>://[<user>[:<password>]@]<hostname>[:<port>][:][/]<path>"
+  repository: "<protocol>://<hostname>[:<port>][:][/]<path>"
   version: "<commit-ish>"
 ```
 where:
