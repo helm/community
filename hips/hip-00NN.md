@@ -1,7 +1,7 @@
 ---
 hip: "00NN"
 title: "Support Git protocol for installing chart dependencies"
-authors: [ "Jeff Valore (@rally25rs)", "yxxhero <aiopsclub@163.com>", "Dominykas Blyžė <hello@dominykas.com>" ]
+authors: [ "Jeff Valore (@rally25rs)", "yxxhero <aiopsclub@163.com>", "Dominykas Blyžė <hello@dominykas.com>", "George Jenkins <gvjenkins@gmail.com>" ]
 created: "2021-10-05"
 type: "feature"
 status: "draft"
@@ -59,6 +59,7 @@ When Helm is installing a dependency from git, it should:
 
 - create a temporary directory
 - clone the repo at the specified branch/tag into the temp dir
+  - Helm will require a working git installation to invoke (via subprocess) in order for Helm to utilize chart's git dependencies. Helm will throw an error if git is not installed or misconfigured (e.g. credentials are not set up for private repositories).
   - for performance reasons, a shallow clone of just the latest commit of a specific branch should be performed (i.e. `git clone --depth 1 --branch <commit-ish> --single-branch --no-tags <repo-url> <temp-dir>`) 
 - treat the cloned git repo similar to a `file:///path/to/temp/dir` style requirement; use `chart.LoadDir` to load that directory (which in turn applied the logic for filtering the files through `.helmignore`) and archives it to `charts/`
 - delete the temp dir
