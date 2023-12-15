@@ -44,6 +44,8 @@ where:
 - `<subprotocol>` is a protocol supported by `git clone` (e.g. `ssh`, `http`, `https`, `file`, etc).
 - `<commit-ish>` is an existing reference (SHA hash, tag or branch name) on the repo.
 
+Note that `git clone` supports having the `username` and `password` in the repository URL. The implementation of this feature should explicitly forbid that to prevent accidental credential leakage. It should throw an error if the URL contains a `username` or `password`.
+
 For example:
 
 ```
