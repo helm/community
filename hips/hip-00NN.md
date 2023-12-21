@@ -37,12 +37,14 @@ The `Chart.yaml` should support the following format for `dependencies`:
 ```
 dependencies:
 - name: "<dependency name>"
-  repository: "git[+<subprotocol>]://<hostname>[:<port>][:][/]<path>"
+  repository: "git[+<subprotocol>]://<hostname>[:<port>][:][/]<path>[#subdirectory=<path-inside-the-repository>]"
   version: "<commit-ish>"
 ```
 where:
 - `<subprotocol>` is a protocol supported by `git clone` (e.g. `ssh`, `http`, `https`, `file`, etc).
 - `<commit-ish>` is an existing reference (SHA hash, tag or branch name) on the repo.
+- `<path-inside-the-repository>` is the folder where the chart we want installed is located. If not specified, it defaults to the root of the repository.
+  - Implementation note: this has potential for path traversal based security bugs - it needs to be validated and prevented.
 
 Note that `git clone` supports having the `username` and `password` in the repository URL. The implementation of this feature should explicitly forbid that to prevent accidental credential leakage. It should throw an error if the URL contains a `username` or `password`.
 
@@ -51,7 +53,7 @@ For example:
 ```
 dependencies:
 - name: "jenkins"
-  repository: "git+https://github.com/jenkinsci/helm-charts.git/charts/jenkins"
+  repository: "git+https://github.com/jenkinsci/helm-charts.git#subdirectory=charts/jenkins"
   version: "main"
 ```
 
