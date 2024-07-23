@@ -3,7 +3,6 @@
 * [Adam Reese](https://github.com/adamreese)
 * [Josh Dolitsky](https://github.com/jdolitsky)
 * [Karen Chu](https://github.com/karenhchu)
-* [Martin Hickey](https://github.com/hickeyma)
 * [Matt Butcher](https://github.com/technosophos) (chair)
 * [Matt Farina](https://github.com/mattfarina)
 * [Matt Fisher](https://github.com/bacongobbler)
@@ -13,4 +12,5 @@
 ## Emeritus
 
 * [Adnan Abdulhussein](https://github.com/prydonius)
+* [Martin Hickey](https://github.com/hickeyma)
 * [Vic Iglesias](https://github.com/viglesiasce)

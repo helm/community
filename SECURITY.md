@@ -19,7 +19,6 @@ Name               | Key URL                                              | Fing
 ------------------ | ---------------------------------------------------- | -----------
 Adam Reese         | [link](https://keybase.io/adamreese/pgp_keys.asc)    | 49D0 9C86 C3DC 8DA3 F0A0 7622 1EF6 1234 7F8A 9958
 Josh Dolitsky      | [link](https://keybase.io/jdolitsky/pgp_keys.asc)    | E97F 9DA5 AE2E 39CF 48A1 42B7 852A 7470 A39F B81D
-Martin Hickey      | [link](https://keybase.io/hickeyma/pgp_keys.asc)     | F126 1BDE 9290 12C8 FF2E 501D 6EA5 D759 8529 A53E
 Matt Butcher       | [link](https://keybase.io/technosophos/pgp_keys.asc) | ABA2 5295 98F6 626C 420D 335B 62F4 9E74 7D91 1B60
 Matt Farina        | [link](https://keybase.io/mattfarina/pgp_keys.asc)   | 672C 657B E06B 4B30 969C 4A57 4614 49C2 5E36 B98E
 Matt Fisher        | [link](https://keybase.io/bacongobbler/pgp_keys.asc) | 967F 8AC5 E221 6F9F 4FD2 70AD 92AA 783C BAAE 8E3B
