@@ -17,13 +17,10 @@ of security team members, listed below.
 
 Name               | Key URL                                              | Fingerprint
 ------------------ | ---------------------------------------------------- | -----------
-Adam Reese         | [link](https://keybase.io/adamreese/pgp_keys.asc)    | 49D0 9C86 C3DC 8DA3 F0A0 7622 1EF6 1234 7F8A 9958
-Josh Dolitsky      | [link](https://keybase.io/jdolitsky/pgp_keys.asc)    | E97F 9DA5 AE2E 39CF 48A1 42B7 852A 7470 A39F B81D
-Martin Hickey      | [link](https://keybase.io/hickeyma/pgp_keys.asc)     | F126 1BDE 9290 12C8 FF2E 501D 6EA5 D759 8529 A53E
-Matt Butcher       | [link](https://keybase.io/technosophos/pgp_keys.asc) | ABA2 5295 98F6 626C 420D 335B 62F4 9E74 7D91 1B60
-Matt Farina        | [link](https://keybase.io/mattfarina/pgp_keys.asc)   | 672C 657B E06B 4B30 969C 4A57 4614 49C2 5E36 B98E
-Matt Fisher        | [link](https://keybase.io/bacongobbler/pgp_keys.asc) | 967F 8AC5 E221 6F9F 4FD2 70AD 92AA 783C BAAE 8E3B
-Nikhil Manchanda   | [link](https://keybase.io/slicknik/pgp_keys.asc)     | 5674 7211 71F8 CD59 F285 353D 9692 757E BCD3 D66C
+Andrew Block       | [link](https://keybase.io/sabre1041/pgp_keys.asc) | 2CE5 F1FB 9E8C 59B8 7BBD  5F2B 02DF E631 AEF3 5EBC
+George Jenkins    | [link](https://keybase.io/gjenkins8/pgp_keys.asc) | C048 04B5 F250 1D25 CA69  A415 2945 4FC9 6455 D41E
+Matt Butcher        | [link](https://keybase.io/technosophos/pgp_keys.asc) | ABA2 5295 98F6 626C 420D 335B 62F4 9E74 7D91 1B60
+Matt Farina           | [link](https://keybase.io/mattfarina/pgp_keys.asc)   | 672C 657B E06B 4B30 969C 4A57 4614 49C2 5E36 B98E
 
 ### When To Send A Report
 
