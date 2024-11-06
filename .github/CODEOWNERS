@@ -1,0 +1,10 @@
+
+# These owners will be the default owners for everything in
+# the repo. Unless a later match takes precedence,
+*  @helm/helm-org-maintainers
+
+# Helm core maintainers own HIPs
+hips/ @helm/helm-core-maintainers
+
+# Final rule: Ensure org maintainers remain .github/CODEOWNERS owner
+/.github/CODEOWNERS @helm/helm-org-maintainers
