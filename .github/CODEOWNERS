@@ -1,7 +1,7 @@
 
 # These owners will be the default owners for everything in
 # the repo. Unless a later match takes precedence,
-*  @helm/helm-org-maintainers
+* @helm/helm-org-maintainers
 
 # Helm core maintainers own HIPs
 hips/ @helm/helm-org-maintainers @helm/helm-core-maintainers
