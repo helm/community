@@ -4,7 +4,7 @@
 *  @helm/helm-org-maintainers
 
 # Helm core maintainers own HIPs
-hips/ @helm/helm-core-maintainers
+hips/ @helm/helm-org-maintainers @helm/helm-core-maintainers
 
 # Final rule: Ensure org maintainers remain .github/CODEOWNERS owner
 /.github/CODEOWNERS @helm/helm-org-maintainers
