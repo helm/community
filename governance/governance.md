@@ -18,7 +18,7 @@ The services provided include:
 
 ## Maintainers Structure
 
-There are two levels of maintainers for Helm. The Helm org maintainers oversee the overall project and its health. Project maintainers focus on a single codebase, a group of related codebases, a service (e.g., a website), or project to support the other projects (e.g., marketing or community management). For example, the chart maintainers manage the charts repository and a few repositories that support charts.
+There are two levels of maintainers for Helm. The Helm org maintainers oversee the overall project and its health. Project maintainers focus on a single codebase, a group of related codebases, a service (e.g., a website), or project to support the other projects (e.g., marketing or community management). For example, the charts maintainers manage several repositories that support charts testing, releasing, automation, and documentation.
 
 Changes in maintainership have to be announced on the [Helm mailing list](https://lists.cncf.io/g/cncf-helm).
 
