@@ -11,7 +11,7 @@ status: "draft"
 
 This HIP proposes supporting a `minimumHelmVersion` field in `Chart.yaml`.
 That will allow Helm to directly error if the Helm version used to operate on the chart is below this version.
-Allowing Helm to provide forward compatibility guarantees for Helm features/functionality over time.
+This allows Helm Helm to provide forward compatibility guarantees for Helm features/functionality over time.
 
 
 ## Motivation
@@ -19,12 +19,11 @@ Allowing Helm to provide forward compatibility guarantees for Helm features/func
 Helm has no mechanism for a chart to declare the minimal version of Helm required for the chart to install/update correctly.
 As such, it is invalid to release a chart that utilizes features/fixes included in newer versions of Helm.
 
-At best, any incompatibility will be detected and there will an explicit failure (and the user will be notified as an error).
+At best, any incompatibility will be detected and there will be an explicit failure (and the user will be notified as an error).
 But potentially an incompatibility may go undetected, and no hard error will be presented.
 
-While the hard-failure case is better, it still requires the user to debug and conclude the failure is due to a version mismatch.
-The second "soft-failure" case is much worse, as it could lead to unexpected behavior in the deployed chart application.
-Likely requiring a much more involved debugging requirement and confusing user experience.
+While the hard-failure case is better, it still requires the user to debug and realize the failure is due to a version mismatch.
+The second "soft-failure" case is much worse, as it could lead to unexpected behavior in the deployed chart application, likely requiring a much more involved debugging requirement and confusing user experience.
 
 Providing a mechanism for a chart to prescribe the minimum versions of Helm for the chart's feature set will enable chart developers to prevent indirect errors for chart consumers/operators.
 
