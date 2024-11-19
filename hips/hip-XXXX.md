@@ -62,6 +62,7 @@ While this may not be strictly necessary, it will provide a backstop for feature
 The user can remove/reduce the specified `minimumHelmVersion` if desired.
 
 `helm lint` will produce a warning, if the current version of Helm is newer than the minimum version constraint.
+Or the `minimumHelmVersion` field is unset for the given chart.
 This is to encourage users to update the minimum version to currently utilized version of Helm (that the user is using to develop the chart).
 
 
@@ -72,9 +73,6 @@ And when unset, Helm will retain existing behavior (won't implement any checks)
 
 Older versions of Helm which don't understand the `minimumHelmVersion` field will actually ignore the field even if set (as they load `Chart.yaml` ignoring unknown fields).
 However, there isn't anything that can practically be done to address this encoded behavior.
-Also see [HIP-9999 (Default to strict `Chart.yaml` loading)](./hip-9999.md) for a fix for this going forward.
-
-Operations that utilize strict yaml loaded (such as `helm lint` in newer versions of Helm v3) will outright fail to load a `Chart.yaml` with `minimumHelmVersion` set (with a generic "unknown field" error). However, while this error isn't as specific as desirable, an error is appropriate.
 
 
 ## Security implications
