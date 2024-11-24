@@ -55,7 +55,7 @@ And will be inferred as zeros if not specified.
 When loading a chart, iff the `minimumHelmVersion` exists, Helm will verify its version exceeds or equals the version constraint specified in the field.
 
 When "strict" loading of `Chart.yaml` is used: ie. the loading of `Chart.yaml` errors when unknown fields are present, Helm will first 'peek' into `Chart.yaml` and extract the `minimumHelmVersion` field (iff it exists) and perform the version constraint check at this point.
-This is to provide better UX that simply erroring on any potential new fields in `Chart.yaml` that are unknown to the current version of Helm.
+This is to provide better UX than simply raising an error on any potential new fields in `Chart.yaml` that are unknown to the current version of Helm.
 
 `helm create` will pre-fill Chart.yaml's `minimumHelmVersion` field with the current version of Helm.
 While this may not be strictly necessary, it will provide a backstop for features that may be included in the chart by the user for their current Helm version or `helm create`.
