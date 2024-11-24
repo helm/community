@@ -19,7 +19,7 @@ This allows Helm to provide forward compatibility guarantees for Helm features/f
 Helm has no mechanism for a chart to declare the minimal version of Helm required for the chart to install/update correctly.
 As such, it is invalid to release a chart that utilizes features/fixes included in newer versions of Helm.
 
-At best, any incompatibility will be detected and there will be an explicit failure (and the user will be notified as an error).
+At best, any incompatibility will be detected and there will be an explicit failure (and the user will be notified with an error).
 But potentially an incompatibility may go undetected, and no hard error will be presented.
 
 While the hard-failure case is better, it still requires the user to debug and realize the failure is due to a version mismatch.
