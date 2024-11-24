@@ -10,7 +10,7 @@ status: "draft"
 ## Abstract
 
 This HIP proposes supporting a `minimumHelmVersion` field in `Chart.yaml`.
-That will allow Helm to directly error if the Helm version used to operate on the chart is below this version.
+By enabling this feature, an error can be raised if the Helm version used to operate on the chart is below the declared version.
 This allows Helm to provide forward compatibility guarantees for Helm features/functionality over time.
 
 
