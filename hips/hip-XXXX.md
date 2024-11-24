@@ -105,7 +105,7 @@ Providing a capabilities based system.
 Rather than just directly inferring Helm capabilities from its version.
 
 A `Chart.yaml` could describe its required features ie. capabilities it expects/requires the Helm version to provide.
-From which Helm could inspect and matches against features/capabilities the in use version does provide.
+Helm could inspect and match against features/capabilities that the specific version does provide.
 However, since core Helm capabilities are only every additive due to Helm's [backwards-compatibility rules][4], a capabilities based system is redundant.
 
 *NB: at the time of writing, plugins for extending Helm's functionality are being heavily discussed.
