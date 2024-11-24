@@ -69,7 +69,7 @@ This is to encourage users to update the minimum version to currently utilized v
 ## Backwards compatibility
 
 As `minimumHelmVersion` is an optional field, it will be inferred to be unset in existing charts.
-And when unset, Helm will retain existing behavior (won't implement any checks)
+And when unset, Helm will retain existing behavior (no check will be implemented)
 
 Older versions of Helm which do not understand the `minimumHelmVersion` field will ignore the field even if set (as they load `Chart.yaml` ignoring unknown fields).
 However, there isn't anything that can practically be done to address this encoded behavior.
