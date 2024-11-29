@@ -19,7 +19,7 @@ Additionally, Helm currently doesn't provide a way to sequence when chart depend
 
 ## Rationale
 
-### Proposal 1: Annotations
+### Proposal 1: Named Dependencies
 This design was chosen due to simplicity and clarity of how it works for both the Helm developer and Application Operator
 
 ### Proposal 2: Weighted Resouces (without hooks)
@@ -27,16 +27,14 @@ This design was proposed as an alternative that functions very similarly to hook
 
 ## Specification
 
-### Proposal 1: Annotations
-At a high level, allow Chart Developers to assign annotations to both their Helm templated resources and Helm chart dependencies that Helm then uses to generate a deployment sequence at installation time. Three new annotations would be added to enable this described next.
+### Proposal 1: Named Dependencies
+At a high level, allow Chart Developers to assign named dependency annotations to both their Helm templated resources and Helm chart dependencies that Helm then uses to generate a deployment sequence at installation time. Three new annotations would be added to enable this described next.
 
 - `helm.sh/layer`: Declare a layer that a given resource belongs to. Any numebr of resources can belong to a layer.
 - `helm.sh/depends-on/layer`: Declare a layer that must exist and in a ready state before this resource can be deployed.
 - `helm.sh/depends-on/chart`: Declare a chart dependency that must exist and in a ready state before this resource can be deployed. For the chart to be declared ready, all of its resources, with their sequencing order taken into consideration, would need to be deployed and declared ready.
 
-A layer would not be considered "ready" and the next layer installed until:
-- all jobs in the layer are DONE
-- all other resources in the layer are READY
+A layer would not be considered "ready" and the next layer deployed until all resources in that layer are considered "ready". Readiness is described in a later section.
 
 #### Example:
 ```yaml
@@ -51,15 +49,15 @@ metadata:
   name: bar
   annotations:
     helm.sh/layer: layer2
-    helm.sh/dependson/layer: layer1
+    helm.sh/depends-on/layer: layer1
 ---
 # resource 3
 metadata:
   name: fizz
   annotations:
     helm.sh/layer: layer3
-    helm.sh/dependson/layer: layer1
-    helm.sh/dependson/chart: someChartDependency
+    helm.sh/depends-on/layer: layer1
+    helm.sh/depends-on/chart: someChartDependency
 ```
 In this example, Helm would be responsible for resolving the annotations on these three resources and deploy all resources in the following order:
 
@@ -132,9 +130,9 @@ status:
 
 Resources with sequencing annotations would be deployed first followed by resources without. If a resource has a `helm.sh/depends-on/chart` annotation, all resources of the referred subchart would be deployed and checked for readiness before deploying the dependant resource. Only resources that Helm can determine readiness for will be checked. Chart authors would need to annotate their chart resources accordingly.
 
-Helm would scope each subchart layer annotation names using a delimiter such as `.` e.g `mysubchart.mylayer` to avoid any name collisions. This is an internal implementation detail rather than feature chart authors or operators would need to know.
+Helm would scope each subchart layer annotation names using a delimiter such as `.` e.g `someChartDependency.mylayer` to avoid any name collisions. This is an internal implementation detail rather than feature chart authors or operators would need to know.
 
-`helm template` would pring all the resources in the order they would be deployed. The groups would be delimited using a `## Layer: <name>` comment indicate the beginning of each layer
+`helm template` would print all resources in the order they would be deployed. Groups of resources in a layer would be delimited using a `## Layer: <name>` comment indicate the beginning of each layer
 
 ```yaml
 ## Layer: layer1
