@@ -9,11 +9,11 @@ status: "draft"
 
 ## Abstract
 
-This HIP is to propose a new featureset in Helm 4 to provide Helm developers a well supported way of defining what order chart resources and chart dependencies should be deployed to Kubernetes.
+This HIP is to propose a new featureset in Helm 4 to provide Application developers, who create heam charts for their applications, a well supported way of defining what order chart resources and chart dependencies should be deployed to Kubernetes.
 
 ## Motivation
 
-Today, to accomplish resource sequencing you have two options. The first is leveraging helm hooks, the second is building required sequencing into the application (via startup code or init containers). The existing hooks and weights can be a tedious to build and maintain for Helm developers, and built-in app sequencing can unecessarily increase complexity of a Helm application that needs to be maintained by Application Developers. Helm as a package manager should be capable of enabling developers to properly sequence how their applications are deployed, and by providing such a mechanism to developers, this will significantly improve the Helm and Application developer experiences.
+Today, to accomplish resource sequencing you have two options. The first is leveraging helm hooks, the second is building required sequencing into the application (via startup code or init containers). The existing hooks and weights can be tedious to build and maintain for Application developers, and built-in app sequencing can unecessarily increase complexity of a Helm application that needs to be maintained by Application Developers. Helm as a package manager should be capable of enabling developers to properly sequence how their applications are deployed, and by providing such a mechanism to developers, this will significantly improve the Application developer's experience.
 
 Additionally, Helm currently doesn't provide a way to sequence when chart dependencies are deployed, and this featureset would ideally address this.
 
@@ -128,9 +128,9 @@ status:
 
 #### Sequencing order
 
-Resources with sequencing annotations would be deployed first followed by resources without. If a resource has a `helm.sh/depends-on/chart` annotation, all resources of the referred subchart would be deployed and checked for readiness before deploying the dependant resource. Only resources that Helm can determine readiness for will be checked. Chart authors would need to annotate their chart resources accordingly.
+Resources with sequencing annotations would be deployed first followed by resources without. If a resource has a `helm.sh/depends-on/chart` annotation, all resources of the referred subchart would be deployed and checked for readiness before deploying the dependant resource. Only resources that Helm can determine their readiness for will be checked. Chart authors would need to annotate their chart resources accordingly. Helm will use default readiness checks for subcharts that do have their templates annotated.
 
-Helm would scope each subchart layer annotation names using a delimiter such as `.` e.g `someChartDependency.mylayer` to avoid any name collisions. This is an internal implementation detail rather than feature chart authors or operators would need to know.
+Helm would scope each subchart layer annotation names using a delimiter e.g `someChartDependency#mylayer` to avoid any name collisions. This is an internal implementation detail rather than feature chart authors or operators would need to know.
 
 `helm template` would print all resources in the order they would be deployed. Groups of resources in a layer would be delimited using a `## Layer: <name>` comment indicate the beginning of each layer
 
@@ -159,7 +159,7 @@ metadata:
 
 ## Backwards compatibility
 
-Helm will continue to deploy all resources and dependencies at once, as adding the above defined annotations is when the installation behavior would change.
+Helm will continue to deploy all resources and dependencies at once, as adding the above defined annotations is when the installation behavior would change. If a template in a chart defines `helm.sh/depends-on/chart: someChartDependency` annotation, Helm will wait for the subchart to be ready for all resources with default readiness checks. This will also apply to subcharts that do not have any sequencing annotations.
 
 ## Security implications
 
