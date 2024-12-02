@@ -182,6 +182,11 @@ N/A
 - Choose between Proposal 1 and Proposal 2
 - Should this featureset take into account allowing Helm Developers to declare custom "readiness" definitions for a given layer, besides the default?
 
-## References
+## Prior raised issues
+
+- https://github.com/helm/helm/pull/12541
+- https://github.com/helm/helm/pull/9534
+- https://github.com/helm/helm/issues/8439
+- https://github.com/helm/community/pull/230
 
 N/A
