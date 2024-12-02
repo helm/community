@@ -180,7 +180,7 @@ N/A
 ## Open issues
 
 - Choose between Proposal 1 and Proposal 2
-- Should this featureset take into account allowing Helm Developers to declare custom "readiness" definitions for a given layer, besides the default?
+- Should this featureset take into account allowing Application developers to declare custom "readiness" definitions for given resources, besides the default?
 
 ## Prior raised issues
 
