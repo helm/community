@@ -9,7 +9,7 @@ status: "draft"
 
 ## Abstract
 
-This HIP is to propose a new featureset in Helm 4 to provide Application developers, who create heam charts for their applications, a well supported way of defining what order chart resources and chart dependencies should be deployed to Kubernetes.
+This HIP is to propose a new featureset in Helm 4 to provide Application developers, who create helm charts for their applications, a well supported way of defining what order chart resources and chart dependencies should be deployed to Kubernetes.
 
 ## Motivation
 
@@ -30,9 +30,9 @@ This design was proposed as an alternative that functions very similarly to hook
 ### Proposal 1: Named Dependencies
 At a high level, allow Chart Developers to assign named dependency annotations to both their Helm templated resources and Helm chart dependencies that Helm then uses to generate a deployment sequence at installation time. Three new annotations would be added to enable this described next.
 
-- `helm.sh/layer`: Declare a layer that a given resource belongs to. Any numebr of resources can belong to a layer.
-- `helm.sh/depends-on/layer`: Declare a layer that must exist and in a ready state before this resource can be deployed.
-- `helm.sh/depends-on/chart`: Declare a chart dependency that must exist and in a ready state before this resource can be deployed. For the chart to be declared ready, all of its resources, with their sequencing order taken into consideration, would need to be deployed and declared ready.
+- `helm.sh/layer`: Declare a layer that a given resource belongs to. Any numebr of resources can belong to a layer. A resource can only belong to one layer.
+- `helm.sh/depends-on/layers`: Declare layers that must exist and in a ready state before this resource can be deployed. Order of the layers has no significance
+- `helm.sh/depends-on/charts`: Declare chart dependencies that must exist and in a ready state before the parent chart can be deployed. For the dependency or subchart chart to be declared ready, all of its resources, with their sequencing order taken into consideration, would need to be deployed and declared ready. Order of the charts has no significance.
 
 A layer would not be considered "ready" and the next layer deployed until all resources in that layer are considered "ready". Readiness is described in a later section.
 
@@ -40,24 +40,24 @@ A layer would not be considered "ready" and the next layer deployed until all re
 ```yaml
 # resource 1
 metadata:
-  name: foo
+  name: db-service
   annotations:
-    helm.sh/layer: layer1
+    helm.sh/layer: database
 ---
 # resource 2
 metadata:
-  name: bar
+  name: app-ingress
   annotations:
-    helm.sh/layer: layer2
-    helm.sh/depends-on/layer: layer1
+    helm.sh/layer: app
+    helm.sh/depends-on/layers: "database, queue"
 ---
 # resource 3
 metadata:
-  name: fizz
+  name: queue-processor
   annotations:
-    helm.sh/layer: layer3
-    helm.sh/depends-on/layer: layer1
-    helm.sh/depends-on/chart: someChartDependency
+    helm.sh/layer: queue
+    helm.sh/depends-on/layers: another-layer
+    helm.sh/depends-on/charts: "rabbitmq, minio"
 ```
 In this example, Helm would be responsible for resolving the annotations on these three resources and deploy all resources in the following order:
 
@@ -128,7 +128,7 @@ status:
 
 #### Sequencing order
 
-Resources with sequencing annotations would be deployed first followed by resources without. If a resource has a `helm.sh/depends-on/chart` annotation, all resources of the referred subchart would be deployed and checked for readiness before deploying the dependant resource. Only resources that Helm can determine their readiness for will be checked. Chart authors would need to annotate their chart resources accordingly. Helm will use default readiness checks for subcharts that do have their templates annotated.
+Resources with sequencing annotations would be deployed first followed by resources without. If a resource has a `helm.sh/depends-on/charts` annotation, all resources of the referred subchart would be deployed and checked for readiness before deploying the dependant resource. Only resources that Helm can determine their readiness for will be checked. Chart authors would need to annotate their chart resources accordingly. Helm will use default readiness checks for subcharts that do have their templates annotated.
 
 Helm would scope each subchart layer annotation names using a delimiter e.g `someChartDependency#mylayer` to avoid any name collisions. This is an internal implementation detail rather than feature chart authors or operators would need to know.
 
@@ -159,7 +159,7 @@ metadata:
 
 ## Backwards compatibility
 
-Helm will continue to deploy all resources and dependencies at once, as adding the above defined annotations is when the installation behavior would change. If a template in a chart defines `helm.sh/depends-on/chart: someChartDependency` annotation, Helm will wait for the subchart to be ready for all resources with default readiness checks. This will also apply to subcharts that do not have any sequencing annotations.
+Helm will continue to deploy all resources and dependencies at once, as adding the above defined annotations is when the installation behavior would change. If a template in a chart defines `helm.sh/depends-on/charts: someChartDependency` annotation, Helm will wait for the subchart to be ready for all resources with default readiness checks. This will also apply to subcharts that do not have any sequencing annotations.
 
 ## Security implications
 
