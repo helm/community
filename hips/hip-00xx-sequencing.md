@@ -113,7 +113,7 @@ In this example, Helm would be responsible for resolving the annotations on thes
 
 ### Readiness
 
-In order to enforce sequencing, new `helm.sh/resource-ready` annotation would be used to determine when a resource is ready, allowing helm to proceed deploying the next group of resources, or failing a deployment. Helm would query, using jsonpath syntax, status fields of the annotated resource. Some native kubernetes resources that have stable APIs e.g `v1` resources such as `Pod` and `Deployment`, would have default queries which can be overriden. In Helm cannot determine how to check a resource's readiness when it should, it will do nothing and log this.
+In order to enforce sequencing, new `helm.sh/resource-ready` annotation would be used to determine when a resource is ready, allowing helm to proceed deploying the next group of resources, or failing a deployment. Helm would query, using jsonpath syntax, status fields of the annotated resource. Some native kubernetes resources that have stable APIs e.g `v1` resources such as `Pod` and `Deployment`, would have default queries which can be overriden. If Helm cannot determine how to check a resource's readiness when it should, it will do nothing and log this.
 
 #### Example
 ```yaml
