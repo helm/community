@@ -181,6 +181,7 @@ N/A
 
 - Choose between Proposal 1 and Proposal 2
 - Should this featureset take into account allowing Application developers to declare custom "readiness" definitions for given resources, besides the default?
+- How will `--wait` and `--wait-for-jobs` work with sequencing annotations?
 
 ## Prior raised issues
 
