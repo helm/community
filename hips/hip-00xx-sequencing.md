@@ -9,14 +9,14 @@ status: "draft"
 
 ## Abstract
 
-This HIP is to propose a new featureset in Helm 4 to provide Application developers, who create helm charts for their applications, a well supported way of defining what order chart resources and chart dependencies should be deployed to Kubernetes. Helm deploys all manifests at the same time. This HIP will propose a way for Helm to deploy manifests in batches, and inspect states of these resources to enforce sequencing.
+This HIP is to propose a new featureset in Helm 4 to provide application distributors, who create helm charts for applications, a well supported way of defining what order chart resources and chart dependencies should be deployed to Kubernetes. Helm deploys all manifests at the same time. This HIP will propose a way for Helm to deploy manifests in batches, and inspect states of these resources to enforce sequencing.
 
 
 ## Motivation
 
-The driving motivator here is to allow application developers to control what order resources are bundled and sent to the K8s API server, referred to as resource sequencing for the rest of this HIP.
+The driving motivator here is to allow application distributors to control what order resources are bundled and sent to the K8s API server, referred to as resource sequencing for the rest of this HIP.
 
-Today, to accomplish resource sequencing you have two options. The first is leveraging helm hooks, the second is building required sequencing into the application (via startup code or init containers). The existing hooks and weights can be tedious to build and maintain for Application developers, and built-in app sequencing can unecessarily increase complexity of a Helm application that needs to be maintained by Application Developers. Helm as a package manager should be capable of enabling developers to properly sequence how their applications are deployed, and by providing such a mechanism to developers, this will significantly improve the Application developer's experience.
+Today, to accomplish resource sequencing you have two options. The first is leveraging helm hooks, the second is building required sequencing into the application (via startup code or init containers). The existing hooks and weights can be tedious to build and maintain for application distributors, and built-in app sequencing can unecessarily increase complexity of a Helm application that needs to be maintained by application distributors. Helm as a package manager should be capable of enabling application distributors to properly sequence how their chart resources are deployed, and by providing such a mechanism to distributors, this will significantly improve the application distributor's experience.
 
 Additionally, Helm currently doesn't provide a way to sequence when chart dependencies are deployed and this featureset would ideally address this.
 
@@ -180,11 +180,11 @@ N/A
 1. A weight based system, similar to Helm hooks
     - Static numbering of the order is more challenging to develop and maintain
     - Modifying the order can lead to cascading changes.
-    - Dynamically named system solves these problems for the application developers.
+    - Dynamically named system solves these problems for the application distributors.
 
 ## Open issues
 
-- Should this featureset take into account allowing Application developers to declare custom "readiness" definitions for given resources, besides the default?
+- Should this featureset take into account allowing application distributors to declare custom "readiness" definitions for given resources, besides the default?
 - How will `--wait` and `--wait-for-jobs` work with sequencing annotations?
 - Chart dependencies should be part of the Chart.yaml instead.
 
