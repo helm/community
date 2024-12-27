@@ -17,10 +17,6 @@ Helm 3 introduced the [three-way strategic merge and patch](https://helm.sh/docs
 Allowing Helm to update objects which have been modified by other processes.
 Kubernetes now offers a similar server-side process that has several advantages over the client-side apply (CSA) methods that Helm and `kubectl` (for example) have traditionally utilized.
 
-<!--
-The scope of this HIP is limited to incorporating SSA as an opt-in feature only. Deferring changing user's existing usage of the (client-side) three-way strategic merge patch processes (without opt-in). And considers how to deal with field conflicts and other compatibility concerns that may arise with the differences between SSA and CSA.
--->
-
 ## Motivation
 
 <!-- Clearly explain why the existing design is inadequate to address the problem
