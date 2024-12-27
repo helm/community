@@ -15,7 +15,7 @@ This HIP proposes for Helm to support Kubernetes' [Server-Side Apply](https://ku
 
 Helm 3 introduced the [three-way strategic merge and patch](https://helm.sh/docs/faq/changes_since_helm2/#improved-upgrade-strategy-3-way-strategic-merge-patches).
 Allowing Helm to update objects which have been modified by other processes.
-Kubernetes now offers a similar server-side process that has several advantages over the client-side apply (CSA) methods that Helm and kubectl (for example) have traditionally utilized.
+Kubernetes now offers a similar server-side process that has several advantages over the client-side apply (CSA) methods that Helm and `kubectl` (for example) have traditionally utilized.
 
 <!--
 The scope of this HIP is limited to incorporating SSA as an opt-in feature only. Deferring changing user's existing usage of the (client-side) three-way strategic merge patch processes (without opt-in). And considers how to deal with field conflicts and other compatibility concerns that may arise with the differences between SSA and CSA.
@@ -26,7 +26,7 @@ The scope of this HIP is limited to incorporating SSA as an opt-in feature only.
 <!-- Clearly explain why the existing design is inadequate to address the problem
 that the HIP solves. -->
 
-The primary motivation for Helm to switch to Server-Side Apply is to gain the benefits of Kubernetes server-side management of object upgrades.
+Switching to SSA allows Helm users (chart operators) is to gain the benefits of Kubernetes server-side field management for object updates.
 The following describes the advantages of SSA from Kubernetes perspective, where SSA generally is considered to be superior:
 
 https://kubernetes.io/blog/2022/10/20/advanced-server-side-apply/
@@ -41,15 +41,16 @@ From a code maintenance benefit, Helm could eventually drop support for the stra
 <!-- Describe why particular design decisions were made. -->
 
 With Helm 4, it was decided to opt-in to Helm utilizing SSA by default.
-Allowing chart operators to gain the benefit of SSA without needing to know about the mechanism.
-If during Helm 4 release candidate field usage, SSA as default is deemed to be unsuitable, Helm will revert to utilizing CSA by default.
+Allowing chart operators to gain the benefit of SSA without needing to know about the server-side vs. client-side mechanisms.
+If during Helm 4 release candidate field usage, SSA as default is deemed to be unresolvably problematic, Helm 4 will revert to utilizing CSA by default.
 
-A CLI flag will allow users to override SSA opt-in (revert to utilizing CSA), should a chart operator need to for a particular circumstance.
+A CLI flag will allow users to override SSA opt-in and revert to utilizing CSA. Should a chart operator need for a particular circumstance.
 
-A chart release mechanism will allow Helm to track and follow SSA enablement for a given release. Tracking SSA enablement will allow Helm to automatically follow SSA enablement for a given release, and in revert to CSA (or SSA) during rollback if that prior release utilized CSA (or SSA).
+A chart release mechanism will allow Helm to track and follow SSA enablement for a given release.
+Tracking SSA enablement will allow Helm to automatically follow SSA enablement for a given release, and in particular revert to CSA (or SSA) during rollbacks if that prior release utilized CSA (or SSA).
 
 Additionally it was desirable to mimic `kubectl`'s CLI interface/flags.
-As a way for Helm to be consistent with an existing `kubectl` functionality.
+As a way for Helm to be consistent with an existing `kubectl` functionality that Kubernetes users may be familar with.
 
 ## Specification
 
@@ -57,21 +58,19 @@ As a way for Helm to be consistent with an existing `kubectl` functionality.
 
 ### General
 
-Helm will add a new flag to the install, upgrade and rollback commands (modeled after the like `kubectl apply` flag).
-And add a corresponding field to the respective install/upgrade/rollback SDK API objects:
-
-`--server-side=false|true|auto`
+Helm will add a new `--server-side=false|true|auto` flag to the install, upgrade and rollback commands (modeled after the like `kubectl apply` flag).
+And add a corresponding field to the respective install/upgrade/rollback SDK API objects.
 
 Helm will default to `true` for installs, enabling SSA.
 And `auto` for upgrade and rollbacks, where Helm will enable SSA based on the whether SSA was utilized for the prior release (see below).
 When enabled, Helm will submit object to the Kubernetes API server via SSA patches.
 
-If SSA is utilized for a release, this will be stored as a field in the release's metadata.
+If SSA or CSA is utilized for a release, this will be stored as a field in the release's metadata.
 If the field is unset when reading a prior release, this implies that the release was created with an old version of Helm utilizing CSA.
 
 ```
 type Release struct {
-   ApplyMethod *string  `json:"apply_method,omitempty"` // "ssa" OR "csa"
+   ApplyMethod *string  `json:"apply_method,omitempty"` // "ssa" | "csa"
 }
 ```
 
