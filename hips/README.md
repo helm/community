@@ -28,3 +28,4 @@ restricted markdown format and can be found in the
 - [hip-0017: Helm OCI MediaType Registration](hip-0017.md)
 - [hip-0018: Include repository URL and tarball digest in chart's release metadata](hip-0018.md)
 - [hip-0019: New annotations for displaying hook output](hip-0019.md)
+- [hip-0020: Wait for custom resource conditions](hip-0020.md)
