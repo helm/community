@@ -49,8 +49,9 @@ While providing for better CRD management, but continuing to provide for safe op
 Describe why particular design decisions were made.
 -->
 The two main reasons inferred from [HIP-0011](./hip-0011.md) that Helm is conservative with CRDs are:
-1. CRDs are a cluster-wide resource.
-   Changes to cluster wide resources can (more easily) break applications beyond the scope of the chart
+1. CRDs are a cluster-wide resource, and cluster-wide resources can more easily affect all users of a cluster.
+   Rather than just the application / chart the operator is deploying, as operators and applications are often scoped to a single namespace.
+   Frequently user That may affect multiple users within the cluster.
 2. Custom Resources (CRs) can be used as a data store.
    And removing the CRDs for those will irrevocably remove any CRs and cause parmenat loss of any contained data
 
@@ -67,7 +68,6 @@ For 2., Data loss should be treated more carefully.
 As data loss can be irrevocable or require significant effort to restore.
 And especially, an application/chart operator should not expect a chart upgrade to cause data loss.
 Helm can prevent Data loss can be prevented by ensuring CRDs are "appended" only (with special exceptions in the specification below). An in particular, appending allows a rollback to (effectively) restore existing cluster state.
-(It should also be noted that Helm will today remove other resources which may cause data loss e.g. secrets, config maps, namespace, etc. A special, hard-coded, exception does exist for persistent volumes)
 
 
 ## Specification
