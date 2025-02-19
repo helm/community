@@ -27,4 +27,6 @@ restricted markdown format and can be found in the
 - [hip-0015: Annotation for Images used by Helm Charts](hip-0015.md)
 - [hip-0017: Helm OCI MediaType Registration](hip-0017.md)
 - [hip-0018: Include repository URL and tarball digest in chart's release metadata](hip-0018.md)
+- [hip-0019: New annotations for displaying hook output](hip-0019.md)
+- [hip-0020: H4HIP: Charts v3 Enablement](hip-0020.md)
 - [hip-0021: Enhanced logging library for Helm](hip-0021.md)
