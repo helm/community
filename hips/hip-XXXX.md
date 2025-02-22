@@ -78,7 +78,7 @@ Describe the syntax and semantics of any new feature.
 
 _Note: This specification applies to CRDs in a chart's `crds/` directory only. CRDs deployed via `templates/` are out of scope. As Helm only considered CRDs released via the `crds/` directory to be managed by Helm_
 
-When installing for upgrading, Helm will install new CRDs from the `crds/` directory if they don't exist in the cluster.
+When installing or upgrading, Helm will install new CRDs from the `crds/` directory if they don't exist in the cluster.
 If the CRD already exists, Helm will "append" or merge CRD updates into the cluster's existing CRD object with the logic detailed below.
 
 When rolling back, Helm will simply revert merge in the previously installed version. Effectively, this is reverting to the prior "storage" version only.
