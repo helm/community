@@ -59,7 +59,7 @@ As a way for Helm to be consistent with an existing `kubectl` functionality that
 
 ### General
 
-Helm will add a new `--server-side=false|true|auto` flag to the install, upgrade and rollback commands (modeled after the like `kubectl apply` flag).
+Helm will add a new flag `--server-side=false|true|auto` to the install, upgrade and rollback commands (modeled after the like `kubectl apply` flag).
 And add a corresponding field to the respective install/upgrade/rollback SDK API objects.
 
 Helm will default to `true` for installs, enabling SSA.
