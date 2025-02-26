@@ -38,6 +38,8 @@ At a high level, allow Chart Developers to assign named dependencies to both the
 
 The installation process would group resources in the same layer and send them to the K8s API Server in one bundle, and once all resources are "ready", the next layer would be installed. A layer would not be considered "ready" and the next layer installed until all resources in that layer are considered "ready". Readiness is described in a later section. A similar process would apply for upgrades. Uninstalls would function on the same layer order, but backwards, where a layer is not uninstalled until all layers that depend on it are first uninstalled. Upgrades would follow the same order as installation.
 
+`helm.sh/layer` and `helm.sh/depends-on/layers` ordering annotations are only used when ordering resources in the same chart. When it comes to resources across charts one needs to declare `helm.sh/depends-on/charts` or `depends-on` in Chart.yaml to allow Helm to reason how to order install/upgrade/uninstall subcharts.
+
 #### Templates example:
 ```yaml
 # resource 1
