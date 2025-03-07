@@ -1,7 +1,7 @@
 ---
 hip: 9999
 title: "registries.conf support for OCI registry management"
-authors: [ "George Jenkins <gvjenkins@gmail.com>", "Andy Block <andy@redhat.com>" ]
+authors: [ "George Jenkins <gvjenkins@gmail.com>", "Andy Block <ablock@redhat.com>" ]
 created: "2025-02-16"
 type: "feature"
 status: "draft"
