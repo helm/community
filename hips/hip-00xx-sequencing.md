@@ -172,6 +172,7 @@ None.
 ## How to teach this
 
 TBD upon deciding on a design.
+- Document how sequencing works in the official helm documentation website. Include ordering of kubernetes resources the Helm enforces when applying resources to the cluster.
 
 ## Reference implementation
 
