@@ -11,6 +11,7 @@ status: "draft"
 
 This HIP is to propose a new featureset in Helm 4 to provide application distributors, who create helm charts for applications, a well supported way of defining what order chart resources and chart dependencies should be deployed to Kubernetes. Helm deploys all manifests at the same time. This HIP will propose a way for Helm to deploy manifests in batches, and inspect states of these resources to enforce sequencing.
 
+The HIP only targets resources deployed in the Helm install phase. Resources deployed as hooks are not sequenced using changes proposed here. Any sequencing of hooks will still rely in using `"hook-weight"` annotations.
 
 ## Motivation
 
@@ -40,7 +41,7 @@ The installation process would group resources in the same layer and send them t
 
 `helm.sh/layer` and `helm.sh/depends-on/layers` ordering annotations are only used when ordering resources in the same chart. When it comes to resources across charts one needs to declare `helm.sh/depends-on/charts` or `depends-on` in Chart.yaml to allow Helm to reason how to order install/upgrade/uninstall subcharts.
 
-#### Templates example:
+#### Template examples:
 ```yaml
 # resource 1
 metadata:
