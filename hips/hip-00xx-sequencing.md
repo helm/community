@@ -38,12 +38,12 @@ The following annotations would be added to enable this.
 - `helm.sh/depends-on/layers`: Annotation to declare layers that must exist and in a ready state before this resource can be deployed. Order of the layers has no significance
 
 *Additions to Chart.yaml*
-- `helm.sh/depends-on/charts`: Annotation added to `Chart.yaml` to declare chart dependencies, by name or tags, that must be deployed fully and in a ready state before the chart can be deployed. For the dependency or subchart chart to be declared ready, all of its resources, with their sequencing order taken into consideration, would need to be deployed and declared ready. Order of the charts has no significance.
+- `helm.sh/depends-on/subcharts`: Annotation added to `Chart.yaml` to declare chart dependencies, by name or tags, that must be deployed fully and in a ready state before the chart can be deployed. For the dependency or subchart chart to be declared ready, all of its resources, with their sequencing order taken into consideration, would need to be deployed and declared ready. Order of the charts has no significance.
 - `depends-on`: A new field added to `Chart.yaml` `dependencies` fields that is meant to declare a list of subcharts, by name or tag, that need to be ready before the subchart in questions get installed. This will be used to create a dependency graph for subcharts.
 
 The installation process would group resources in the same layer and send them to the K8s API Server in one bundle, and once all resources are "ready", the next layer would be installed. A layer would not be considered "ready" and the next layer installed until all resources in that layer are considered "ready". Readiness is described in a later section. A similar process would apply for upgrades. Uninstalls would function on the same layer order, but backwards, where a layer is not uninstalled until all layers that depend on it are first uninstalled. Upgrades would follow the same order as installation.
 
-`helm.sh/layer` and `helm.sh/depends-on/layers` ordering annotations are only used when ordering resources in the same chart. When it comes to resources across charts one needs to declare `helm.sh/depends-on/charts` or `depends-on` in Chart.yaml to allow Helm to reason how to order install/upgrade/uninstall subcharts.
+`helm.sh/layer` and `helm.sh/depends-on/layers` ordering annotations are only used when ordering resources in the same chart. When it comes to resources across charts one needs to declare `helm.sh/depends-on/subcharts` or `depends-on` in Chart.yaml to allow Helm to reason how to order install/upgrade/uninstall subcharts.
 
 #### Template examples:
 ```yaml
@@ -87,7 +87,7 @@ In this example, Helm would be responsible for resolving the annotations on thes
 ```yaml
 name: foo
 annotations:
-  helm.sh/depends-on/charts: ["bar", "rabbitmq"]
+  helm.sh/depends-on/subcharts: ["bar", "rabbitmq"]
 dependencies:
   - name: nginx
     version: "18.3.1"
