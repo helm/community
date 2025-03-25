@@ -11,7 +11,7 @@ status: "draft"
 
 This HIP is to propose a new featureset in Helm 4 to provide application distributors, who create helm charts for applications, a well supported way of defining what order chart resources and chart dependencies should be deployed to Kubernetes. Helm deploys all manifests at the same time. This HIP will propose a way for Helm to deploy manifests in batches, and inspect states of these resources to enforce sequencing.
 
-The HIP only targets resources deployed in the Helm install phase. Resources deployed as hooks are not sequenced using changes proposed here. Any sequencing of hooks will still rely in using `"hook-weight"` annotations.
+The HIP only targets resources deployed in the Helm install phase. Resources deployed as hooks are not sequenced using changes proposed here. Any sequencing of hooks will still rely in using `"helm.sh/hook-weight"` annotations.
 
 ## Motivation
 
@@ -54,15 +54,14 @@ metadata:
   name: my-app
   annotations:
     helm.sh/layer: app
-    helm.sh/depends-on/layers: "database, queue"
+    helm.sh/depends-on/layers: ["database, queue"]
 ---
 # resource 3
 metadata:
   name: queue-processor
   annotations:
     helm.sh/layer: queue
-    helm.sh/depends-on/layers: another-layer
-    helm.sh/depends-on/charts: "rabbitmq, minio"
+    helm.sh/depends-on/layers: ["another-layer"]
 ```
 In this example, Helm would be responsible for resolving the annotations on these three resources and deploy all resources in the following order. Resources in `database` and `queue` layers would be deployed at the same time. They would need to be ready before attempting to deploy `app` layer resources:
 
@@ -126,7 +125,7 @@ kind: Job
 metadata:
   name: barz
   annotations:
-    helm.sh/resource-ready: "status.succeeded==1"
+    helm.sh/resource-ready: ["status.succeeded==1", "status.failed==1"]
 status:
   succeeded: 1
 ```
@@ -189,7 +188,6 @@ N/A
 ## Open issues
 
 - Should this featureset take into account allowing application distributors to declare custom "readiness" definitions for given resources, besides the default?
-- How will `--wait` and `--wait-for-jobs` work with sequencing annotations?
 - Chart dependencies should be part of the Chart.yaml instead.
 
 ## Prior raised issues
