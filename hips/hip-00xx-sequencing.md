@@ -27,7 +27,11 @@ This design was chosen due to simplicity and clarity of how it works for both th
 
 ## Specification
 
-At a high level, allow Chart Developers to assign named dependencies to both their Helm templated resources and Helm chart dependencies that Helm then uses to generate a deployment sequence at installation time. The following annotations would be added to enable this.
+At a high level, allow Chart Developers to assign named dependencies to both their Helm templated resources and Helm chart dependencies that Helm then uses to generate a deployment sequence at installation time.
+
+For Helm CLI, the `--wait` flag will enable sequencing where resources are applied in groups of layers. SDK users will also be able to enable sequencing by setting a `Wait` boolean flag. Without this flag being enabled, resources will all be applied in one go.
+
+The following annotations would be added to enable this.
 
 *Additions to templates*
 - `helm.sh/layer`: Annotation to declare a layer that a given resource belongs to. Any number of resources can belong to a layer. A resource can only belong to one layer.
@@ -172,7 +176,7 @@ None.
 ## How to teach this
 
 TBD upon deciding on a design.
-- Document how sequencing works in the official helm documentation website. Include ordering of kubernetes resources the Helm enforces when applying resources to the cluster.
+- Document how sequencing works in the official helm documentation website. Include ordering of kubernetes resources the Helm enforces when applying resources to the cluster. Examples will be added to best demonstrate how this feature works.
 
 ## Reference implementation
 
@@ -189,6 +193,8 @@ N/A
 
 - Should this featureset take into account allowing application distributors to declare custom "readiness" definitions for given resources, besides the default?
 - Chart dependencies should be part of the Chart.yaml instead.
+- How does `--atomic` flag work?
+- How will `--wait-for-jobs` work with sequencing? Should we keep the flag, and wait for jobs after all other resources have been applied and waited for?
 
 ## Prior raised issues
 
