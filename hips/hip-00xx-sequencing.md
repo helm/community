@@ -9,7 +9,7 @@ status: "draft"
 
 ## Abstract
 
-This HIP is to propose a new featureset in Helm 4 to provide application distributors, who create helm charts for applications, a well supported way of defining what order chart resources and chart dependencies should be deployed to Kubernetes. Helm deploys all manifests at the same time. This HIP will propose a way for Helm to deploy manifests in batches, and inspect states of these resources to enforce sequencing.
+This HIP is to propose a new featureset in Chart v3, to provide application distributors, who create helm charts for applications, a well supported way of defining what order chart resources and chart dependencies should be deployed to Kubernetes. Helm deploys all manifests at the same time. This HIP will propose a way for Helm to deploy manifests in batches, and inspect states of these resources to enforce sequencing.
 
 At a high level, this HIP proposes the following
 - Ability for chart authors to specify how to sequence deployment of **resources within a single chart**
@@ -34,7 +34,9 @@ This design was chosen due to simplicity and clarity of how it works for both th
 
 At a high level, allow Chart Developers to assign named dependencies to both their Helm templated resources and Helm chart dependencies that Helm then uses to generate a deployment sequence at installation time.
 
-For Helm CLI, the `--wait` flag will enable sequencing where resources are applied in groups of layers. SDK users will also be able to enable sequencing by setting a `Wait` boolean flag. Without this flag being enabled, resources will all be applied in one go which is the same behaviour in Helm v3.
+For Helm CLI, the `--wait` flag will enable sequencing where resources are applied in groups of layers. SDK users will also be able to enable sequencing by setting a `Wait` boolean flag. Without this flag being enabled, resources will all be applied in one go which is the same behaviour in Chart v2.
+
+Each release will store information of whether sequencing was used or not. This information is used when performing uninstalls and rollbacks.
 
 The following annotations would be added to enable this.
 
@@ -122,11 +124,11 @@ dependencies:
 
 In this example, helm will first install and wait for all resources of `nginx` and `rabbitmq` dependencies to be "ready" before attempting to install `bar` resources. Once all resources of `bar` are "ready" then and only then will `foo` chart resources be installed. `foo` would require `rabbitmq` to be ready but since the subchart resources would have been installed before `bar`, this requirement would have been fulfilled.
 
-This approach of building a directed acyclic graph (DAG) is prone to circular dependencies. During the templating phase, Helm will have logic to detect, and report any circular dependencies found in the chart templates.
+This approach of building a directed acyclic graph (DAG) is prone to circular dependencies. During the templating phase, Helm will have logic to detect, and report any circular dependencies found in the chart templates. Helm will also provide a command to print the DAG for development and troubleshooting purposes.
 
 ### Readiness
 
-In order to enforce sequencing, a new `helm.sh/resource-ready` annotation would be used to determine when a resource is ready, allowing helm to proceed deploying the next group of resources, or failing a deployment. Helm would query, using jsonpath syntax, status fields of the annotated resource. Some native kubernetes resources that have stable APIs e.g `v1` resources such as `Pod` and `Deployment`, would have default queries which can be overriden. If Helm cannot determine how to check a resource's readiness when it should, it will do nothing and log this.
+In order to enforce sequencing, Helm will check that resources are ready using `kstatus` [ready condition](https://github.com/kubernetes-sigs/cli-utils/blob/master/pkg/kstatus/README.md#the-ready-condition) allowing helm to proceed installing the next group of resources, or fail the install. Users can override checks using optional `helm.sh/readiness-failure` and `helm.sh/readiness-success` annotations which are jsonpath queries to check status fields of the annotated resource. If any of the checks in the lists evaluate as true, the readiness check is determined as successful/failed. `helm.sh/readiness-timeout` annotation can be used to override how long Helm should wait when performing readiness checks before bailing out. It defaults to `10s`.
 
 #### Example
 ```yaml
@@ -134,16 +136,23 @@ kind: Job
 metadata:
   name: barz
   annotations:
-    helm.sh/resource-ready: ["status.succeeded==1", "status.failed==1"]
+    helm.sh/readiness-success: ["succeeded==1"] # status fields
+    helm.sh/readiness-failure: ["failed==1"] # status fields
+    helm.sh/readiness-timeout: 20s # timeout
 status:
   succeeded: 1
 ```
 
+A resources readiness is checked if there is a resource that depends on it as per the sequencing DAG.
+
 #### Sequencing order
 
-Resources with sequencing annotations would be deployed first followed by resources without. If the chart has a `helm.sh/depends-on/charts` annotation in `Chart.yaml`, all resources of the defined subcharts would be deployed and checked for readiness before deploying the chart. Only resources that Helm can determine their readiness for will be checked. Chart authors would need to annotate their chart resources accordingly. Helm will use default readiness checks for subcharts that do have their templates annotated.
+Resources with sequencing annotations in a chart would be deployed first followed by resources without. If the chart has a `helm.sh/depends-on/subcharts` annotation in `Chart.yaml`, all resources of the defined subcharts would be deployed before deploying the main chart. If any sequencing annotations are defined in the subchart resources, Helm will enforce ordering of resources within. Sequencing of resources in a chart are sandboxed within the chart. Sequencing annotations will not affect resources in other charts.
 
-`helm template` would print all resources in the order they would be deployed. Groups of resources in a layer would be delimited using a `## START layer: <chart> <name>` comment indicating the beginning of each layer and `END layer: <chart> <name>`.
+- Installs: Helm will install resources in the order defined by the DAG. If any of the readiness checks fail or timeout, the entire install would fail and the release marked as failed. If `--atomic`, or its SDK equivalent is used, a rollback to the last successful install would take place.
+- Uninstalls: Helm would uninstall resources in the reverse order they were installed, as per the sequencing order. The logic to delete each resource will not change.
+- Rollbacks: Helm will check from the release object whether the revision being rolled back to, was installed in a sequenced manner. If it was, Helm will respect and enforce this order when installing resources from that revision. When deleting unneeded resources of the revision being rolled back from, the reverse order is followed just like uninstalls.
+- `helm template` would print all resources in the order they would be deployed. Groups of resources in a layer would be delimited using a `## START layer: <chart> <layer-name>` comment indicating the beginning of each layer and `END layer: <chart> <layer-name>`.
 
 ```yaml
 ## START layer: foo layer1
@@ -172,7 +181,7 @@ metadata:
 
 ## Backwards compatibility
 
-Helm will continue to install/upgrade/uninstall all resources and dependencies at once, as adding the above defined annotations and depends-on field is when the installation behaviour would change. If a chart defines `helm.sh/depends-on/charts: ["subchart"]` annotation in `Chart.yaml`, Helm will wait for the subchart to be ready for all resources with default readiness checks. This will also apply to older subcharts that do not have any sequencing annotations.
+Helm will continue to install/upgrade/uninstall/rollback all resources and dependencies at one go for all charts using `Charts v2` and below.
 
 ## Security implications
 
@@ -180,8 +189,8 @@ None.
 
 ## How to teach this
 
-TBD upon deciding on a design.
-- Document how sequencing works in the official helm documentation website. Include ordering of kubernetes resources the Helm enforces when applying resources to the cluster. Examples will be added to best demonstrate how this feature works.
+- Document how sequencing works in the official helm documentation website. Include ordering of kubernetes resources that Helm enforces when applying resources to the cluster. Examples will be added to best demonstrate how this feature works.
+- Document how to this feature works for SDK users.
 
 ## Reference implementation
 
@@ -196,16 +205,9 @@ N/A
 
 ## Open issues
 
-- Should this featureset take into account allowing application distributors to declare custom "readiness" definitions for given resources, besides the default?
-- Chart dependencies should be part of the Chart.yaml instead.
-- How does `--atomic` flag work?
-- How will `--wait-for-jobs` work with sequencing? Should we keep the flag, and wait for jobs after all other resources have been applied and waited for?
-
 ## Prior raised issues
 
 - https://github.com/helm/helm/pull/12541
 - https://github.com/helm/helm/pull/9534
 - https://github.com/helm/helm/issues/8439
 - https://github.com/helm/community/pull/230
-
-N/A
