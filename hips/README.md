@@ -31,4 +31,5 @@ restricted markdown format and can be found in the
 - [hip-0020: H4HIP: Charts v3 Enablement](hip-0020.md)
 - [hip-0021: Enhanced logging library for Helm](hip-0021.md)
 - [hip-0022: Wait With kstatus](hip-0022.md)
-- [hip-9999: Plugin-first architecture](hip-9999.md)
+- [hip-0023: Utilize Server Side Apply for installs/upgrades](hip-0023.md)
+- [hip-9999: Improve and extend plugin system](hip-9999.md)
