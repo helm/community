@@ -14,7 +14,7 @@ This HIP is to propose a new featureset in Chart v3, to provide application dist
 At a high level, this HIP proposes the following
 - Ability for chart authors to specify how to sequence deployment of **resources within a single chart**
 - Ability for chart authors to specify how to sequence **subcharts within a parent chart**
-- Ability for Helm operators and tool developers to enable sequencing behaviour using `--wait` CLI flag and `Wait` SDK boolean parameter respectively
+- Ability for Helm operators and tool developers to enable sequencing behaviour using `--wait=ordered` CLI flag and `WaitStrategy=ordered` SDK parameter respectively
 
 The HIP only targets resources deployed in the Helm install phase. Resources deployed as hooks are not sequenced using changes proposed here. Any sequencing of hooks will still rely on using `"helm.sh/hook-weight"` annotations. Annotations added to resources in hooks will be ignored.
 
@@ -34,7 +34,7 @@ This design was chosen due to simplicity and clarity of how it works for both th
 
 At a high level, allow Chart Developers to assign named dependencies to both their Helm templated resources and Helm chart dependencies that Helm then uses to generate a deployment sequence at installation time.
 
-For Helm CLI, the `--wait` flag will enable sequencing where resources are applied in groups of layers. SDK users will also be able to enable sequencing by setting a `Wait` boolean flag. Without this flag being enabled, resources will all be applied in one go which is the same behaviour in Chart v2.
+For Helm CLI, the `--wait=ordered` flag will enable sequencing where resources are applied in groups of layers. SDK users will also be able to enable sequencing by setting a `Wait` boolean flag. Without this flag being enabled, resources will all be applied in one go which is the same behaviour in Chart v2.
 
 Each release will store information of whether sequencing was used or not. This information is used when performing uninstalls and rollbacks.
 
