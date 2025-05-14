@@ -190,7 +190,7 @@ None.
 ## How to teach this
 
 - Document how sequencing works in the official helm documentation website. Include ordering of Kubernetes resources that Helm enforces when applying resources to the cluster. Examples will be added to best demonstrate how this feature works.
-- Document how to this feature works for SDK users.
+- Document how this feature works for SDK users.
 
 ## Reference implementation
 
