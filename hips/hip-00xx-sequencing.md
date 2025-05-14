@@ -122,7 +122,7 @@ dependencies:
        [foo]
 ```
 
-In this example, helm will first install and wait for all resources of `nginx` and `rabbitmq` dependencies to be "ready" before attempting to install `bar` resources. Once all resources of `bar` are "ready" then and only then will `foo` chart resources be installed. `foo` would require `rabbitmq` to be ready but since the subchart resources would have been installed before `bar`, this requirement would have been fulfilled.
+In this example, Helm will first install and wait for all resources of `nginx` and `rabbitmq` dependencies to be "ready" before attempting to install `bar` resources. Once all resources of `bar` are "ready" then and only then will `foo` chart resources be installed. `foo` would require `rabbitmq` to be ready but since the subchart resources would have been installed before `bar`, this requirement would have been fulfilled.
 
 This approach of building a directed acyclic graph (DAG) is prone to circular dependencies. During the templating phase, Helm will have logic to detect, and report any circular dependencies found in the chart templates. Helm will also provide a command to print the DAG for development and troubleshooting purposes.
 
