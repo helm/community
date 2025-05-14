@@ -147,7 +147,7 @@ A resources readiness is checked if there is a resource that depends on it as pe
 
 #### Sequencing order
 
-Resources with sequencing annotations in a chart would be deployed first followed by resources without. If the chart has a `helm.sh/depends-on/subcharts` annotation in `Chart.yaml`, all resources of the defined subcharts would be deployed before deploying the main chart. If any sequencing annotations are defined in the subchart resources, Helm will enforce ordering of resources within. Sequencing of resources in a chart are sandboxed within the chart. Sequencing annotations will not affect resources in other charts.
+Resources with sequencing annotations in a chart would be deployed first followed by resources without. If the chart has a `helm.sh/depends-on/subcharts` annotation in the `Chart.yaml`, all resources of the defined subcharts would be deployed before deploying the main chart. If any sequencing annotations are defined in the subchart resources, Helm will enforce ordering of resources within. Sequencing of resources in a chart are sandboxed within the chart. Sequencing annotations will not affect resources in other charts.
 
 - Installs: Helm will install resources in the order defined by the DAG. If any of the readiness checks fail or timeout, the entire install would fail and the release marked as failed. If `--atomic`, or its SDK equivalent is used, a rollback to the last successful install would take place.
 - Uninstalls: Helm would uninstall resources in the reverse order they were installed, as per the sequencing order. The logic to delete each resource will not change.
