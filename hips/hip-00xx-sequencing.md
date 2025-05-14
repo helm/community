@@ -128,7 +128,7 @@ This approach of building a directed acyclic graph (DAG) is prone to circular de
 
 ### Readiness
 
-In order to enforce sequencing, Helm will check that resources are ready using `kstatus` [ready condition](https://github.com/kubernetes-sigs/cli-utils/blob/master/pkg/kstatus/README.md#the-ready-condition) allowing helm to proceed installing the next group of resources, or fail the install. Users can override checks using optional `helm.sh/readiness-failure` and `helm.sh/readiness-success` annotations which are jsonpath queries to check status fields of the annotated resource. If any of the checks in the lists evaluate as true, the readiness check is determined as successful/failed. `helm.sh/readiness-timeout` annotation can be used to override how long Helm should wait when performing readiness checks before bailing out. It defaults to `10s`.
+In order to enforce sequencing, Helm will check that resources are ready using `kstatus` [ready condition](https://github.com/kubernetes-sigs/cli-utils/blob/master/pkg/kstatus/README.md#the-ready-condition) allowing helm to proceed installing the next group of resources, or fail the install. Users can override checks using optional `helm.sh/readiness-failure` and `helm.sh/readiness-success` annotations which are jsonpath queries to check status fields of the annotated resource. If any of the checks in the lists evaluate as true, the readiness check is determined as successful/failed. `helm.sh/readiness-timeout` annotation can be used to override how long Helm should wait when performing readiness checks before raising an error. It defaults to `10s`.
 
 #### Example
 ```yaml
