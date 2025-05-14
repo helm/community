@@ -34,7 +34,7 @@ This design was chosen due to simplicity and clarity of how it works for both th
 
 At a high level, allow Chart Developers to assign named dependencies to both their Helm templated resources and Helm chart dependencies that Helm then uses to generate a deployment sequence at installation time.
 
-For Helm CLI, the `--wait=ordered` flag will enable sequencing where resources are applied in groups of layers. SDK users will also be able to enable sequencing by setting a `Wait` boolean flag. Without this flag being enabled, resources will all be applied in one go which is the same behaviour in Chart v2.
+For Helm CLI, the `--wait=ordered` flag will enable sequencing where resources are applied in groups of layers. SDK users will also be able to enable sequencing by setting a `Wait` boolean flag. Without this flag being enabled, resources will all be applied all at once which is the same behaviour in Chart v2.
 
 Each release will store information of whether sequencing was used or not. This information is used when performing uninstalls and rollbacks.
 
