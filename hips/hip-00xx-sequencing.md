@@ -22,7 +22,7 @@ The HIP only targets resources deployed in the Helm install phase. Resources dep
 
 The driving motivator here is to allow application distributors to control what order resources are bundled and sent to the K8s API server, referred to as resource sequencing for the rest of this HIP.
 
-Today, to accomplish resource sequencing you have two options. The first is leveraging helm hooks, the second is building required sequencing into the application (via startup code or init containers). The existing hooks and weights can be tedious to build and maintain for application distributors, and built-in app sequencing can unecessarily increase complexity of a Helm application that needs to be maintained by application distributors. Helm as a package manager should be capable of enabling application distributors to properly sequence how their chart resources are deployed, and by providing such a mechanism to distributors, this will significantly improve the application distributor's experience.
+Today, to accomplish resource sequencing, there are currently two main options: using Helm hooks, or building the sequencing logic into the application itself (e.g., using startup code or init containers). The existing hooks and weights can be tedious to build and maintain for application distributors, and built-in app sequencing can unecessarily increase complexity of a Helm application that needs to be maintained by application distributors. Helm as a package manager should be capable of enabling application distributors to properly sequence how their chart resources are deployed, and by providing such a mechanism to distributors, this will significantly improve the application distributor's experience.
 
 Additionally, Helm currently doesn't provide a way to sequence when chart dependencies are deployed and this featureset would ideally address this.
 
@@ -128,22 +128,47 @@ This approach of building a directed acyclic graph (DAG) is prone to circular de
 
 ### Readiness
 
-In order to enforce sequencing, Helm will check that resources are ready using `kstatus` [ready condition](https://github.com/kubernetes-sigs/cli-utils/blob/master/pkg/kstatus/README.md#the-ready-condition) allowing helm to proceed installing the next group of resources, or fail the install. Users can override checks using optional `helm.sh/readiness-failure` and `helm.sh/readiness-success` annotations which are jsonpath queries to check status fields of the annotated resource. If any of the checks in the lists evaluate as true, the readiness check is determined as successful/failed. `helm.sh/readiness-timeout` annotation can be used to override how long Helm should wait when performing readiness checks before raising an error. It defaults to `10s`.
+To enforce sequencing, Helm determines whether resources are “ready” before deploying dependent resources. By default, Helm uses the [`kstatus`](https://github.com/kubernetes-sigs/cli-utils/blob/master/pkg/kstatus/README.md#the-ready-condition) library to assess readiness based on the resource’s type and `.status` field.
 
-#### Example
+Chart authors can optionally override this behavior using the following annotations:
+
+* `helm.sh/readiness-success`: A list of custom success conditions. If any are true, the resource is marked **ready**.
+* `helm.sh/readiness-failure`: A list of custom failure conditions. If any are true, the resource is marked **failed**, which takes precedence over any success check.
+* `helm.sh/readiness-timeout`: How long Helm should wait for the resource to become ready or fail. Defaults to `10s`.
+
+Both `helm.sh/readiness-success` and `helm.sh/readiness-failure` must be provided to override the default readiness logic. If only one is present, Helm will fall back to `kstatus` and emit a warning. Helm will also fail linting when only one of the two is defined, to prevent ambiguous readiness evaluation.
+
+#### JsonPath syntax
+
+The `readiness-success` and `readiness-failure` annotations accept lists of expressions with the format:
+
+```
+{<jsonpath_query>} <logical_operator> <value>
+```
+
+Where:
+
+* `<jsonpath_query>` is a [Kubernetes JSONPath](https://kubernetes.io/docs/reference/kubectl/jsonpath/) query scoped to `.status`.
+* `<logical_operator>` supports: `==`, `!=`, `<`, `<=`, `>`, `>=`.
+* `<value>` is the expected literal for comparison. The value should be a scalor (string, number, boolean). Object comparisons will not be supported.
+
+##### Example
+
 ```yaml
 kind: Job
 metadata:
-  name: barz
+  name: db-init
   annotations:
-    helm.sh/readiness-success: ["succeeded==1"] # status fields
-    helm.sh/readiness-failure: ["failed==1"] # status fields
-    helm.sh/readiness-timeout: 20s # timeout
+    helm.sh/readiness-success: ["{.succeeded} == 1", "{.succeeded} == 2"]
+    helm.sh/readiness-failure: ["{.failed} >= 1"]
+    helm.sh/readiness-timeout: 30s
 status:
   succeeded: 1
 ```
 
-A resources readiness is checked if there is a resource that depends on it as per the sequencing DAG.
+In this case, Helm will consider the resource ready because `.status.succeeded == 1`. If `.status.failed >= 1` had been true, the Job would instead be marked as failed.
+
+A resources readiness is checked if there is a resource that depends on it as per the sequencing DAG, otherwise the checks are ignored.
 
 #### Sequencing order
 
