@@ -9,7 +9,7 @@ status: "draft"
 
 ## Abstract
 
-This HIP is to propose a new featureset in Chart v3, to provide application distributors, who create helm charts for applications, a well supported way of defining what order chart resources and chart dependencies should be deployed to Kubernetes. Helm deploys all manifests at the same time. This HIP will propose a way for Helm to deploy manifests in batches, and inspect states of these resources to enforce sequencing.
+This HIP is to propose a new featureset in Chart v3, to provide chart authors ([Application Distributor](https://github.com/helm/community/blob/main/user-profiles.md#2-application-distributor) Helm user profile), a well supported way of defining what order chart resources and chart dependencies should be deployed to Kubernetes. Helm deploys all manifests at the same time. This HIP will propose a way for Helm to deploy manifests in batches, and inspect states of these resources to enforce sequencing.
 
 At a high level, this HIP proposes the following
 - Ability for chart authors to specify how to sequence deployment of **resources within a single chart**
