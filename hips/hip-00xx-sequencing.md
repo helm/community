@@ -28,7 +28,7 @@ Additionally, Helm currently doesn't provide a way to sequence when chart depend
 
 ## Rationale
 
-This design was chosen due to simplicity and clarity of how it works for both the Helm developer and Application Operator
+This design was chosen due to simplicity and clarity of how it works for both the Helm developer and Chart creator
 
 ## Specification
 
