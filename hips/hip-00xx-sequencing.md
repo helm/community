@@ -38,9 +38,43 @@ For Helm CLI, the `--wait=ordered` flag will enable sequencing where resources a
 
 Each release will store information of whether sequencing was used or not. This information is used when performing uninstalls and rollbacks.
 
-The following annotations would be added to enable this.
+### Sequencing Execution Flow
+
+When sequencing is enabled, Helm installs resources in a structured order across both subcharts and resource-groups:
+
+**1. Subchart Ordering**
+
+Helm builds a dependency graph from:
+
+* `helm.sh/depends-on/subcharts` (in `Chart.yaml`)
+* `depends-on` fields in subchart entries
+
+Subcharts are installed in dependency order. Each subchart must be fully deployed and ready before its dependents begin.
+
+**2. Resource-Group Sequencing (Per Chart)**
+
+Within each chart (parent and subcharts), Helm builds a resource-group graph using:
+
+* `helm.sh/resource-group`
+* `helm.sh/depends-on/resource-groups`
+
+Resources in each group are deployed together, and Helm waits for all to be ready before continuing to the next group.
+
+**3. Unsequenced Resources**
+
+Resources that:
+
+* lack annotations,
+* depend on non-existent groups, or
+* belong to isolated groups
+
+will be deployed after all properly sequenced groups have been processed.
+
+If a resource includes sequencing annotations but falls into this unsequenced category due to misconfiguration (e.g., referencing missing groups), Helm will emit a warning to alert the user of the potential issue.
 
 *Additions to templates*
+
+The following annotations would be added to enable this.
 - `helm.sh/resource-group`: Annotation to declare a resource-group that a given resource belongs to. Any number of resources can belong to a group. A resource can only belong to one group.
 - `helm.sh/depends-on/resource-groups`: Annotation to declare resource-groups that must exist and in a ready state before this resource can be deployed. The order in which they are listed does not affect deployment sequencing.
 
