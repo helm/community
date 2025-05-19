@@ -131,13 +131,12 @@ This approach of building a directed acyclic graph (DAG) is prone to circular de
 
 ### Readiness
 
-To enforce sequencing, Helm determines whether resources are “ready” before deploying dependent resources. By default, Helm uses the [`kstatus`](https://github.com/kubernetes-sigs/cli-utils/blob/master/pkg/kstatus/README.md#the-ready-condition) library to assess readiness based on the resource’s type and `.status` field.
+To enforce sequencing, Helm determines whether resources are “ready” before deploying dependent resources. By default, Helm uses [`kstatus`](https://github.com/kubernetes-sigs/cli-utils/blob/master/pkg/kstatus/README.md#the-ready-condition) library to assess readiness based on the resource’s type and `.status` field.
 
 Chart authors can optionally override this behavior using the following annotations:
 
 * `helm.sh/readiness-success`: A list of custom success conditions. If any are true, the resource is marked **ready**.
 * `helm.sh/readiness-failure`: A list of custom failure conditions. If any are true, the resource is marked **failed**, which takes precedence over any success check.
-* `helm.sh/readiness-timeout`: How long Helm should wait for the resource to become ready or fail. Defaults to `10s`.
 
 Both `helm.sh/readiness-success` and `helm.sh/readiness-failure` must be provided to override the default readiness logic. If only one is present, Helm will fall back to `kstatus` and emit a warning. Helm will also fail linting when only one of the two is defined, to prevent ambiguous readiness evaluation.
 
@@ -164,7 +163,6 @@ metadata:
   annotations:
     helm.sh/readiness-success: ["{.succeeded} == 1", "{.succeeded} == 2"]
     helm.sh/readiness-failure: ["{.failed} >= 1"]
-    helm.sh/readiness-timeout: 30s
 status:
   succeeded: 1
 ```
@@ -172,6 +170,8 @@ status:
 In this case, Helm will consider the resource ready because `.status.succeeded == 1`. If `.status.failed >= 1` had been true, the Job would instead be marked as failed.
 
 A resources readiness is checked if there is a resource that depends on it as per the sequencing DAG, otherwise the checks are ignored.
+
+Helm will wait up to a default of **1 minute** for a resource to either succeed or fail. If the resource does not reach a success or failure state within this period, the operation will time out, causing the chart install or upgrade to fail. This timeout can be customized using the `--readiness-timeout` CLI flag or the `ReadinessTimeout` field in the SDK. However, the specified readiness timeout must not exceed the overall `--timeout` value, which defines the maximum duration allowed for the entire chart installation or upgrade process.
 
 #### Sequencing order
 
