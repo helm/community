@@ -9,7 +9,7 @@ status: "draft"
 
 ## Abstract
 
-This HIP is to propose a new featureset in Chart v3, to provide chart authors ([Application Distributor](https://github.com/helm/community/blob/main/user-profiles.md#2-application-distributor) Helm user profile), a well supported way of defining what order chart resources and chart dependencies should be deployed to Kubernetes. Helm deploys all manifests at the same time. This HIP will propose a way for Helm to deploy manifests in batches, and inspect states of these resources to enforce sequencing.
+This HIP proposes a new feature set in Chart v3 to provide [Application Distributors](https://github.com/helm/community/blob/main/user-profiles.md#2-application-distributor)—a key Helm user profile—with a first-class mechanism for defining the deployment order of chart resources and subcharts. By default, Helm applies all rendered manifests simultaneously. This HIP introduces the ability for Helm to deploy resources in ordered batches and evaluate their readiness before proceeding.
 
 At a high level, this HIP proposes the following
 - Ability for chart authors to specify how to sequence deployment of **resources within a single chart**
@@ -22,13 +22,13 @@ The HIP only targets resources deployed in the Helm install phase. Resources dep
 
 The driving motivator here is to allow application distributors to control what order resources are bundled and sent to the K8s API server, referred to as resource sequencing for the rest of this HIP.
 
-Today, to accomplish resource sequencing, there are currently two main options: using Helm hooks, or building the sequencing logic into the application itself (e.g., using startup code or init containers). The existing hooks and weights can be tedious to build and maintain for application distributors, and built-in app sequencing can unecessarily increase complexity of a Helm application that needs to be maintained by application distributors. Helm as a package manager should be capable of enabling application distributors to properly sequence how their chart resources are deployed, and by providing such a mechanism to distributors, this will significantly improve the application distributor's experience.
+Today, to accomplish resource sequencing, there are currently two main options: using Helm hooks, or building the sequencing logic into the application itself (e.g., using startup code or init containers). The existing hooks and weights can be tedious to build and maintain for application distributors, and built-in app sequencing can unnecessarily increase complexity of a Helm application that needs to be maintained by application distributors. Helm, as a package manager, should provide built-in mechanisms for sequencing resource deployment, reducing reliance on complex hooks or in-application logic. This will significantly improve the application distributor's experience.
 
 Additionally, Helm currently doesn't provide a way to sequence when chart dependencies are deployed and this featureset would ideally address this.
 
 ## Rationale
 
-This design was chosen due to simplicity and clarity of how it works for both the Helm developer and Chart creator
+The proposed design prioritizes simplicity and ease of use for both Helm developers and chart authors. It leverages familiar YAML patterns and Helm conventions, avoiding heavyweight solutions while offering powerful orchestration capabilities.
 
 ## Specification
 
@@ -42,15 +42,15 @@ The following annotations would be added to enable this.
 
 *Additions to templates*
 - `helm.sh/resource-group`: Annotation to declare a resource-group that a given resource belongs to. Any number of resources can belong to a group. A resource can only belong to one group.
-- `helm.sh/depends-on/resource-groups`: Annotation to declare resource-groups that must exist and in a ready state before this resource can be deployed. Order of the resource-groups has no significance
+- `helm.sh/depends-on/resource-groups`: Annotation to declare resource-groups that must exist and in a ready state before this resource can be deployed. The order in which they are listed does not affect deployment sequencing.
+
+These annotations are only used for sequencing resources within the same chart. They do not influence or interact with resources across charts or subcharts.
 
 *Additions to Chart.yaml*
 * `helm.sh/depends-on/subcharts`: An annotation added to `Chart.yaml` to specify chart dependencies—identified by their `name` or `alias`—that must be fully deployed and in a ready state before the current chart can be installed. A dependent chart is considered ready only when all of its resources, including any defined sequencing, have been successfully deployed and marked ready. The order in which dependencies are listed has no effect on execution.
 - `depends-on`: A new field added to `Chart.yaml` `dependencies` fields that is meant to declare a list of subcharts, by `name` or `alias`, that need to be ready before the subchart in question get installed. This will be used to create a dependency graph for subcharts.
 
 The installation process would group resources in the same group and send them to the K8s API Server in one bundle, and once all resources are "ready", the next group would be installed. A resource-group would not be considered "ready" and the next group installed until all resources in that group are considered "ready". Readiness is described in a later section. A similar process would apply for upgrades. Uninstalls would function on the same resource-group order, but in reverse, where a resource-group is not uninstalled until all resource-groups that depend on it are first uninstalled. Upgrades would follow the same order as installation.
-
-The `helm.sh/resource-group` and `helm.sh/depends-on/resource-groups` annotations are used exclusively to control the ordering of resources **within a single chart**. These annotations have no effect across chart boundaries and cannot be used to influence the order of resources in other charts or subcharts.
 
 #### Template examples:
 ```yaml
@@ -138,7 +138,7 @@ Chart authors can optionally override this behavior using the following annotati
 * `helm.sh/readiness-success`: A list of custom success conditions. If any are true, the resource is marked **ready**.
 * `helm.sh/readiness-failure`: A list of custom failure conditions. If any are true, the resource is marked **failed**, which takes precedence over any success check.
 
-Both `helm.sh/readiness-success` and `helm.sh/readiness-failure` must be provided to override the default readiness logic. If only one is present, Helm will fall back to `kstatus` and emit a warning. Helm will also fail linting when only one of the two is defined, to prevent ambiguous readiness evaluation.
+Both `helm.sh/readiness-success` and `helm.sh/readiness-failure` must both be provided to override the default readiness logic. If only one is present, Helm will fall back to `kstatus` and emit a warning. Helm will also fail linting when only one of the two is defined, to prevent ambiguous readiness evaluation.
 
 #### JsonPath syntax
 
