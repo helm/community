@@ -207,7 +207,7 @@ A resources readiness is checked if there is a resource that depends on it as pe
 
 Helm will wait up to a default of **1 minute** for a resource to either succeed or fail. If the resource does not reach a success or failure state within this period, the operation will time out, causing the chart install or upgrade to fail. This timeout can be customized using the `--readiness-timeout` CLI flag or the `ReadinessTimeout` field in the SDK. However, the specified readiness timeout must not exceed the overall `--timeout` value, which defines the maximum duration allowed for the entire chart installation or upgrade process.
 
-#### Sequencing order
+### Sequencing order
 
 Resources with sequencing annotations in a chart would be deployed first followed by resources without. If the chart has a `helm.sh/depends-on/subcharts` annotation in the `Chart.yaml`, all resources of the defined subcharts would be deployed before deploying the main chart. If any sequencing annotations are defined in the subchart resources, Helm will enforce ordering of resources within. Sequencing of resources in a chart are sandboxed within the chart. Sequencing annotations will not affect resources in other charts.
 
