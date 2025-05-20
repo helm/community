@@ -44,10 +44,10 @@ When sequencing is enabled, Helm installs resources in a structured order across
 
 **1. Subchart Ordering**
 
-Helm builds a dependency graph from:
+Helm builds a dependency graph from definitions in `Chart.yaml`:
 
-* `helm.sh/depends-on/subcharts` (in `Chart.yaml`)
-* `depends-on` fields in subchart entries
+* `helm.sh/depends-on/subcharts` key in `annotations` field
+* `depends-on` key on `dependencies` list entries
 
 Subcharts are installed in dependency order. Each subchart must be fully deployed and ready before its dependents begin.
 
