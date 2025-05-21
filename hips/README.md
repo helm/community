@@ -32,3 +32,4 @@ restricted markdown format and can be found in the
 - [hip-0021: Enhanced logging library for Helm](hip-0021.md)
 - [hip-0022: Wait With kstatus](hip-0022.md)
 - [hip-0023: Utilize Server Side Apply for installs/upgrades](hip-0023.md)
+- [hip:0024: Improve the Helm Documentation](hip-0024.md)
