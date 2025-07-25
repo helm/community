@@ -15,12 +15,13 @@ with the details.
 You may, but are not required to, encrypt your email to this list using the PGP keys
 of security team members, listed below.
 
-Name               | Key URL                                              | Fingerprint
------------------- | ---------------------------------------------------- | -----------
-Andrew Block       | [link](https://keybase.io/sabre1041/pgp_keys.asc) | 2CE5 F1FB 9E8C 59B8 7BBD  5F2B 02DF E631 AEF3 5EBC
-George Jenkins    | [link](https://keybase.io/gjenkins8/pgp_keys.asc) | C048 04B5 F250 1D25 CA69  A415 2945 4FC9 6455 D41E
-Matt Butcher        | [link](https://keybase.io/technosophos/pgp_keys.asc) | ABA2 5295 98F6 626C 420D 335B 62F4 9E74 7D91 1B60
-Matt Farina           | [link](https://keybase.io/mattfarina/pgp_keys.asc)   | 672C 657B E06B 4B30 969C 4A57 4614 49C2 5E36 B98E
+| Name           | Key URL                                                                                         | Fingerprint                                        |
+|----------------|-------------------------------------------------------------------------------------------------|----------------------------------------------------|
+| Andrew Block   | [link](https://keybase.io/sabre1041/pgp_keys.asc)                                               | 2CE5 F1FB 9E8C 59B8 7BBD  5F2B 02DF E631 AEF3 5EBC |
+| George Jenkins | [link](https://keybase.io/gjenkins8/pgp_keys.asc)                                               | C048 04B5 F250 1D25 CA69  A415 2945 4FC9 6455 D41E |
+| Matt Butcher   | [link](https://keybase.io/technosophos/pgp_keys.asc)                                            | ABA2 5295 98F6 626C 420D 335B 62F4 9E74 7D91 1B60  |
+| Matt Farina    | [link](https://keybase.io/mattfarina/pgp_keys.asc)                                              | 672C 657B E06B 4B30 969C 4A57 4614 49C2 5E36 B98E  |
+| Robert Sirchia | [link](https://keys.openpgp.org/vks/v1/by-fingerprint/7FEC81FACC7FFB2A010ADD13C2D40F4D8196E874) | 7FEC81FACC7FFB2A010ADD13C2D40F4D8196E874           |
 
 ### When To Send A Report
 
