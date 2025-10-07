@@ -1,0 +1,65 @@
+maintainerGroups:
+- name: Helm Org Maintainers
+  ownersLink: https://github.com/helm/community/blob/main/MAINTAINERS.md
+  repos:
+  - https://github.com/helm/community
+  - https://github.com/helm/pull-sizer
+  - https://github.com/helm/specs
+  - https://github.com/helm/query-store-quay-logs
+  - https://github.com/helm/github-webhook-dco-labeler
+  - https://github.com/helm/charts-check-pr-title
+  - https://github.com/helm/repo-audit
+  - https://github.com/helm/examples
+  mailingList: cncf-helm-org-maintainers@lists.cncf.io
+- name: Security team
+  ownersLink: https://github.com/helm/community/blob/main/SECURITY.md
+  mailingList: cncf-helm-security@lists.cncf.io
+- name: Helm Core
+  ownersLink: https://raw.githubusercontent.com/helm/helm/master/OWNERS
+  repos:
+  - https://github.com/helm/helm
+  mailingList: cncf-helm-core-maintainers@lists.cncf.io
+- name: Charts
+  owners:
+  - lachie83
+  - sameersbn
+  - unguiculus
+  - scottrigby
+  - mattfarina
+  - davidkarlsen
+  - paulczar
+  - cpanato
+  - jlegrone
+  - maorfr
+  emeritus:
+  - foxish
+  - linki
+  - mgoodness
+  - prydonius
+  - seanknox
+  - viglesiasce
+  repos:
+  - https://github.com/helm/chart-releaser-action
+  - https://github.com/helm/charts-repo-actions-demo
+  - https://github.com/helm/chart-testing-action
+  - https://github.com/helm/chart-testing
+  - https://github.com/helm/charts-tooling
+  - https://github.com/helm/chart-releaser
+  - https://github.com/helm/homebrew-tap
+  - https://github.com/helm/kind-action
+  mailingList: kubernetes-charts-leads@googlegroups.com
+- name: Website
+  ownersLink: https://raw.githubusercontent.com/helm/helm-www/master/OWNERS
+  repos:
+  - https://github.com/helm/helm-www
+- name: Community Management
+  owners:
+  - karenhchu
+- name: Chartmuseum
+  ownersLink: https://raw.githubusercontent.com/helm/chartmuseum/main/OWNERS
+  repos:
+  - https://github.com/helm/chartmuseum
+- name: Mapkubeapis plugin
+  ownersLink: https://github.com/helm/helm-mapkubeapis/blob/main/OWNERS
+  repos:
+  - https://github.com/helm/helm-mapkubeapis
