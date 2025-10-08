@@ -43,7 +43,7 @@ Changes to org maintainers use the following:
 * Any project maintainer of any active (non-archived) Helm organization project is eligible for a position as an org maintainer.
 * No one company or organization can employ a simple majority of the org maintainers
 * An org maintainer may step down by emailing the org maintainers mailing list. Within 7 calendar days the [helm mailing list](https://lists.cncf.io/g/cncf-helm) needs to be notified of the change
-* Org maintainers MUST remain active on the project. If they are unresponsive for > 3 months they will lose org maintainership unless a [super-majority](https://en.wikipedia.org/wiki/Supermajority#Two-thirds_vote) of the other org maintainers agrees to extend the period to be greater than 3 months
+* Org maintainers MUST remain active on the project. If they are unresponsive for > 3 months they will lose org maintainership unless a [two-thirds super-majority] of the other org maintainers agrees to extend the period to be greater than 3 months
 * When there is an opening for a new org maintainer, any person who has made a contribution to any repo under the Helm GitHub org may nominate a suitable project maintainer of an active project as a replacement
   * The nomination period will be three weeks starting the day after an org maintainer opening becomes available
   * The nomination must be made via the [public Helm mailing list](https://lists.cncf.io/g/cncf-helm/)
@@ -71,8 +71,8 @@ Project maintainers do not need to be software developers. No explicit role is p
 Changes to maintainers use the following:
 
 * A maintainer may step down by emailing the [Helm mailing list](https://lists.cncf.io/g/cncf-helm)
-* Maintainers MUST remain active. If they are unresponsive for > 3 months they will be automatically removed unless a [super-majority](https://en.wikipedia.org/wiki/Supermajority#Two-thirds_vote) of the other project maintainers agrees to extend the period to be greater than 3 months
-* New maintainers can be added to a project by a [super-majority](https://en.wikipedia.org/wiki/Supermajority#Two-thirds_vote) vote of the existing maintainers. While nomination will happen on the public [Helm mailing list](https://lists.cncf.io/g/cncf-helm), voting will happen on the private maintainer list.
+* Maintainers MUST remain active. If they are unresponsive for > 3 months they will be automatically removed unless a [two-thirds super-majority] of the other project maintainers agrees to extend the period to be greater than 3 months
+* New maintainers can be added to a project by a [two-thirds super-majority] vote of the existing maintainers. While nomination will happen on the public [Helm mailing list](https://lists.cncf.io/g/cncf-helm), voting will happen on the private maintainer list.
 * When a project has no maintainers the Helm org maintainers become responsible for it and may archive the project or find new maintainers
 * When maintainers no longer maintain active projects due to project archival or removal, they become emeritus maintainers unless they join another Helm project as maintainers.
 
@@ -108,3 +108,5 @@ The following licenses and contributor agreements will be used for Helm projects
 * [Apache 2.0](https://opensource.org/licenses/Apache-2.0) for code
 * [Creative Commons Attribution 4.0 International Public License](https://creativecommons.org/licenses/by/4.0/legalcode) for documentation
 * [Developer Certificate of Origin](https://developercertificate.org/) for new contributions
+
+[two-thirds super-majority]: https://en.wikipedia.org/wiki/Supermajority#Two-thirds
