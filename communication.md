@@ -54,7 +54,7 @@ Helm is one of the projects, represented at CloudNativeCon/KubeCon, held three t
 Also, the Helm community organizes the Helm-focused event - [Helm Summit], first
 edition of which has happened in Portland, Oregon in February 2018, [the second one](https://events19.linuxfoundation.org/events/helm-summit-2019/) - in Europe (Amsterdam, Netherlands) on September 11-12, 2019.
 
-[CNCF code of conduct]: https://github.com/cncf/foundation/blob/master/code-of-conduct.md
+[CNCF code of conduct]: https://github.com/cncf/foundation/blob/main/code-of-conduct.md
 [cncf-helm]: https://lists.cncf.io/g/cncf-helm/topics
 [events]: https://www.cncf.io/events/
 [file an issue]: https://github.com/helm/helm/issues/new
