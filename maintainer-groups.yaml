@@ -21,21 +21,21 @@ maintainerGroups:
   mailingList: cncf-helm-core-maintainers@lists.cncf.io
 - name: Charts
   owners:
-  - lachie83
-  - sameersbn
   - unguiculus
-  - scottrigby
-  - mattfarina
   - davidkarlsen
-  - paulczar
   - cpanato
-  - jlegrone
-  - maorfr
   emeritus:
   - foxish
+  - jlegrone
+  - lachie83
   - linki
+  - maorfr
+  - mattfarina
   - mgoodness
+  - paulczar
   - prydonius
+  - sameersbn
+  - scottrigby
   - seanknox
   - viglesiasce
   repos:
