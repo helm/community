@@ -36,3 +36,4 @@ restricted markdown format and can be found in the
 - [hip-0024: Improve the Helm Documentation](hip-0024.md)
 - [hip-0025: Better Support for Resource Creation Sequencing](hip-0025.md)
 - [hip-0026: H4HIP: Wasm plugin system](hip-0026.md)
+- [hip-9999: Handling unknown hook-delete-policy values](hip-9999.md)
