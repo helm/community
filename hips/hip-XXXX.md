@@ -19,12 +19,6 @@ Further HIPs will be created to expose additional functionality based on utilizi
 [registries-conf]: <https://github.com/containers/container-libs/blob/main/image/docs/containers-registries.conf.5.md> "registries.conf specification"
 [auth-json]:       <https://github.com/containers/container-libs/blob/main/images/docs/containers-auth.json.5.md> "auth.json specification"
 
-<!--
-Note: `registries.conf` is the reference used herein to refer to both `registries.conf` and `auth.json` and related containers/container-lib client registries configuration files:
-<https://github.com/containers/container-libs/blob/main/image/docs/>.
-While Helm will not support most of these immediately, this HIP lays the groundwork for future features to utilize these.
--->
-
 ## Motivation
 
 Helm uses Docker's `docker/config.json` to store client OCI registry configuration today.
@@ -120,27 +114,6 @@ Will result in the `auth.json` excerpt:
   }
 }
 ```
-
-<!--
-### Example: Remapped registry
-
-```toml
-# registries.conf
-[[registry]]
-prefix = "registry.example.com/theprefix"
-location = "internal-registry-for-example.com/myteam/theprefix"
-```
-
-```json
-# auth.json
-"auths": {
-  ...
-  "internal-registry-for-example.com/myteam/theprefix": {
-    "auth": "Zm9vOmJhcgo="
-  }
-}
-```
--->
 
 ## Backwards compatibility
 
