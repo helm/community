@@ -76,6 +76,8 @@ Helm will use ORAS v3 for updating (and reading) `registries.conf` / `auth.json`
 Helm must utilize any `credHelpers` specified in `auth.json`.
 
 If reading a registry configuration from `registries.conf` or `auth.json` results in a configuration that Helm does not support, Helm must ignore that entry (e.g., a `location` field or non-empty URI path).
+As ORAS gains support for additional `registries.conf` features, Helm will also gain support for these features.
+Helm must ensure these features do not break backwards compatibility guarantees.
 
 If an error occurs while reading `registries.conf` or `auth.json`, Helm must report an error to the user. Otherwise, users who expect configuration from `registries.conf` / `auth.json` to be effective may encounter unexpected fallback behavior.
 
