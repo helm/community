@@ -83,17 +83,8 @@ To manage the release, Helm will introduce an environment variable `HELM_EXPERIM
 Initially, when unset or set to `false`, Helm will continue to use only `docker/config.json`.
 When set to `true`, Helm will enable `registries.conf` / `auth.json` support as described herein.
 
-Once stable:
-
-1. Helm will default the unset behavior of `HELM_EXPERIMENTAL_OCI_REGISTRIES_CONF` to enable `registries.conf` / `auth.json` support.
-Then eventually remove the environment variable altogether.
-2. If necessary, as determined by community feedback, Helm will introduce an environment variable `HELM_OCI_AUTH_CONFIG_PREFERENCE=registriesconf|docker` to control the preference order used when resolving OCI registries configuration (including credentials).
-The default value of `HELM_OCI_AUTH_CONFIG_PREFERENCE` will be determined based on community feedback.
-
-If `docker` is the default, Helm users who expect features from `registries.conf` or `auth.json` to be effective will instead have their configuration determined by `docker/config.json`.
-If `registriesconf` is the default, Helm users with erroneous `registries.conf` or `auth.json` configurations will experience authentication failures to OCI registries until they correct their configuration.
-
-Introducing an `HELM_OCI_AUTH_CONFIG_PREFERENCE` variable will add complexity for Helm users and should only be implemented if necessary. That is, defaulting to `registriesconf` would cause significant user disruption.
+Once stable, Helm will default the unset behavior of `HELM_EXPERIMENTAL_OCI_REGISTRIES_CONF` to enable `registries.conf` / `auth.json` support.
+And eventually remove the environment variable altogether.
 
 ### Example: basic login
 
@@ -127,7 +118,7 @@ However, there are three potential incompatibility scenarios:
 
 The first two can be mitigated by users ensuring their system's `registries.conf` is valid, and only includes configuration options Helm supports for the registries they plan to use with Helm.
 
-The last is mitigated by not using `registries.conf` / `auth.json` initially unless these exist on the user's system. Finally, defaulting to `HELM_OCI_AUTH_CONFIG_PREFERENCE=docker` as the default, if necessary, will retain full compatibility with existing workflows.
+The last is mitigated by not using `registries.conf` / `auth.json` initially unless these exist on the user's system.
 
 ## Security implications
 
