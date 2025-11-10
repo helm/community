@@ -126,7 +126,9 @@ The first two can be mitigated by users ensuring their system's `registries.conf
 
 ## Security implications
 
-`registries.conf` / `auth.json` introduces a new mechanism for storing OCI credentials, which may introduce credential management vulnerabilities specific to `registries.conf` / `auth.json`.
+- Support for signing and access control policy `policy.json` should improve OCI access management
+- `auth.json` introduces a new mechanism for storing OCI credentials, which may introduce credential management vulnerabilities specific to `auth.json`
+- `registries.conf` can introduce mirroring and redirection of OCI requests
 
 ## How to teach this
 
