@@ -10,25 +10,26 @@ helm-version: "4"
 
 ## Abstract
 
-The [container tools][containers-tools-project] project defines an alternative specification for managing client OCI registry configuration that supports more advanced features. Compared to Docker's `docker/config.json` that Helm currently uses today.
+The [Container Tools][containers-tools-project] project defines an alternative specification for managing client OCI registry configuration. Supporting more advanced features compared to Docker's `docker/config.json` that Helm currently uses today.
 
-Pertainently these include [registries.conf][registries-conf], [auth.json][auth-json], as well as the other specifications in <https://github.com/containers/container-libs/blob/main/image/docs/>.
+Pertainently including [registries.conf][registries-conf], [auth.json][auth-json], as well as the other specifications in <https://github.com/containers/container-libs/blob/main/image/docs/>.
 
-This HIP focuses on the initial implementation using ORAS to supports containers' OCI registry mamagement to supersede `docker/config.json` within Helm.
+This HIP focuses on the initial implementation using ORAS to supports Container Tools OCI registry mamagement to supersede `docker/config.json` within Helm.
 Today, `auth.json` provides the equivalent functionality to `docker/config.json` for storing OCI registry credentials.
 Further HIPs will be created to expose additional functionality based on utilizing `registries.conf` and other container tools configurations.
 
-[containers-tools-project]: https://github.com/containers "container tools project"
+[containers-tools-project]: https://github.com/containers "Container Tools project"
 [registries-conf]: <https://github.com/containers/container-libs/blob/main/image/docs/containers-registries.conf.5.md> "registries.conf specification"
 [auth-json]:       <https://github.com/containers/container-libs/blob/main/image/docs/containers-auth.json.5.md> "auth.json specification"
 
 ## Motivation
 
 Helm currently uses Docker's `docker/config.json` to store client OCI registry configuration today.
-Limited to mapping a registry domain to authentication credentials only.
+With `docker/config.json`'s functionality being limited to mapping a registry domain to authentication credentials only.
 
-The [CNCF-hosted](https://www.cncf.io/projects/podman-container-tools/) has created several specification for managing client OCI registry configuration.
-These are `registries.conf`, `auth.json`, `policy.json`, etc. Which provide much more advanced functionality for client OCI registry management than `docker/config.json`.
+The [CNCF-hosted](https://www.cncf.io/projects/podman-container-tools/) Container Tools project has created several specifications for managing client OCI registry configuration.
+These are `registries.conf`, `auth.json`, `policy.json`, etc.
+Which enable more advanced functionality for client OCI registry management than `docker/config.json`.
 
 Notably:
 
@@ -39,7 +40,7 @@ Notably:
 - signing and verification policies
 
 Helm would like to introduce features that utilize these functionalities.
-Supporting containers' configuration specifications would enable these features without requiring Helm to create or implement its own mechanisms.
+Helm supporting the various Container Tool configuration specifications would enable these features without requiring Helm to create or implement its own mechanisms.
 
 ## Rationale
 
