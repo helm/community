@@ -10,7 +10,7 @@ helm-version: "4"
 
 ## Abstract
 
-The [Container Tools][containers-tools-project] project defines an alternative specification for managing client OCI registry configuration. Supporting more advanced features compared to Docker's `docker/config.json` that Helm currently uses today.
+The [Container Tools][containers-tools-project] project defines an alternative specification for managing client OCI registry configuration. Supporting more advanced features compared to Docker's `.docker/config.json` that Helm currently uses today.
 
 Pertainently including [registries.conf][registries-conf], [auth.json][auth-json], as well as the other specifications in <https://github.com/containers/container-libs/blob/main/image/docs/>.
 
@@ -24,12 +24,12 @@ Further HIPs will be created to expose additional functionality based on utilizi
 
 ## Motivation
 
-Helm currently uses Docker's `docker/config.json` to store client OCI registry configuration today.
-With `docker/config.json`'s functionality being limited to mapping a registry domain to authentication credentials only.
+Helm currently uses Docker's `.docker/config.json` file to store client OCI registry configuration today.
+The functionality of  the `.docker/config.json` file is limited to mapping a registry domain to authentication credentials only.
 
 The [CNCF-hosted](https://www.cncf.io/projects/podman-container-tools/) Container Tools project has created several specifications for managing client OCI registry configuration.
-These are `registries.conf`, `auth.json`, `policy.json`, etc.
-Which enable more advanced functionality for client OCI registry management than `docker/config.json`.
+These include `registries.conf`, `auth.json`, `policy.json`, etc
+which enable more advanced functionality for client OCI registry management than `.docker/config.json`.
 
 Notably:
 
@@ -58,7 +58,7 @@ When enabled, Helm will utilize `auth.json` for registry credentials and `regist
 <https://github.com/containers/container-libs/blob/main/image/docs/containers-auth.json.5.md>
 <https://github.com/containers/container-libs/blob/main/image/docs/containers-registry.conf.json.5.md>
 
-Helm will write to `auth.json` when performing OCI registry operations that modify client OCI registry configuration (e.g., `helm registry login`). And as long as the operation can be supported by `docker/config.json`, Helm will dual-write to `docker/config.json` for compatibility purposes. Dual-write will be removed in a future version of Helm, and Helm will write only to `auth.json`.
+Helm will write to `auth.json` when performing OCI registry operations that modify client OCI registry configuration (e.g., `helm registry login`). And as long as the operation can be supported by `.docker/config.json`, Helm will dual-write to `.docker/config.json` for compatibility purposes. Dual-write will be removed in a future version of Helm, and Helm will write only to `auth.json`.
 
 Helm will use the same filepath ordering when searching for matching OCI entries in `registries.conf` and credentials in `auth.json` as described in the respective specifications.
 
@@ -85,10 +85,10 @@ Otherwise, users who expect configuration from `registries.conf` / `auth.json`, 
 
 Helm must expect (and even encourage) users to utilize other tooling to manage `registries.conf`, `auth.json`, etc.
 
-## `registries.conf`/`auth.json` vs. `docker/config.json` preference
+## `registries.conf`/`auth.json` vs. `.docker/config.json`
 
 To manage the release, Helm will introduce an environment variable `HELM_EXPERIMENTAL_OCI_CONTAINERS_CONFIG`.
-Initially, when unset or set to `false`, Helm will continue to use only `docker/config.json`.
+Initially, when unset or set to `false`, Helm will continue to use only `.docker/config.json`.
 When set to `true`, Helm will enable `registries.conf` / `auth.json`, etc support as described herein.
 
 Once stable, Helm will default the unset behavior of `HELM_EXPERIMENTAL_OCI_CONTAINERS_CONFIG` to enable `registries.conf` / `auth.json`, etc support.
@@ -133,7 +133,7 @@ The first two can be mitigated by users ensuring their system's `registries.conf
 
 ## How to teach this
 
-Helm's documentation will need to be updated with details of Helm's `registries.conf` / `auth.json` support and fallback to `docker/config.json`.
+Helm's documentation will need to be updated with details of Helm's `registries.conf` / `auth.json` support and fallback to `.docker/config.json`.
 
 ## Reference implementation
 
