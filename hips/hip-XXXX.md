@@ -14,8 +14,8 @@ The [Container Tools][containers-tools-project] project defines an alternative s
 
 Pertainently including [registries.conf][registries-conf], [auth.json][auth-json], as well as the other specifications in <https://github.com/containers/container-libs/blob/main/image/docs/>.
 
-This HIP focuses on the initial implementation using ORAS to supports Container Tools OCI registry mamagement to supersede `docker/config.json` within Helm.
-Today, `auth.json` provides the equivalent functionality to `docker/config.json` for storing OCI registry credentials.
+This HIP focuses on the initial implementation using ORAS to supports Container Tools OCI registry mamagement to supersede `.docker/config.json` within Helm.
+Today, `auth.json` provides the equivalent functionality to `.docker/config.json` for storing OCI registry credentials.
 Further HIPs will be created to expose additional functionality based on utilizing `registries.conf` and other container tools configurations.
 
 [containers-tools-project]: https://github.com/containers "Container Tools project"
@@ -25,7 +25,7 @@ Further HIPs will be created to expose additional functionality based on utilizi
 ## Motivation
 
 Helm currently uses Docker's `.docker/config.json` file to store client OCI registry configuration today.
-The functionality of  the `.docker/config.json` file is limited to mapping a registry domain to authentication credentials only.
+The functionality of the `.docker/config.json` file is limited to mapping a registry domain to authentication credentials only.
 
 The [CNCF-hosted](https://www.cncf.io/projects/podman-container-tools/) Container Tools project has created several specifications for managing client OCI registry configuration.
 These include `registries.conf`, `auth.json`, `policy.json`, etc
@@ -50,7 +50,7 @@ The container tools project specifications were picked as being a format intende
 
 ORAS (the library Helm uses for supporting OCI functionality) has planned support for `registries.conf`, `auth.json`, etc for client OCI registry management.
 
-Helm will fall back or prefer to `docker/config.json` for registry authentication (see below for options) to ensure existing user workflows remain functional.
+Helm will fall back or prefer to `.docker/config.json` for registry authentication (see below for options) to ensure existing user workflows remain functional.
 
 ## Specification
 
