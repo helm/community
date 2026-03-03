@@ -37,3 +37,4 @@ restricted markdown format and can be found in the
 - [hip-0025: Better Support for Resource Creation Sequencing](hip-0025.md)
 - [hip-0026: H4HIP: Wasm plugin system](hip-0026.md)
 - [hip-0027: Bring .helmignore to parity with .gitignore file targeting syntax](hip-0027.md)
+- [hip-0028: Forward compatibility: Chart.yaml minimumHelmVersion](hip-0028.md)
