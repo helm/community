@@ -15,7 +15,7 @@ maintainerGroups:
   ownersLink: https://github.com/helm/community/blob/main/SECURITY.md
   mailingList: cncf-helm-security@lists.cncf.io
 - name: Helm Core
-  ownersLink: https://raw.githubusercontent.com/helm/helm/master/OWNERS
+  ownersLink: https://raw.githubusercontent.com/helm/helm/main/OWNERS
   repos:
   - https://github.com/helm/helm
   mailingList: cncf-helm-core-maintainers@lists.cncf.io
@@ -49,7 +49,7 @@ maintainerGroups:
   - https://github.com/helm/kind-action
   mailingList: kubernetes-charts-leads@googlegroups.com
 - name: Website
-  ownersLink: https://raw.githubusercontent.com/helm/helm-www/master/OWNERS
+  ownersLink: https://raw.githubusercontent.com/helm/helm-www/main/OWNERS
   repos:
   - https://github.com/helm/helm-www
 - name: Community Management
