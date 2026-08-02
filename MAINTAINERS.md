@@ -3,7 +3,6 @@
 * [Karen Chu](https://github.com/karenhchu)
 * [Matt Butcher](https://github.com/technosophos) (chair)
 * [Matt Farina](https://github.com/mattfarina)
-* [Reinhard Nägele](https://github.com/unguiculus)
 * [Scott Rigby](https://github.com/scottrigby)
 
 ## Emeritus
@@ -14,3 +13,4 @@
 * [Martin Hickey](https://github.com/hickeyma)
 * [Matt Fisher](https://github.com/bacongobbler)
 * [Vic Iglesias](https://github.com/viglesiasce)
+* [Reinhard Nägele](https://github.com/unguiculus)
