@@ -39,11 +39,13 @@ The Helm community holds regular public meetings, including those supporting Hel
 client development and charts. You can [view the calendar of meetings](https://calendar.google.com/calendar/embed?src=s5anaqbm9kda435dnh5r8lj1l8%40group.calendar.google.com&ctz=America%2FLos_Angeles)
 and [subscribe via an ical](https://calendar.google.com/calendar/ical/s5anaqbm9kda435dnh5r8lj1l8%40group.calendar.google.com/public/basic.ics) feed.
 
-We have a [weekly development meeting] every Thursday at 9:30am US Pacific Time and all are welcome.
+We have a weekly development meeting every Thursday at 9:30am US Pacific Time and all are welcome.
+
+To join, use the Zoom link at the top of the [meeting notes].
 
 Map that to your local time with this [timezone table].
 
-We keep notes from each meeting on this [document](https://docs.google.com/document/d/1d-6xJEx0C78csIYSPKJzRPeWaHG_8W1Hjl72OJggwdc/edit?usp=sharing) for summaries of standups, discussion, and action items.
+The [meeting notes] contain summaries of standups, discussion, and action items from each meeting.
 
 Videos are available on the [Helm Community Meetings playlist].
 
@@ -64,7 +66,7 @@ edition of which has happened in Portland, Oregon in February 2018, [the second 
 [Stack Overflow]: https://stackoverflow.com/questions/tagged/kubernetes-helm
 [timezone table]: https://www.google.com/search?q=0930+am+in+pst
 [Twitter]: https://twitter.com/helmpack
-[weekly development meeting]: https://zoom-lfx.platform.linuxfoundation.org/meeting/91295593969?password=17825db5-c698-44cc-9f00-ef1f61f5d3fb
+[meeting notes]: https://docs.google.com/document/d/1d-6xJEx0C78csIYSPKJzRPeWaHG_8W1Hjl72OJggwdc/edit
 [Helm Community Meetings playlist]: https://www.youtube.com/playlist?list=PLVt9l4b66d5EY5Xs9OVJgvO5ss9WzrSY0
 [SIGs]: https://github.com/kubernetes/community/blob/master/sig-list.md
 [SIG-Apps]: https://github.com/kubernetes/community/tree/master/sig-apps
