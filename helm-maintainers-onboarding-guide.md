@@ -12,7 +12,7 @@ All Helm maintainers are expected to do the following:
 - Hang out in the #helm-dev and #helm-users Slack channel
 - Make a good-faith effort to come to the public developer's meeting
 - Participate in formal Helm decision making, such as casting an official vote for new maintainers
-- Uphold the [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/master/code-of-conduct.md) (that is, not just follow, but cultivate that as part of the project's culture)
+- Uphold the [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/main/code-of-conduct.md) (that is, not just follow, but cultivate that as part of the project's culture)
 - Participate in resolution of critical security issues as needed
 
 ## You're Encouraged To…

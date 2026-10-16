@@ -11,7 +11,7 @@ issues, mailing lists, meetings, conferences, etc.
 
 ## Assets
 
-- Helm logos are located at [cncf/artwork](https://github.com/cncf/artwork/blob/master/examples/graduated.md#helm-logos)
+- Helm logos are located at [cncf/artwork](https://github.com/cncf/artwork/blob/main/examples/graduated.md#helm-logos)
 - Helm website and docs are located at [helm/helm-www](https://github.com/helm/helm-www)
 - Helm brand examples and guidelines: [art](https://github.com/helm/community/tree/main/art)
 - Helm themed presentation template: [slides](https://github.com/helm/community/tree/main/slides)
