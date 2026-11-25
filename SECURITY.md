@@ -63,7 +63,7 @@ The security team is made up of a subset of the Helm project maintainers who are
 
 ### Membership
 
-New members are required to be active maintainers of Helm projects who are willing to perform the responsibilities outlined above. The security team is a subset of the maintainers. Members can step down at any time and may join at any time.
+New members are required to be active maintainers of Helm projects who are willing to perform the responsibilities outlined above. The security team is a subset of the maintainers. Members can step down at any time. New members join by a simple majority vote of the Helm maintainers as described in [the governance](governance/governance.md).
 
 From time to time, Helm projects are deprecated. If at any time a security team member is found to be no longer be an active maintainer on active Helm projects, this individual will be removed from the security team.
 
