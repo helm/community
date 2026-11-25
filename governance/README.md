@@ -3,23 +3,23 @@
 The Helm governance details areas such as:
 
 * Maintainer responsibilities
-* Types of maintainers (Org and Project)
-* How elections occur
+* Maintainer groups and project ownership
+* Changes in maintainership
+* Delegated teams and Helm Admin responsibilities
 * Decision making
 * Code of Conduct handling
 
-For the full detail on the Helm governance see the document [governance.md](governance.md).
+For the full detail on Helm governance see the document [governance.md](governance.md).
 
-The Helm Org Maintainers are documented in [the community repo Maintainers file](../MAINTAINERS.md).
+## Maintainer Groups
 
-## Projects
+The Helm maintainer groups, their membership, and associated repositories are documented
+in [maintainer-groups.yaml](../maintainer-groups.yaml).
 
-The Helm governance refers to projects for the Helm project. The following Helm
-projects currently exist:
+The `helm/community` repository is administered by Helm Admins on behalf of the Helm maintainers.
 
-* **Helm Core**: The Helm CLI and packages
-* **Charts**: Responsible for chart-related tooling (e.g., chart testing)
-* **ChartMuseum**: The chart repository server
-* **Web and Docs**: The Helm websites
+## Delegated Teams
 
-All other repositories are either archived or owned by the org maintainers.
+[Helm Admins](../ADMINS.md) administer shared project resources.
+The [Security Team](../SECURITY.md) handles security responsibilities as described in the security policy.
+Both teams consist of active Helm maintainers.

@@ -1,7 +1,6 @@
 # Helm Governance
 
 The following document outlines how the Helm project governance operates.
-
 ## The Helm Project
 
 The Helm project is made up of several codebases and services with different release cycles that enable users to create, distribute, and operate packages in Kubernetes. These codebases include:
@@ -12,20 +11,22 @@ The Helm project is made up of several codebases and services with different rel
 * chart-testing - container based chart testing tools
 
 The services provided include:
-
 * Documentation for those who want to create, distribute, depend on, and operate packages
 * Public chart collaboration
-
 ## Maintainers Structure
 
-There are two levels of maintainers for Helm. The Helm org maintainers oversee the overall project and its health. Project maintainers focus on a single codebase, a group of related codebases, a service (e.g., a website), or project to support the other projects (e.g., marketing or community management). For example, the chart maintainers manage the charts repository and a few repositories that support charts.
+Helm has a single level of maintainership.
+The Helm maintainers collectively oversee the overall project and its health.
+Maintainers are organized into groups responsible for one or more codebases, services, or other project activities.
+Technical responsibilities and permissions are scoped to the areas owned by each maintainer group.
+
+Maintainer groups, their membership, and associated repositories are documented
+in [maintainer-groups.yaml](../maintainer-groups.yaml).
 
 Changes in maintainership have to be announced on the [Helm mailing list](https://lists.cncf.io/g/cncf-helm).
+### Project-wide Responsibilities
 
-### Helm Org Maintainers
-
-The Helm Org maintainers are responsible for:
-
+The Helm maintainers are collectively responsible for:
 * Maintaining the mission, vision, values, and scope of the project
 * Refining the governance and charter as needed
 * Making project level decisions
@@ -37,71 +38,83 @@ The Helm Org maintainers are responsible for:
 * Overseeing the resolution and disclosure of security issues
 * Managing financial decisions related to the project
 
-Changes to org maintainers use the following:
+No one company or organization can employ a simple majority of the Helm maintainers.
 
-* There will be between 3 and 9 people.
-* Any project maintainer of any active (non-archived) Helm organization project is eligible for a position as an org maintainer.
-* No one company or organization can employ a simple majority of the org maintainers
-* An org maintainer may step down by emailing the org maintainers mailing list. Within 7 calendar days the [helm mailing list](https://lists.cncf.io/g/cncf-helm) needs to be notified of the change
-* Org maintainers MUST remain active on the project. If they are unresponsive for > 3 months they will lose org maintainership unless a [super-majority](https://en.wikipedia.org/wiki/Supermajority#Two-thirds_vote) of the other org maintainers agrees to extend the period to be greater than 3 months
-* When there is an opening for a new org maintainer, any person who has made a contribution to any repo under the Helm GitHub org may nominate a suitable project maintainer of an active project as a replacement
-  * The nomination period will be three weeks starting the day after an org maintainer opening becomes available
-  * The nomination must be made via the [public Helm mailing list](https://lists.cncf.io/g/cncf-helm/)
-* When nominated individual(s) agrees to be a candidate for maintainership, the project maintainers may vote
-  * The voting period will be open for a minimum of three business days and will remain open until a super-majority of project maintainers has voted
-  * Only current project maintainers of active projects are eligible to vote
-  * When the number of nominated individuals matches the number of openings each individual needs to have a yes vote from a super-majority of those that voted
-  * When there are more individuals than open positions voting will use [Condorcet](https://en.wikipedia.org/wiki/Condorcet_method) ranking on [CIVS](http://civs.cs.cornell.edu/) using the [Schulze method](https://en.wikipedia.org/wiki/Schulze_method)
-* When an org maintainer steps down, they become an emeritus maintainer
+The Helm maintainers will select a chair to set agendas and call maintainer meetings.
+### Maintainer Groups
 
-Once an org maintainer is elected, they remain a maintainer until stepping down (or, in rare cases, are removed). Voting for new maintainers occurs when necessary to fill vacancies. Any existing project maintainer is eligible to become an org maintainer.
+Maintainers are responsible for activities surrounding the development and release of code,
+the operation of any services they own (e.g., the documentation site),
+or other tasks within their areas of ownership.
+Technical decisions reside with the maintainers of the affected groups.
+Decisions spanning multiple maintainer groups that cannot be resolved by those groups
+can be escalated to the Helm maintainers collectively.
 
-The Org Maintainers will select a chair to set agendas and call meetings of the Org Maintainers.
-
-### Project Maintainers
-
-Project maintainers are responsible for activities surrounding the development and release of code, the operation of any services they own (e.g., the documentation site), or the tasks needed to execute their project (e.g., community management, setting up an event booth). Technical decisions for code resides with the project maintainers unless there is a decision related to cross maintainer groups that cannot be resolved by those groups. Those cases can be escalated to the org maintainers.
-
-In some cases a groups of maintainers are responsible for more than one repo (e.g., charts maintainers managing the charts, chart-testing, charts-tooling). In other cases the maintainers are responsible for a single project (e.g., chartmuseum).
-
-To be considered active maintainers, it is required for maintainers to be associated with at least one active, non-archived project. If only listed on archived projects, they become emeritus project maintainers and are no longer eligible to become org maintainers.
-
-Project maintainers do not need to be software developers. No explicit role is placed upon them and they can be anyone appropriate for the work being produced. For example, if a repository is for documentation it would be appropriate for maintainers to be editors.
+To be considered active maintainers, maintainers must be active members of at least one maintainer group.
+Maintainers who are no longer members of any active maintainer group become emeritus maintainers.
+Maintainers do not need to be software developers. No explicit role is placed upon them and they can be anyone appropriate for the work being produced. For example, if a repository is for documentation it would be appropriate for maintainers to be editors.
 
 Changes to maintainers use the following:
-
 * A maintainer may step down by emailing the [Helm mailing list](https://lists.cncf.io/g/cncf-helm)
-* Maintainers MUST remain active. If they are unresponsive for > 3 months they will be automatically removed unless a [super-majority](https://en.wikipedia.org/wiki/Supermajority#Two-thirds_vote) of the other project maintainers agrees to extend the period to be greater than 3 months
-* New maintainers can be added to a project by a [super-majority](https://en.wikipedia.org/wiki/Supermajority#Two-thirds_vote) vote of the existing maintainers. Nomination can happen on the public [Helm mailing list](https://lists.cncf.io/g/cncf-helm) with voting on the private maintainer list or it can happen from a pull request to the appropriate record of maintainer for the project (e.g., OWNERS file) with voting happening through approvals on the pull request.
+* Maintainers MUST remain active. If they are unresponsive for > 3 months they will be automatically removed unless a [super-majority](https://en.wikipedia.org/wiki/Supermajority#Two-thirds_vote) of the other maintainers of the affected group agrees to extend the period to be greater than 3 months
+* New maintainers can be added to a maintainer group by a [super-majority](https://en.wikipedia.org/wiki/Supermajority#Two-thirds_vote) vote of the existing maintainers of that group. Nomination can happen on the public [Helm mailing list](https://lists.cncf.io/g/cncf-helm) with voting on the private maintainer list or it can happen from a pull request to the appropriate record of maintainership for the group (e.g., OWNERS file) with voting happening through approvals on the pull request.
 * While nomination will happen on the public [Helm mailing list](https://lists.cncf.io/g/cncf-helm), voting will happen on the private maintainer list.
-* When a project has no maintainers the Helm org maintainers become responsible for it and may archive the project or find new maintainers
-* When maintainers no longer maintain active projects due to project archival or removal, they become emeritus maintainers unless they join another Helm project as maintainers.
+* When a project has no maintainers the Helm maintainers collectively become responsible for it and may archive the project or find new maintainers
+* When a maintainer group is retired, its maintainers become emeritus maintainers unless they belong to another active maintainer group.
 
-## Decision Making at the Helm org level
+### Delegated Teams
+
+The Helm maintainers may delegate specific responsibilities and associated permissions to teams of active Helm maintainers.
+Membership in a delegated team does not confer maintainership or additional governance authority.
+Members who cease to be active Helm maintainers are no longer eligible to serve on delegated teams.
+
+The Helm Admins and [Security Team](../SECURITY.md) are delegated teams.
+
+### Helm Admins
+
+Helm Admins administer shared Helm project resources, including the GitHub organization and associated infrastructure.
+The [helm/community](https://github.com/helm/community) repository is administered by the Helm Admins
+on behalf of the Helm maintainers.
+Changes to governance and other project-wide matters are subject to the decision-making process defined in this document.
+They review and approve changes to designated governance and project-level files,
+ensuring that any required decision has been made according to this document before approving those changes.
+Their approval does not substitute for any required vote of the maintainers.
+The Helm Admin role does not confer additional decision-making authority.
+
+Helm Admins are appointed and removed by a super-majority vote of the Helm maintainers.
+They can be contacted at helm-admin@lists.cncf.io.
+
+## Decision Making
+
+### Deciders
+
+* Decisions within the scope of a maintainer group's responsibilities are made by the maintainers of that group.
+* Project-wide decisions and escalated decisions are made by all Helm maintainers.
+
+Each maintainer has one vote in decisions for which they are eligible, regardless of the number of maintainer groups they belong to.
+
+### Decision Making Process
 
 When maintainers need to make decisions there are two ways decisions are made, unless described elsewhere.
 
 The default decision making process is [lazy-consensus](http://communitymgt.wikia.com/wiki/Lazy_consensus). This means that any decision is considered supported by the team making it as long as no one objects. Silence on any consensus decision is implicit agreement and equivalent to explicit agreement. Explicit agreement may be stated at will.
-
 When a consensus cannot be found a maintainer can call for a [majority](https://en.wikipedia.org/wiki/Majority) vote on a decision.
 
-Many of the day-to-day project maintenance can be done by a lazy consensus model. But the following items must be called to vote:
-
+Many of the day-to-day project maintenance can be done by a lazy consensus model. But the following items must be called to a project-wide vote:
 * Enforcing a CoC violation (super majority)
 * Removing a maintainer for any reason other than inactivity (super majority)
 * Changing the governance rules (this document) (super majority)
 * Licensing and intellectual property changes (including new logos, wordmarks) (simple majority)
 * Adding, archiving, or removing subprojects (simple majority)
 * Utilizing Helm/CNCF money for anything CNCF deems "not cheap and easy" (simple majority)
+Changes to governance must receive the required super-majority approval before being merged.
 
 Other decisions may, but do not need to be, called out and put up for decision on the [Helm mailing list](https://lists.cncf.io/g/cncf-helm) at any time and by anyone. By default, any decisions called to a vote will be for a _simple majority_ vote.
-
 ## Code of Conduct
 
-The code of conduct is overseen by the Helm project maintainers. Possible code of conduct violations should be emailed to the project maintainers at cncf-helm-maintainers@lists.cncf.io.
+The code of conduct is overseen by the Helm maintainers. Possible code of conduct violations should be emailed to the maintainers at cncf-helm-maintainers@lists.cncf.io.
 
-If the possible violation is against one of the project maintainers that member will be recused from voting on the issue. Such issues must be escalated to the appropriate CNCF contact, and CNCF may choose to intervene.
-
+If the possible violation is against one of the maintainers that member will be recused from voting on the issue. Such issues must be escalated to the appropriate CNCF contact, and CNCF may choose to intervene.
 ## DCO and Licenses
 
 The following licenses and contributor agreements will be used for Helm projects:

@@ -1,0 +1,6 @@
+/governance/ @helm/helm-admins
+/maintainer-groups.yaml @helm/helm-admins
+/MAINTAINERS.md @helm/helm-admins
+/ADMINS.md @helm/helm-admins
+/SECURITY.md @helm/helm-admins
+/.github/ @helm/helm-admins
