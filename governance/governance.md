@@ -42,6 +42,8 @@ These decisions are made using the process in [Decision Making at the Helm org l
 
 Maintainers do not need to be software developers. No explicit role is placed upon them and they can be anyone appropriate for the work being produced. For example, if a repository is for documentation it would be appropriate for maintainers to be editors.
 
+No one company or organization can employ a simple majority of the Helm maintainers.
+
 To be considered active, a maintainer must be associated with at least one active, non-archived project. A maintainer listed only on archived projects becomes an emeritus maintainer. An emeritus maintainer has no vote and cannot serve in a group.
 
 Triage maintainers, described in [HIP 14](../hips/hip-0014.md), are not Helm maintainers for the purposes of this document. They do not vote.
@@ -118,7 +120,7 @@ Many of the day-to-day project maintenance can be done by a lazy consensus model
 - Adding a maintainer to a group (simple majority)
 - Spending Helm/CNCF money on anything CNCF deems "not cheap and easy" (simple majority)
 
-Every Helm maintainer has one vote. A vote is open for a minimum of three business days and stays open until a majority of the Helm maintainers has voted. The result is counted from the votes cast.
+Every Helm maintainer has one vote. A vote is open for a minimum of three business days. The required majority or super-majority is calculated against all eligible Helm maintainers, not only the votes cast.
 
 Other decisions may, but do not need to be, called out and put up for decision on the [Helm mailing list](https://lists.cncf.io/g/cncf-helm) at any time and by anyone. By default, any decisions called to a vote will be for a _simple majority_ vote.
 
