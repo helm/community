@@ -55,10 +55,10 @@ Each project keeps a record of its maintainers (e.g., an OWNERS file). Changes t
 - Maintainers MUST remain active. If they are unresponsive for > 3 months they will be automatically removed from a project unless a [super-majority](https://en.wikipedia.org/wiki/Supermajority#Two-thirds_vote) of the other maintainers of that project agrees to extend the period to be greater than 3 months
 - New maintainers can be added to a project by a [super-majority](https://en.wikipedia.org/wiki/Supermajority#Two-thirds_vote) vote of the existing maintainers of that project. Nomination can happen on the public [Helm mailing list](https://lists.cncf.io/g/cncf-helm) with voting on the private maintainer list. It can also happen from a pull request to the record of maintainers for the project with voting happening through approvals on the pull request
 - A person added to their first project becomes a Helm maintainer at the same time. No second vote is held
-- When a project has no maintainers the Helm maintainers as a whole become responsible for it and may archive the project or find new maintainers
+- When a project has no maintainers the Helm maintainers must designate new maintainers or archive the project
 - When maintainers no longer maintain active projects, they become emeritus maintainers
 
-Repositories that belong to no project (e.g., this community repository) are the responsibility of the Helm maintainers as a whole.
+Every active repository must have an explicitly designated maintainer group or delegated team responsible for it. Repositories without an active owner must be assigned a new owner or archived.
 
 ### Delegated teams
 
@@ -77,6 +77,7 @@ Helm Admins are responsible for:
 - Managing organization settings, secrets, and security policies (e.g., requiring two-factor authentication)
 - Approving and removing GitHub Apps, bots, and other integrations
 - Controlling access to other Helm assets where an administrator is needed, such as hosting and project calendars
+- Administering the community repository on behalf of all Helm maintainers
 
 The team acts on decisions made elsewhere. It has no decision making power of its own beyond what is needed to keep the organization secure, and in an emergency (e.g., a compromised account) a member may act first and report to the maintainers afterwards. Requests for the team are made by opening an issue in the [community repository](https://github.com/helm/community) or by emailing [helm-admin@lists.cncf.io](mailto:helm-admin@lists.cncf.io).
 
