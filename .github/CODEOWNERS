@@ -1,0 +1,9 @@
+# Helm Admins verify required governance approvals before merging.
+/.github/CODEOWNERS @helm/helm-admins
+/governance/ @helm/helm-admins
+/MAINTAINERS.md @helm/helm-admins
+/ADMINS.md @helm/helm-admins
+/COMMUNITY_MANAGEMENT.md @helm/helm-admins
+/SECURITY.md @helm/helm-admins
+/maintainer-groups.yaml @helm/helm-admins
+/hips/ @helm/helm-admins

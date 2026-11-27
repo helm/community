@@ -78,6 +78,9 @@ Helm Admins are responsible for:
 - Approving and removing GitHub Apps, bots, and other integrations
 - Controlling access to other Helm assets where an administrator is needed, such as hosting and project calendars
 - Administering the community repository on behalf of all Helm maintainers
+- Reviewing changes to designated governance and project-level files and verifying required governance approvals before merging
+
+GitHub can require a fixed number of approvals or approvals from designated code owners, but cannot automatically enforce all of the decision making rules in this document and [HIP 1](../hips/hip-0001.md), such as simple or super-majority votes of all eligible maintainers. Helm Admins verify that the applicable requirements have been met before merging protected changes.
 
 The team acts on decisions made elsewhere. It has no decision making power of its own beyond what is needed to keep the organization secure, and in an emergency (e.g., a compromised account) a member may act first and report to the maintainers afterwards. Requests for the team are made by opening an issue in the [community repository](https://github.com/helm/community) or by emailing [helm-admin@lists.cncf.io](mailto:helm-admin@lists.cncf.io).
 
