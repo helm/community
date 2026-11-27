@@ -1,35 +1,19 @@
 # Helm Maintainers
 
-Helm has one level of maintainer, described in [the governance](governance/governance.md). Anyone listed as a maintainer of an active project below is a Helm maintainer.
+Helm has one level of maintainer, described in [the governance](governance/governance.md). Anyone listed as a maintainer of an active project is a Helm maintainer.
 
-## Projects
+## Maintainer Groups
 
 Each project keeps its own record of maintainers.
 
-| Project | Maintainers |
-|---------|-------------|
-| Helm Core | [helm/helm OWNERS](https://github.com/helm/helm/blob/main/OWNERS) |
-| Charts | [maintainer-groups.yaml](maintainer-groups.yaml) |
-| ChartMuseum | [helm/chartmuseum OWNERS](https://github.com/helm/chartmuseum/blob/main/OWNERS) |
-| Web and Docs | [helm/helm-www OWNERS](https://github.com/helm/helm-www/blob/main/OWNERS) |
-| Mapkubeapis plugin | [helm/helm-mapkubeapis OWNERS](https://github.com/helm/helm-mapkubeapis/blob/main/OWNERS) |
-| Community Management | [maintainer-groups.yaml](maintainer-groups.yaml) |
+Helm Core and other Helm projects, along with links to their maintainer records, are listed in [maintainer-groups.yaml](maintainer-groups.yaml).
 
-The repositories that belong to each project are listed in [maintainer-groups.yaml](maintainer-groups.yaml).
+## Delegated teams
 
-## Groups
+Delegated team membership is defined in the following files:
 
-### GitHub Admin
-
-* [Karen Chu](https://github.com/karenhchu)
-* [Matt Butcher](https://github.com/technosophos)
-* [Matt Farina](https://github.com/mattfarina)
-* [Reinhard Nägele](https://github.com/unguiculus)
-* [Scott Rigby](https://github.com/scottrigby)
-
-### Security Team
-
-The security team is listed in [SECURITY.md](SECURITY.md).
+* [Helm Admins](ADMINS.md)
+* [Security Team](SECURITY.md)
 
 ## Emeritus
 

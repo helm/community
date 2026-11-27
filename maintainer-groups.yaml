@@ -1,13 +1,4 @@
 maintainerGroups:
-- name: GitHub Admin
-  ownersLink: https://github.com/helm/community/blob/main/MAINTAINERS.md
-  owners:
-  - karenhchu
-  - technosophos
-  - mattfarina
-  - unguiculus
-  - scottrigby
-  mailingList: cncf-helm-org-maintainers@lists.cncf.io
 - name: Helm Maintainers
   ownersLink: https://github.com/helm/community/blob/main/MAINTAINERS.md
   repos:
@@ -20,9 +11,6 @@ maintainerGroups:
   - https://github.com/helm/repo-audit
   - https://github.com/helm/examples
   mailingList: cncf-helm-maintainers@lists.cncf.io
-- name: Security team
-  ownersLink: https://github.com/helm/community/blob/main/SECURITY.md
-  mailingList: cncf-helm-security@lists.cncf.io
 - name: Helm Core
   ownersLink: https://raw.githubusercontent.com/helm/helm/master/OWNERS
   repos:
@@ -62,8 +50,7 @@ maintainerGroups:
   repos:
   - https://github.com/helm/helm-www
 - name: Community Management
-  owners:
-  - karenhchu
+  ownersLink: https://github.com/helm/community/blob/main/COMMUNITY_MANAGEMENT.md
 - name: Chartmuseum
   ownersLink: https://raw.githubusercontent.com/helm/chartmuseum/main/OWNERS
   repos:
