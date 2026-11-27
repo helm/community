@@ -53,7 +53,7 @@ Ask targeted questions about impact:
 Based on the discussion, confirm the HIP type:
 
 - **feature** — most common; proposes a new capability or interoperability standard
-- **process** — changes to how the project operates (governance, release process, tooling). Requires org maintainer approval rather than project maintainer approval.
+- **process** — changes to how the project operates (governance, release process, tooling). Requires Helm maintainer approval rather than project maintainer approval.
 - **informational** — guidance or conventions; non-binding
 
 ### Step 5: Summarize and confirm
@@ -172,5 +172,5 @@ After all sections are drafted and the user has reviewed each one:
    - Add the HIP to the listing in `hips/README.md` once a real number is assigned
    - Submit as a PR to `helm/community`
    - Each commit must be signed off (DCO requirement)
-   - The HIP needs at least 2 approvals (from project maintainers for feature/informational, from org maintainers for process)
+   - The HIP needs at least 2 approvals (from project maintainers for feature/informational, from Helm maintainers for process)
 4. Strongly recommend: if the user hasn't already vetted this idea in `#helm-dev` on Kubernetes Slack or at the weekly Thursday developer call, suggest they do so before or alongside submitting the PR. Getting early maintainer feedback prevents lengthy review cycles and reduces the chance of outright rejection.

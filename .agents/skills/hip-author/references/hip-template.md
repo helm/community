@@ -36,7 +36,7 @@ status: "draft"
 
 - **feature**: proposes a new feature or implementation for a Helm project, or an interoperability standard
 - **informational**: design guidance or information for the community; non-binding
-- **process**: changes to project processes, governance, or tooling; requires org maintainer approval
+- **process**: changes to project processes, governance, or tooling; requires Helm maintainer approval
 
 ## Required sections with length guidance
 
@@ -149,7 +149,7 @@ Diagrams or supporting files use the naming convention: `proposal-XXX-YY.ext` (e
 ## Approval requirements
 
 - Feature and informational HIPs: at least 2 approvals from project maintainers
-- Process HIPs: at least 2 approvals from Helm org maintainers
+- Process HIPs: at least 2 approvals from Helm maintainers
 
 ## Status lifecycle
 
